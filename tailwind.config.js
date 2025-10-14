@@ -2,12 +2,15 @@ import { heroui } from "@heroui/theme"
 
 // if I remember correctly, tailwind config is legacy starting with TW v4
 // the new approach is to define the variables in the theme object, CSS file
+//but I'll keep the legacy approach since that's what the docs say
 
 /** @type {import('tailwindcss').Config} */
 const config = {
   content: [
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/features/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/widgets/**/*.{js,ts,jsx,tsx,mdx}',
     "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
@@ -25,6 +28,20 @@ const config = {
         colors: {
           background: "#fafaf9", // stone-50
           foreground: "#292524", // stone-800
+          default: {
+            50: "#f8f9fa",
+            100: "#e9ecef",
+            200: "#dee2e6",
+            300: "#ced4da",
+            400: "#adb5bd",
+            500: "#6c757d",
+            600: "#495057",
+            700: "#343a40",
+            800: "#212529",
+            900: "#1a1d20",
+            foreground: "#ffffff",
+            DEFAULT: "#6c757d",
+          },
           primary: {
             50: "#fffbeb",
             100: "#fef3c7",
@@ -77,6 +94,20 @@ const config = {
         colors: {
           background: "#1c1917", // stone-900
           foreground: "#d6d3d1", // stone-300
+          default: {
+            50: "#1a1d20",
+            100: "#212529",
+            200: "#343a40",
+            300: "#495057",
+            400: "#6c757d",
+            500: "#adb5bd",
+            600: "#ced4da",
+            700: "#dee2e6",
+            800: "#e9ecef",
+            900: "#f8f9fa",
+            foreground: "#000000",
+            DEFAULT: "#adb5bd",
+          },
           primary: {
             50: "#fffbeb",
             100: "#fef3c7",
@@ -123,7 +154,6 @@ const config = {
             DEFAULT: "#be123c",
           },
         },
-        // ... rest of the colors
       },
     },
   }),],
