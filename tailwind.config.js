@@ -16,8 +16,8 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)"],
-        mono: ["var(--font-mono)"],
+        comfortaa: ["var(--font-comfortaa)", "sans-serif"],
+        quicksand: ["var(--font-quicksand)", "sans-serif"],
       },
     },
   },

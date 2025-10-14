@@ -1,11 +1,12 @@
-import { Fira_Code as FontMono, Inter as FontSans } from "next/font/google";
+import { Comfortaa, Quicksand } from "next/font/google";
 
-export const fontSans = FontSans({
+
+export const fontComfortaa = Comfortaa({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-comfortaa",
 });
 
-export const fontMono = FontMono({
+export const fontQuicksand = Quicksand({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-quicksand",
 });

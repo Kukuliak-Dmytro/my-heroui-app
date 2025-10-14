@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
+import { fontComfortaa, fontQuicksand } from "@/config/fonts";
 import { ThemeSwitch } from "@/features/theme-switch";
 
 export const metadata: Metadata = {
@@ -36,8 +36,9 @@ export default function RootLayout({
       <head />
       <body
         className={clsx(
-          "min-h-screen text-foreground bg-background font-sans antialiased",
-          fontSans.variable,
+          "min-h-screen text-foreground bg-background font-comfortaa font-semibold antialiased",
+          fontComfortaa.variable,
+          fontQuicksand.variable,
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark", enableSystem: true }}>
