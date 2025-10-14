@@ -1,11 +1,10 @@
-import "@/styles/globals.css";
+import "@/shared/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import clsx from "clsx";
-
 import { Providers } from "./providers";
 
-import { siteConfig } from "@/config/site";
-import { fontComfortaa, fontQuicksand } from "@/config/fonts";
+import { siteConfig } from "@/shared/config/site";
+import { fontComfortaa, fontQuicksand } from "@/shared/config/fonts";
 import { ThemeSwitch } from "@/features/theme-switch";
 
 export const metadata: Metadata = {
