@@ -1,26 +1,22 @@
-import { ThemeSwitch } from "../features/theme-switch";
-import { Button } from "@heroui/button";
 
+import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
 export default function Home() {
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="inline-block max-w-xl text-center justify-center">
-        <h1 className="text-4xl font-bold">Hello, world!</h1>
+      <div className="inline-block max-w-4xl text-center justify-center">
+        <h1 className="text-4xl font-bold">Welcome to the Recipe Collection!</h1>
         <p className="mt-4">
-          This is a simple page to test the theme switcher and a button.
+          Discover and explore delicious recipes from around the world.
         </p>
-        <div className="mt-8 flex justify-center gap-4">
-          <ThemeSwitch />
-          <Button color="primary">
-            Primary Button
-          </Button>
-          <Button color="secondary">
-            Secondary Button
-          </Button>
-          <Button>
-            Default Button
-          </Button>
+        <p className="mt-4">Search for recipes by name, ingredients, or cuisine.</p>
+        <div className="flex justify-center gap-4 items-center my-4">
+          <div>*Search bar here*</div>
+          <Button>Search</Button>
+          <Link href="/recipes">View All Recipes</Link>
         </div>
+
+
       </div>
     </section>
   );
