@@ -1,6 +1,6 @@
-export type SiteConfig = typeof siteConfig;
+export type SiteConfig = typeof SITE_CONFIG;
 
-export const siteConfig = {
+export const SITE_CONFIG = {
   name: "Recipe Collection",
   description: "Discover and explore delicious recipes from around the world.",
   navItems: [

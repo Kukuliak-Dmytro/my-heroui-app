@@ -135,31 +135,31 @@ src/
 ## Implementation Steps
 
 ### Step 1: Setup TanStack Query
-1. Install @tanstack/react-query and @tanstack/react-query-devtools
-2. Create lib/query-client.ts with QueryClient configuration
-3. Add QueryClient provider to app/providers.tsx
-4. Configure 30-second staleTime and refetchInterval
+1. [x] Install @tanstack/react-query and @tanstack/react-query-devtools
+2. [x] Create lib/query-client.ts with QueryClient configuration
+3. [x] Add QueryClient provider to app/providers.tsx
+4. [x] Configure 30-second staleTime and refetchInterval
 
 ### Step 2: Create API Functions
-1. Create entities/api/recipes/recipes.api.ts
-2. Implement fetchRecipes function with DummyJSON parameters
-3. Implement fetchRecipe function for single recipe
-4. Export functions from index.ts
+1. [x] Create entities/api/recipes/recipes.api.ts
+2. [x] Implement fetchRecipes function with DummyJSON parameters
+3. [x] Implement fetchRecipe function for single recipe
+4. [x] Export functions from index.ts
 
 ### Step 3: Setup Server-Side Prefetching
-1. Create app/recipes/page.tsx as server component
-2. Import getQueryClient and fetchRecipes
-3. Use queryClient.prefetchQuery for recipes list
-4. Wrap return with HydrationBoundary and dehydrate
-5. Create app/recipes/[id]/page.tsx for single recipe
-6. Use queryClient.prefetchQuery for single recipe
+1. [x] Create app/recipes/page.tsx as server component
+2. [x] Import getQueryClient and fetchRecipes
+3. [x] Use queryClient.prefetchQuery for recipes list
+4. [x] Wrap return with HydrationBoundary and dehydrate
+5. [x] Create app/recipes/[id]/page.tsx for single recipe
+6. [x] Use queryClient.prefetchQuery for single recipe
 
 ### Step 4: Create Client Components
-1. Create widgets/recipes/recipe-list.component.tsx
-2. Use useQuery hook with same fetchRecipes function
-3. Create widgets/recipes/recipe-card.component.tsx
-4. Use useQuery hook for single recipe data
-5. Add loading states and error handling
+1. [x] Create widgets/recipes/recipe-list.component.tsx
+2. [x] Use useQuery hook with same fetchRecipes function
+3. [x] Create widgets/recipes/recipe-card.component.tsx
+4. [x] Use useQuery hook for single recipe data
+5. [x] Add loading states and error handling
 
 ### Step 5: Setup Zustand Store
 1. Create shared/store/ui.store.ts

@@ -3,16 +3,16 @@ import { Metadata, Viewport } from "next";
 import clsx from "clsx";
 import { Providers } from "./providers";
 
-import { siteConfig } from "@/shared/config/site";
-import { fontComfortaa, fontQuicksand } from "@/shared/config/fonts";
+import { SITE_CONFIG } from "@/shared/config/site";
+import { FONT_COMFORTAA, FONT_QUICKSAND } from "@/shared/config/fonts";
 import { ThemeSwitch } from "@/features/theme-switch";
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: SITE_CONFIG.name,
+    template: `%s - ${SITE_CONFIG.name}`,
   },
-  description: siteConfig.description,
+  description: SITE_CONFIG.description,
   icons: {
     icon: "/favicon.ico",
   },
@@ -36,15 +36,15 @@ export default function RootLayout({
       <body
         className={clsx(
           "min-h-screen text-foreground bg-background font-comfortaa font-semibold antialiased",
-          fontComfortaa.variable,
-          fontQuicksand.variable,
+          FONT_COMFORTAA.variable,
+          FONT_QUICKSAND.variable,
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark", enableSystem: true }}>
           <div className="relative flex flex-col h-screen">
             <header className="sticky top-0 z-50 w-full">
               <nav className="flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
-                <div>{/* Logo can go here */}</div>
+
                 <div>
                   <ThemeSwitch />
                 </div>

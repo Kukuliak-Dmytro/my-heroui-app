@@ -1,12 +1,12 @@
 import { Comfortaa, Quicksand } from "next/font/google";
 
 
-export const fontComfortaa = Comfortaa({
+export const FONT_COMFORTAA = Comfortaa({
   subsets: ["latin"],
   variable: "--font-comfortaa",
 });
 
-export const fontQuicksand = Quicksand({
+export const FONT_QUICKSAND = Quicksand({
   subsets: ["latin"],
   variable: "--font-quicksand",
 });
