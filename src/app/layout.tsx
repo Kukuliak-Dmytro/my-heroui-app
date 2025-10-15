@@ -1,8 +1,10 @@
 import "@/shared/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import clsx from "clsx";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import { Providers } from "./providers";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 import { SITE_CONFIG } from "@/shared/config/site";
 import { FONT_COMFORTAA, FONT_QUICKSAND } from "@/shared/config/fonts";
 import { ThemeSwitch } from "@/features/theme-switch";
@@ -40,11 +42,16 @@ export default function RootLayout({
           FONT_QUICKSAND.variable,
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark", enableSystem: true }}>
+        <Providers
+          themeProps={{
+            attribute: "class",
+            defaultTheme: "dark",
+            enableSystem: true,
+          }}
+        >
           <div className="relative flex flex-col h-screen">
             <header className="sticky top-0 z-50 w-full">
               <nav className="flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
-
                 <div>
                   <ThemeSwitch />
                 </div>

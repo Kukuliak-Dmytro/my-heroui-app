@@ -1,5 +1,4 @@
-import { SVGProps } from "react";
+import { IRecipe } from "./recipe";
 
-export type IconSvgProps = SVGProps<SVGSVGElement> & {
-  size?: number;
-};
+
+export type { IRecipe };

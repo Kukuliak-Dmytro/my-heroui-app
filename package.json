@@ -9,6 +9,7 @@
     "lint": "eslint --fix"
   },
   "dependencies": {
+    "@eslint/compat": "^1.4.0",
     "@heroui/accordion": "2.2.24",
     "@heroui/alert": "2.2.27",
     "@heroui/autocomplete": "2.3.29",
@@ -49,6 +50,7 @@
     "@heroui/toast": "2.0.17",
     "@heroui/tooltip": "2.2.24",
     "@heroui/user": "2.2.22",
+    "@hookform/resolvers": "^5.2.2",
     "@iconify/react": "^6.0.2",
     "@react-aria/ssr": "3.9.10",
     "@react-aria/visually-hidden": "3.8.28",
@@ -61,7 +63,9 @@
     "next": "^15.5.5",
     "next-themes": "0.4.6",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "react-hook-form": "^7.65.0",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "15.3.4",

@@ -1,12 +1,11 @@
 import { SingleRecipePageComponent } from "@/modules/recipes/single-recipe-page/single-page-recipe.component";
 
 export default async function Page({
-    params,
+  params,
 }: {
-    params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }) {
-    const { id } = await params
-    return (
-        <SingleRecipePageComponent id={id} />
-    )
+  const { id } = await params;
+
+  return <SingleRecipePageComponent id={id} />;
 }
