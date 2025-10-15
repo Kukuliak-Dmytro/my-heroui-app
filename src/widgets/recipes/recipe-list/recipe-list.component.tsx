@@ -7,6 +7,7 @@ import { Alert } from "@heroui/alert";
 import { Spinner } from "@heroui/spinner";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import { usePaginationStore, PaginationComponent } from "@/features/pagination";
 
 interface IRecipeListProps {
     initialSearch?: string;
@@ -17,11 +18,23 @@ export const RecipeList = ({ initialSearch = "" }: IRecipeListProps) => {
     const query = searchParams.get("search") || initialSearch;
     const [isSearching, setIsSearching] = useState(false);
 
+    // Get pagination state from store - use separate selectors to avoid re-renders
+    const page = usePaginationStore((state) => state.page);
+    const limit = usePaginationStore((state) => state.limit);
+    const skip = usePaginationStore((state) => state.skip);
+    const setPage = usePaginationStore((state) => state.setPage);
+    const resetPagination = usePaginationStore((state) => state.resetPagination);
+
     const { data, isLoading, error, isFetching } = useQuery({
-        ...recipesQueryOptions({ limit: 10, skip: 0, search: query }),
+        ...recipesQueryOptions({ limit, skip, search: query }),
         enabled: true,
         staleTime: 0, // Always consider data stale to show loading on search
     });
+
+    // Reset pagination when search query changes
+    useEffect(() => {
+        resetPagination();
+    }, [query, resetPagination]);
 
     // Track when search query changes to show loading state
     useEffect(() => {
@@ -66,6 +79,11 @@ export const RecipeList = ({ initialSearch = "" }: IRecipeListProps) => {
                         </div>
                     ))}
                 </div>
+
+                {/* Pagination Skeleton */}
+                <div className="mt-8 flex justify-center">
+                    <Skeleton className="h-10 w-64 rounded"></Skeleton>
+                </div>
             </section>
         );
     }
@@ -102,6 +120,19 @@ export const RecipeList = ({ initialSearch = "" }: IRecipeListProps) => {
                     <RecipeCard key={recipe.id} recipe={recipe} />
                 ))}
             </div>
+
+            {/* Pagination Component */}
+            {data?.total && (
+                <div className="mt-8">
+                    <PaginationComponent
+                        total={data.total}
+                        page={page}
+                        limit={limit}
+                        onPageChange={setPage}
+                    />
+                </div>
+            )}
+
             {data?.recipes.length === 0 && query && (
                 <div className="text-center py-12">
                     <p className="text-default-500 text-lg">No recipes found for &quot;{query}&quot;</p>

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { getQueryClient } from "@/shared/lib/get-query-client";
+import { PaginationStoreProvider } from "@/features/pagination";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -29,7 +30,9 @@ export function Providers({ children, themeProps }: ProvidersProps) {
     <HeroUIProvider navigate={router.push}>
       <NextThemesProvider {...themeProps}>
         <QueryClientProvider client={getQueryClient()}>
-          {children}
+          <PaginationStoreProvider>
+            {children}
+          </PaginationStoreProvider>
         </QueryClientProvider>
       </NextThemesProvider>
     </HeroUIProvider>

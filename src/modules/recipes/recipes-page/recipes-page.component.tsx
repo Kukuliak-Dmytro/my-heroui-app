@@ -4,7 +4,7 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { RecipeList } from "@/widgets";
 import { Searchbar } from "@/widgets/searchbar";
 import { Suspense } from "react";
-
+import { PAGINATION_LIMIT } from "@/features/pagination/pagination.constants";
 interface IRecipesPageProps {
     searchParams: { [key: string]: string | string[] | undefined };
 }
@@ -12,13 +12,14 @@ interface IRecipesPageProps {
 /**
  * RecipesPageComponent component for displaying the recipes page
  * todo: add filter panel
- * todo: add pagination
  * @returns RecipesPageComponent component
  */
 export const RecipesPageComponent = async ({ searchParams }: IRecipesPageProps) => {
     const queryClient = getQueryClient();
     const query = typeof searchParams.search === 'string' ? searchParams.search : "";
-    await queryClient.prefetchQuery(recipesQueryOptions({ limit: 10, skip: 0, search: query }));
+
+    // Simple prefetch with default values - pagination is handled by the client component
+    await queryClient.prefetchQuery(recipesQueryOptions({ limit: PAGINATION_LIMIT, skip: 0, search: query }));
 
     return (
         <div className="container mx-auto px-4 py-8">
