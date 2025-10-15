@@ -12,11 +12,11 @@ export const recipesQueryOptions = (params: { limit: number; skip: number }) => 
     return queryOptions({
         queryKey: RECIPE_QUERY_KEYS.recipes(params.limit, params.skip),
         queryFn: () => getRecipes(params),
-        staleTime: 30 * 1000, // 30 seconds
-        gcTime: 5 * 60 * 1000, // 5 minutes
-        refetchOnWindowFocus: true,
-        refetchOnMount: true,
-        refetchOnReconnect: true,
+        staleTime: 5 * 60 * 1000, // 5 minutes - data is fresh for 5 minutes
+        gcTime: 10 * 60 * 1000, // 10 minutes - keep in cache for 10 minutes
+        refetchOnWindowFocus: false, // Don't refetch on window focus for better UX
+        refetchOnMount: false, // Don't refetch on mount if data exists
+        refetchOnReconnect: true, // Refetch on reconnect for data freshness
     });
 };
 
@@ -25,10 +25,10 @@ export const recipeQueryOptions = (id: string) => {
     return queryOptions({
         queryKey: RECIPE_QUERY_KEYS.recipe(id),
         queryFn: () => getRecipe(id),
-        staleTime: 5 * 60 * 1000, // 5 minutes
-        gcTime: 10 * 60 * 1000, // 10 minutes
+        staleTime: 10 * 60 * 1000, // 10 minutes - recipes don't change often
+        gcTime: 30 * 60 * 1000, // 30 minutes - keep in cache longer
         refetchOnWindowFocus: false,
-        refetchOnMount: true,
+        refetchOnMount: false, // Don't refetch on mount if data exists
         refetchOnReconnect: true,
     });
 };

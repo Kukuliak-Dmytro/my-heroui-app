@@ -10,10 +10,12 @@ import { RecipeList } from "@/widgets";
  * todo: add pagination
  * @returns RecipesPageComponent component
  */
-export const RecipesPageComponent = () => {
-    getQueryClient().prefetchQuery(recipesQueryOptions({ limit: 10, skip: 0 }));
+export const RecipesPageComponent = async () => {
+    const queryClient = getQueryClient();
+    await queryClient.prefetchQuery(recipesQueryOptions({ limit: 10, skip: 0 }));
+
     return (
-        <HydrationBoundary state={dehydrate(getQueryClient())}>
+        <HydrationBoundary state={dehydrate(queryClient)}>
             <RecipeList />
         </HydrationBoundary>
     )

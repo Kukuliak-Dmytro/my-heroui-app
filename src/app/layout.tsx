@@ -2,7 +2,7 @@ import "@/shared/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import clsx from "clsx";
 import { Providers } from "./providers";
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { SITE_CONFIG } from "@/shared/config/site";
 import { FONT_COMFORTAA, FONT_QUICKSAND } from "@/shared/config/fonts";
 import { ThemeSwitch } from "@/features/theme-switch";
@@ -53,6 +53,7 @@ export default function RootLayout({
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
               {children}
             </main>
+            <ReactQueryDevtools initialIsOpen={false} />
           </div>
         </Providers>
       </body>
