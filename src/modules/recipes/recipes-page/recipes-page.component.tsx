@@ -5,6 +5,7 @@ import { RecipeList } from "@/widgets";
 import { Searchbar } from "@/widgets/searchbar";
 import { Suspense } from "react";
 import { PAGINATION_LIMIT } from "@/features/pagination/pagination.constants";
+import { SearchStoreProvider } from "@/features/search";
 interface IRecipesPageProps {
     searchParams: { [key: string]: string | string[] | undefined };
 }
@@ -22,17 +23,19 @@ export const RecipesPageComponent = async ({ searchParams }: IRecipesPageProps) 
     await queryClient.prefetchQuery(recipesQueryOptions({ limit: PAGINATION_LIMIT, skip: 0, search: query }));
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold mb-4">Recipes</h1>
-                <Searchbar placeholder="Search recipes..." />
+        <SearchStoreProvider initialQuery={query}>
+            <div className="container mx-auto px-4 py-8">
+                <div className="mb-8">
+                    <h1 className="text-3xl font-bold mb-4">Recipes</h1>
+                    <Searchbar placeholder="Search recipes..." />
+                </div>
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                    <Suspense fallback={<div>Loading recipes...</div>}>
+                        <RecipeList />
+                    </Suspense>
+                </HydrationBoundary>
             </div>
-            <HydrationBoundary state={dehydrate(queryClient)}>
-                <Suspense fallback={<div>Loading recipes...</div>}>
-                    <RecipeList initialSearch={query} />
-                </Suspense>
-            </HydrationBoundary>
-        </div>
+        </SearchStoreProvider>
     )
 }
 

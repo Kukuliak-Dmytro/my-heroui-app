@@ -5,17 +5,16 @@ import { RecipeCard } from "../recipe-card";
 import { Skeleton } from "@heroui/skeleton";
 import { Alert } from "@heroui/alert";
 import { Spinner } from "@heroui/spinner";
-import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { usePaginationStore, PaginationComponent } from "@/features/pagination";
+import { useSearchStore } from "@/features/search";
 
 interface IRecipeListProps {
-    initialSearch?: string;
+    // initialSearch prop removed - search state is now managed by store
 }
 
-export const RecipeList = ({ initialSearch = "" }: IRecipeListProps) => {
-    const searchParams = useSearchParams();
-    const query = searchParams.get("search") || initialSearch;
+export const RecipeList = ({ }: IRecipeListProps) => {
+    const query = useSearchStore((state) => state.query);
     const [isSearching, setIsSearching] = useState(false);
 
     // Get pagination state from store - use separate selectors to avoid re-renders
