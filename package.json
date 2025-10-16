@@ -13,8 +13,8 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js?(x),ts?(x)}": "eslint",
-    "*.{js?(x),ts?(x),json}": "prettier --check"
+    "src/**/*.{js,jsx,ts,tsx}": "eslint --fix",
+    "src/**/*.{js,jsx,ts,tsx,json}": "prettier --write"
   },
   "dependencies": {
     "@eslint/compat": "^1.4.0",
