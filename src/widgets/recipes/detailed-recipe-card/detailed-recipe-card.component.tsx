@@ -15,11 +15,7 @@ import { recipeQueryOptions } from "@/entities/api";
 
 export const DetailedRecipeCard = ({ id }: { id: string }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const {
-    data: recipe,
-    isLoading,
-    error,
-  } = useQuery(recipeQueryOptions(id));
+  const { data: recipe, isLoading, error } = useQuery(recipeQueryOptions(id));
 
   // Only show loading if we don't have data AND we're actually fetching
   if (isLoading && !recipe) {
@@ -169,8 +165,9 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
                   )}
                   <Image
                     alt={recipe.name}
-                    className={`w-full aspect-[4/3] lg:aspect-square object-cover rounded-lg transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0 absolute"
-                      }`}
+                    className={`w-full aspect-[4/3] lg:aspect-square object-cover rounded-lg transition-opacity duration-300 ${
+                      imageLoaded ? "opacity-100" : "opacity-0 absolute"
+                    }`}
                     fallbackSrc="https://via.placeholder.com/400x300?text=Recipe+Image"
                     src={recipe.image}
                     onLoad={() => setImageLoaded(true)}

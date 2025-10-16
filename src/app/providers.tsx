@@ -30,9 +30,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
     <HeroUIProvider navigate={router.push}>
       <NextThemesProvider {...themeProps}>
         <QueryClientProvider client={getQueryClient()}>
-          <PaginationStoreProvider>
-            {children}
-          </PaginationStoreProvider>
+          <PaginationStoreProvider>{children}</PaginationStoreProvider>
         </QueryClientProvider>
       </NextThemesProvider>
     </HeroUIProvider>

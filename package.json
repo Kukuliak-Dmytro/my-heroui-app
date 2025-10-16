@@ -2,11 +2,19 @@
   "name": "next-app-template",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "prettier": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json}\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\" && eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js?(x),ts?(x)}": "eslint",
+    "*.{js?(x),ts?(x),json}": "prettier --check"
   },
   "dependencies": {
     "@eslint/compat": "^1.4.0",
@@ -69,9 +77,11 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
+    "@eslint/js": "^9.37.0",
     "@next/eslint-plugin-next": "15.3.4",
     "@react-types/shared": "3.32.1",
     "@tailwindcss/postcss": "4.1.11",
+    "@types/eslint__js": "^8.42.3",
     "@types/node": "20.5.7",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
@@ -88,10 +98,14 @@
     "eslint-plugin-react-hooks": "5.2.0",
     "eslint-plugin-unused-imports": "4.1.4",
     "globals": "16.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.4",
     "postcss": "8.5.6",
-    "prettier": "3.5.3",
+    "prettier": "^3.6.2",
+    "prettier-plugin-classnames": "^0.8.4",
     "tailwind-variants": "3.1.1",
     "tailwindcss": "4.1.11",
-    "typescript": "5.6.3"
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.46.1"
   }
 }

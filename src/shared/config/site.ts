@@ -22,5 +22,5 @@ export const SITE_CONFIG = {
       label: "Home",
       href: "/",
     },
-  ]
+  ],
 };
