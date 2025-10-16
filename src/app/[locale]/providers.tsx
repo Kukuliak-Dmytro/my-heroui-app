@@ -35,11 +35,16 @@ export function Providers({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return (
     <HeroUIProvider navigate={router.push}>
       <NextThemesProvider {...themeProps}>
         <QueryClientProvider client={getQueryClient()}>
-          <NextIntlClientProvider locale={locale} messages={messages}>
+          <NextIntlClientProvider
+            locale={locale}
+            messages={messages}
+            timeZone={timeZone}
+          >
             {children}
           </NextIntlClientProvider>
         </QueryClientProvider>
