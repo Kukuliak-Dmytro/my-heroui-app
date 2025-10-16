@@ -1,12 +1,19 @@
-import { recipesQueryOptions } from "@/entities/api";
+import {
+  recipesQueryOptions,
+  recipesInfiniteQueryOptions,
+} from "@/entities/api";
 import { getQueryClient } from "@/shared/lib/get-query-client";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { RecipeList } from "@/widgets";
+import { RecipeListPaginated, RecipeListInfinite } from "@/widgets";
 import { Searchbar } from "@/widgets/searchbar";
 import { Suspense } from "react";
 import { PAGINATION_LIMIT } from "@/features/pagination/pagination.constants";
 import { SearchStoreProvider } from "@/features/search";
 import { getTranslations } from "next-intl/server";
+import { PaginationStoreProvider } from "@/features/pagination";
+
+// TODO: Replace with GrowthBook feature flag
+const RECIPE_LIST_VARIANT = process.env.RECIPE_LIST_VARIANT || "infinite";
 interface IRecipesPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
@@ -23,10 +30,39 @@ export const RecipesPageComponent = async ({
   const query =
     typeof searchParams.search === "string" ? searchParams.search : "";
 
-  // Simple prefetch with default values - pagination is handled by the client component
-  await queryClient.prefetchQuery(
-    recipesQueryOptions({ limit: PAGINATION_LIMIT, skip: 0, search: query }),
-  );
+  // Prefetch based on variant
+  if (RECIPE_LIST_VARIANT === "infinite") {
+    // Prefetch first page for infinite scroll
+    await queryClient.prefetchInfiniteQuery(
+      recipesInfiniteQueryOptions({
+        limit: PAGINATION_LIMIT,
+        search: query,
+      }),
+    );
+  } else {
+    // Prefetch first page for paginated variant
+    await queryClient.prefetchQuery(
+      recipesQueryOptions({ limit: PAGINATION_LIMIT, skip: 0, search: query }),
+    );
+  }
+
+  const renderRecipeList = () => {
+    if (RECIPE_LIST_VARIANT === "infinite") {
+      return (
+        <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
+          <RecipeListInfinite />
+        </Suspense>
+      );
+    }
+
+    return (
+      <PaginationStoreProvider>
+        <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
+          <RecipeListPaginated />
+        </Suspense>
+      </PaginationStoreProvider>
+    );
+  };
 
   return (
     <SearchStoreProvider initialQuery={query}>
@@ -36,9 +72,7 @@ export const RecipesPageComponent = async ({
           <Searchbar placeholder={t("search.placeholder")} />
         </div>
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
-            <RecipeList />
-          </Suspense>
+          {renderRecipeList()}
         </HydrationBoundary>
       </div>
     </SearchStoreProvider>

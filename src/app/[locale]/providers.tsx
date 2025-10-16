@@ -8,7 +8,6 @@ import { notFound, useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { getQueryClient } from "@/shared/lib/get-query-client";
-import { PaginationStoreProvider } from "@/features/pagination";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/shared/lib/i18n/routing";
 export interface ProvidersProps {
@@ -41,7 +40,7 @@ export function Providers({
       <NextThemesProvider {...themeProps}>
         <QueryClientProvider client={getQueryClient()}>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <PaginationStoreProvider>{children}</PaginationStoreProvider>
+            {children}
           </NextIntlClientProvider>
         </QueryClientProvider>
       </NextThemesProvider>

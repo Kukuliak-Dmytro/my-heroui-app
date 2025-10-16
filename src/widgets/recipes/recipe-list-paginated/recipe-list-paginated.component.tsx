@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { usePaginationStore, PaginationComponent } from "@/features/pagination";
 import { useSearchStore } from "@/features/search";
 
-export const RecipeList = () => {
+export const RecipeListPaginated = () => {
   const query = useSearchStore((state) => state.query);
   const [isSearching, setIsSearching] = useState(false);
 
