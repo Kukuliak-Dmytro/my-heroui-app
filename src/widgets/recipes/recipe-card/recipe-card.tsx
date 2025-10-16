@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/shared/lib/i18n/navigation";
 import { Card, CardBody, CardFooter } from "@heroui/card";
 import { Image } from "@heroui/image";
 import { Chip } from "@heroui/chip";
@@ -11,6 +11,7 @@ import { useState } from "react";
 import { recipeQueryOptions } from "@/entities/api";
 import { getQueryClient } from "@/shared/lib/get-query-client";
 import { IRecipe } from "@/shared/interfaces/recipe";
+import { useTranslations } from "next-intl";
 
 /**
  * RecipeCard component for displaying a recipe in the list
@@ -19,6 +20,7 @@ import { IRecipe } from "@/shared/interfaces/recipe";
  */
 export const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const t = useTranslations();
 
   //prefetch the recipe when the mouse enters the card
   return (
@@ -93,11 +95,17 @@ export const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
             <div className="flex items-center justify-between w-full text-sm text-foreground-600">
               <div className="flex items-center gap-1">
                 <Icon className="w-4 h-4" icon="material-symbols:schedule" />
-                <span>Prep: {recipe.prepTimeMinutes}m</span>
+                <span>
+                  {t("recipe.prep")}: {recipe.prepTimeMinutes}
+                  {t("recipe.min")}
+                </span>
               </div>
               <div className="flex items-center gap-1">
                 <Icon className="w-4 h-4" icon="material-symbols:schedule" />
-                <span>Cook: {recipe.cookTimeMinutes}m</span>
+                <span>
+                  {t("recipe.cook")}: {recipe.cookTimeMinutes}
+                  {t("recipe.min")}
+                </span>
               </div>
             </div>
           </CardFooter>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { PAGINATION_LIMIT } from "./pagination.constants";
 interface PaginationComponentProps {
   total: number;
@@ -15,6 +16,7 @@ export const PaginationComponent = ({
   limit = PAGINATION_LIMIT,
   onPageChange,
 }: PaginationComponentProps) => {
+  const t = useTranslations();
   const totalPages = useMemo(() => Math.ceil(total / limit), [total, limit]);
 
   const handlePageChange = useCallback(
@@ -37,11 +39,11 @@ export const PaginationComponent = ({
         disabled={page <= 1}
         className="px-3 py-2 rounded-md border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
       >
-        Previous
+        {t("pagination.previous")}
       </button>
 
       <span className="px-3 py-2">
-        Page {page} of {totalPages}
+        {t("pagination.page")} {page} {t("pagination.of")} {totalPages}
       </span>
 
       <button
@@ -49,7 +51,7 @@ export const PaginationComponent = ({
         disabled={page >= totalPages}
         className="px-3 py-2 rounded-md border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
       >
-        Next
+        {t("pagination.next")}
       </button>
     </div>
   );

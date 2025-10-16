@@ -12,9 +12,11 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 
 import { recipeQueryOptions } from "@/entities/api";
+import { useTranslations } from "next-intl";
 
 export const DetailedRecipeCard = ({ id }: { id: string }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const t = useTranslations();
   const { data: recipe, isLoading, error } = useQuery(recipeQueryOptions(id));
 
   // Only show loading if we don't have data AND we're actually fetching
@@ -78,7 +80,7 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
         className="max-w-md mx-auto"
         color="danger"
         description={error.message}
-        title="Error Loading Recipe"
+        title={t("recipe.error.title")}
       />
     );
   }
@@ -88,8 +90,8 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
       <Alert
         className="max-w-md mx-auto"
         color="warning"
-        description="The requested recipe could not be found."
-        title="Recipe Not Found"
+        description={t("recipe.notFound.description")}
+        title={t("recipe.notFound.title")}
       />
     );
   }
@@ -106,7 +108,7 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
           tabContent: "group-data-[selected=true]:text-primary-foreground",
         }}
       >
-        <Tab key="overview" title="Overview">
+        <Tab key="overview" title={t("recipe.overview")}>
           <Card className="mt-6">
             <CardBody className="p-6">
               {/* Header Section */}
@@ -184,7 +186,9 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
                     className="w-6 h-6 mx-auto mb-2 text-primary"
                     icon="material-symbols:schedule"
                   />
-                  <div className="text-sm text-foreground-600">Prep Time</div>
+                  <div className="text-sm text-foreground-600">
+                    {t("recipe.prepTime")}
+                  </div>
                   <div className="font-semibold">
                     {recipe.prepTimeMinutes} min
                   </div>
@@ -194,7 +198,9 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
                     className="w-6 h-6 mx-auto mb-2 text-primary"
                     icon="material-symbols:schedule"
                   />
-                  <div className="text-sm text-foreground-600">Cook Time</div>
+                  <div className="text-sm text-foreground-600">
+                    {t("recipe.cookTime")}
+                  </div>
                   <div className="font-semibold">
                     {recipe.cookTimeMinutes} min
                   </div>
@@ -204,7 +210,9 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
                     className="w-6 h-6 mx-auto mb-2 text-primary"
                     icon="material-symbols:group"
                   />
-                  <div className="text-sm text-foreground-600">Servings</div>
+                  <div className="text-sm text-foreground-600">
+                    {t("recipe.servings")}
+                  </div>
                   <div className="font-semibold">{recipe.servings}</div>
                 </div>
                 <div className="text-center p-4 bg-default-50 rounded-lg">
@@ -212,7 +220,9 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
                     className="w-6 h-6 mx-auto mb-2 text-primary"
                     icon="material-symbols:schedule"
                   />
-                  <div className="text-sm text-foreground-600">Total Time</div>
+                  <div className="text-sm text-foreground-600">
+                    {t("recipe.totalTime")}
+                  </div>
                   <div className="font-semibold">
                     {recipe.prepTimeMinutes + recipe.cookTimeMinutes} min
                   </div>
@@ -222,7 +232,9 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
               {/* Tags */}
               {recipe.tags.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">Tags</h3>
+                  <h3 className="text-lg font-semibold mb-3">
+                    {t("recipe.tags")}
+                  </h3>
                   <div className="flex flex-wrap gap-2">
                     {recipe.tags.map((tag, index) => (
                       <Chip key={index} size="sm" variant="bordered">
@@ -238,11 +250,13 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
 
         <Tab
           key="ingredients"
-          title={`Ingredients (${recipe.ingredients.length})`}
+          title={`${t("recipe.ingredients")} (${recipe.ingredients.length})`}
         >
           <Card className="mt-6">
             <CardBody className="p-6">
-              <h3 className="text-xl font-semibold mb-4">Ingredients</h3>
+              <h3 className="text-xl font-semibold mb-4">
+                {t("recipe.ingredients")}
+              </h3>
               <div className="space-y-3">
                 {recipe.ingredients.map((ingredient, index) => (
                   <div
@@ -263,11 +277,13 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
 
         <Tab
           key="instructions"
-          title={`Instructions (${recipe.instructions.length} steps)`}
+          title={`${t("recipe.instructions")} (${recipe.instructions.length} ${t("recipe.steps")})`}
         >
           <Card className="mt-6">
             <CardBody className="p-6">
-              <h3 className="text-xl font-semibold mb-4">Instructions</h3>
+              <h3 className="text-xl font-semibold mb-4">
+                {t("recipe.instructions")}
+              </h3>
               <div className="space-y-4">
                 {recipe.instructions.map((instruction, index) => (
                   <div key={index} className="flex gap-4">

@@ -1,4 +1,7 @@
 import { Searchbar } from "./searchbar.component";
 
 export { Searchbar };
-export { searchFormSchema, type SearchFormData } from "./searchbar.validation";
+export {
+  createSearchFormSchema,
+  type SearchFormData,
+} from "./searchbar.validation";

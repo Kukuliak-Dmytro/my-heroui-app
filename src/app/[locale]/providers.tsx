@@ -4,15 +4,18 @@ import type { ThemeProviderProps } from "next-themes";
 
 import * as React from "react";
 import { HeroUIProvider } from "@heroui/system";
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { getQueryClient } from "@/shared/lib/get-query-client";
 import { PaginationStoreProvider } from "@/features/pagination";
-
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { routing } from "@/shared/lib/i18n/routing";
 export interface ProvidersProps {
   children: React.ReactNode;
   themeProps?: ThemeProviderProps;
+  locale: string;
+  messages: Record<string, unknown>;
 }
 
 declare module "@react-types/shared" {
@@ -23,14 +26,23 @@ declare module "@react-types/shared" {
   }
 }
 
-export function Providers({ children, themeProps }: ProvidersProps) {
+export function Providers({
+  children,
+  themeProps,
+  locale,
+  messages,
+}: ProvidersProps) {
   const router = useRouter();
-
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
   return (
     <HeroUIProvider navigate={router.push}>
       <NextThemesProvider {...themeProps}>
         <QueryClientProvider client={getQueryClient()}>
-          <PaginationStoreProvider>{children}</PaginationStoreProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <PaginationStoreProvider>{children}</PaginationStoreProvider>
+          </NextIntlClientProvider>
         </QueryClientProvider>
       </NextThemesProvider>
     </HeroUIProvider>

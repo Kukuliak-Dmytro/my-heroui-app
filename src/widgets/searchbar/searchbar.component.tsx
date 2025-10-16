@@ -5,10 +5,11 @@ import { Button } from "@heroui/button";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { searchFormSchema, SearchFormData } from "./searchbar.validation";
+import { createSearchFormSchema, SearchFormData } from "./searchbar.validation";
 import { useSearchStore, SearchStoreContext } from "@/features/search";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/shared/lib/i18n/navigation";
 import { useState, useEffect, useContext } from "react";
+import { useTranslations } from "next-intl";
 
 interface ISearchbarProps {
   placeholder?: string;
@@ -18,10 +19,12 @@ interface ISearchbarProps {
 // Component that uses search store (when provider is available)
 const SearchbarWithStore = ({ placeholder, className }: ISearchbarProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations();
   const query = useSearchStore((state) => state.query);
   const setQuery = useSearchStore((state) => state.setQuery);
   const clearQuery = useSearchStore((state) => state.clearQuery);
 
+  const searchFormSchema = createSearchFormSchema(t);
   const {
     register,
     handleSubmit,
@@ -63,7 +66,7 @@ const SearchbarWithStore = ({ placeholder, className }: ISearchbarProps) => {
     >
       <Input
         {...register("query")}
-        placeholder={placeholder}
+        placeholder={placeholder || t("search.placeholder")}
         isInvalid={!!errors.query}
         errorMessage={errors.query?.message}
         disabled={isLoading}
@@ -83,7 +86,7 @@ const SearchbarWithStore = ({ placeholder, className }: ISearchbarProps) => {
         disabled={!isValid || isLoading || queryValue.length < 2}
         endContent={!isLoading && <Icon icon="mdi:search" />}
       >
-        {isLoading ? "Searching..." : "Search"}
+        {isLoading ? t("search.searching") : t("search.button")}
       </Button>
     </form>
   );
@@ -96,8 +99,10 @@ const SearchbarWithLocalState = ({
 }: ISearchbarProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [localQuery, setLocalQuery] = useState("");
+  const t = useTranslations();
   const router = useRouter();
 
+  const searchFormSchema = createSearchFormSchema(t);
   const {
     register,
     handleSubmit,
@@ -148,7 +153,7 @@ const SearchbarWithLocalState = ({
     >
       <Input
         {...register("query")}
-        placeholder={placeholder}
+        placeholder={placeholder || t("search.placeholder")}
         isInvalid={!!errors.query}
         errorMessage={errors.query?.message}
         disabled={isLoading}
@@ -165,7 +170,7 @@ const SearchbarWithLocalState = ({
         disabled={!isValid || isLoading || queryValue.length < 2}
         endContent={!isLoading && <Icon icon="mdi:search" />}
       >
-        {isLoading ? "Searching..." : "Search"}
+        {isLoading ? t("search.searching") : t("search.button")}
       </Button>
     </form>
   );

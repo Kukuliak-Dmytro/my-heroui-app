@@ -5,21 +5,21 @@ export const SITE_CONFIG = {
   description: "Discover and explore delicious recipes from around the world.",
   navItems: [
     {
-      label: "Home",
+      labelKey: "nav.home",
       href: "/",
     },
     {
-      label: "Recipes",
+      labelKey: "nav.recipes",
       href: "/recipes",
     },
   ],
   navMenuItems: [
     {
-      label: "All Recipes",
+      labelKey: "nav.allRecipes",
       href: "/recipes",
     },
     {
-      label: "Home",
+      labelKey: "nav.home",
       href: "/",
     },
   ],
