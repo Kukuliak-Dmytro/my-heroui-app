@@ -16,6 +16,7 @@ import {
   getServerGrowthBook,
 } from "@/shared/lib/growthbook/";
 import { GrowthBookTracking } from "@/shared/lib/growthbook/growthbook-tracking";
+import { ErrorBoundary } from "@/shared/ui";
 
 // Helper to configure cache for next.js
 
@@ -104,9 +105,11 @@ export const RecipesPageComponent = async ({
           <h1 className="text-3xl font-bold mb-4">{t("recipes.title")}</h1>
           <Searchbar placeholder={t("search.placeholder")} />
         </div>
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          {renderRecipeList()}
-        </HydrationBoundary>
+        <ErrorBoundary>
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            {renderRecipeList()}
+          </HydrationBoundary>
+        </ErrorBoundary>
 
         <GrowthBookTracking data={trackingData} />
       </div>
