@@ -9,15 +9,23 @@ import { Divider } from "@heroui/divider";
 import { Alert } from "@heroui/alert";
 import { Skeleton } from "@heroui/skeleton";
 import { Icon } from "@iconify/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { recipeQueryOptions } from "@/entities/api";
 import { useTranslations } from "next-intl";
+import { trackRecipeView } from "@/shared/lib/mixpanel/mixpanel-client";
 
 export const DetailedRecipeCard = ({ id }: { id: string }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const t = useTranslations();
   const { data: recipe, isLoading, error } = useQuery(recipeQueryOptions(id));
+
+  // Track recipe view
+  useEffect(() => {
+    if (recipe) {
+      trackRecipeView(recipe.id.toString(), recipe.name);
+    }
+  }, [recipe]);
 
   // Only show loading if we don't have data AND we're actually fetching
   if (isLoading && !recipe) {

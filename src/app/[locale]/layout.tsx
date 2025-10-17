@@ -11,7 +11,6 @@ import { FONT_COMFORTAA, FONT_QUICKSAND } from "@/shared/config/fonts";
 import { ThemeSwitch } from "@/features/theme-switch";
 import { LocaleSwitcher } from "@/features/locale-switcher";
 import { routing } from "@/shared/lib/i18n/routing";
-
 export const metadata: Metadata = {
   title: {
     default: SITE_CONFIG.name,

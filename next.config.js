@@ -20,7 +20,6 @@ export default withSentryConfig(
 
     org: process.env.SENTRY_ORG || "dmytro-uz",
     project: process.env.SENTRY_PROJECT || "4510204235939920",
-    authToken: process.env.SENTRY_AUTH_TOKEN,
 
     // Only print logs for uploading source maps in CI
     silent: !process.env.CI,
@@ -30,6 +29,7 @@ export default withSentryConfig(
 
     // Upload a larger set of source maps for prettier stack traces (increases build time)
     widenClientFileUpload: true,
+    authToken: process.env.SENTRY_AUTH_TOKEN,
 
     // Source map configuration
     sourcemaps: {
