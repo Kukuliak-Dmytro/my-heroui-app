@@ -5,41 +5,39 @@
 Create a `.env.local` file in your project root with the following variables:
 
 ```bash
-# GrowthBook Configuration
-GROWTHBOOK_CLIENT_KEY=your_client_key_here
-GROWTHBOOK_API_HOST=https://cdn.growthbook.io
-GROWTHBOOK_APP_ORIGIN=http://localhost:3000
-GROWTHBOOK_EDGE_CONNECTION_STRING=your_edge_connection_string_here
-GROWTHBOOK_EDGE_CONFIG_ITEM_KEY=your_item_key_here
+# GrowthBook Configuration (NEXT_PUBLIC_ prefix required for client-side access)
+NEXT_PUBLIC_GROWTHBOOK_API_HOST=https://cdn.growthbook.io
+NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY=your_client_key_here
+NEXT_PUBLIC_GROWTHBOOK_DECRYPTION_KEY=your_decryption_key_here
 
-# Fallback for local testing (optional)
-RECIPE_LIST_VARIANT=infinite
+# Optional: For local testing without GrowthBook
+RECIPE_LIST_VARIANT=paginated
 ```
 
 ## How to Get These Values
 
-1. **GROWTHBOOK_CLIENT_KEY**:
+1. **NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY**:
    - Go to your GrowthBook dashboard
    - Navigate to Settings > SDKs
    - Create a new SDK connection
    - Copy the Client Key
 
-2. **GROWTHBOOK_EDGE_CONNECTION_STRING**:
-   - This is for Vercel Edge Config integration
-   - If you're not using Vercel Edge Config, you can omit this
-   - Or set it to a dummy value for local testing
+2. **NEXT_PUBLIC_GROWTHBOOK_API_HOST**:
+   - Usually `https://cdn.growthbook.io` (default)
+   - Or your custom GrowthBook instance URL
 
-3. **GROWTHBOOK_EDGE_CONFIG_ITEM_KEY**:
-   - This is the key for your feature flags in Edge Config
-   - Usually something like "feature-flags" or "growthbook-flags"
+3. **NEXT_PUBLIC_GROWTHBOOK_DECRYPTION_KEY** (optional):
+   - Only needed if you're using encrypted feature flags
+   - Get from GrowthBook dashboard under Settings > Encryption
 
 ## Testing Steps
 
 1. **Set up environment variables** in `.env.local`
-2. **Visit the debug page**: `http://localhost:3000/en/debug-flags`
-3. **Check the console logs** for any errors
-4. **Verify environment variables** are being loaded
-5. **Test the feature flag** by refreshing the page
+2. **Start the development server**: `npm run dev`
+3. **Visit the recipes page**: `http://localhost:3000/en/recipes`
+4. **Check the console logs** for any errors
+5. **Verify environment variables** are being loaded
+6. **Test the feature flag** by refreshing the page
 
 ## Troubleshooting
 
@@ -55,19 +53,20 @@ RECIPE_LIST_VARIANT=infinite
 1. Verify all required environment variables are set
 2. Check that your GrowthBook project is active
 3. Ensure your client key has the correct permissions
+4. Make sure all variables have `NEXT_PUBLIC_` prefix
 
 ### For local testing without GrowthBook:
 
-1. Set `RECIPE_LIST_VARIANT=infinite` in `.env.local`
+1. Set `RECIPE_LIST_VARIANT=paginated` in `.env.local`
 2. The app will use this as a fallback when GrowthBook fails
 3. This allows you to test the UI without setting up GrowthBook
 
-## Debug Page
+## Architecture
 
-Visit `/en/debug-flags` or `/ua/debug-flags` to see:
+The new implementation uses:
 
-- Environment variable status
-- Feature flag values
-- Error messages
-- Troubleshooting tips
+- **Server-side evaluation**: Feature flags are evaluated on the server for better performance
+- **Next.js fetch cache**: 60-second cache with `["growthbook"]` tags for revalidation
+- **Persistent user IDs**: UUID stored in cookies for consistent experiment assignment
+- **Experiment tracking**: Automatic tracking of experiment views for analytics
 

@@ -11,7 +11,14 @@ import { PAGINATION_LIMIT } from "@/features/pagination/pagination.constants";
 import { SearchStoreProvider } from "@/features/search";
 import { getTranslations } from "next-intl/server";
 import { PaginationStoreProvider } from "@/features/pagination";
-import { recipeListVariant } from "@/shared/lib/growthbook/flags";
+import {
+  configureServerSideGrowthBook,
+  getServerGrowthBook,
+} from "@/shared/lib/growthbook/";
+import { GrowthBookTracking } from "@/shared/lib/growthbook/growthbook-tracking";
+
+// Helper to configure cache for next.js
+
 interface IRecipesPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
@@ -28,13 +35,29 @@ export const RecipesPageComponent = async ({
   const query =
     typeof searchParams.search === "string" ? searchParams.search : "";
 
-  let listViewType = null;
-  try {
-    listViewType = await recipeListVariant();
-    console.log("Feature flag value:", listViewType);
-  } catch (error) {
-    console.error("Feature flag error:", error);
-  }
+  configureServerSideGrowthBook();
+
+  // Create and initialize a GrowthBook instance
+  const gb = await getServerGrowthBook();
+
+  // Evaluate feature flag using the correct flag key from GrowthBook dashboard
+  const listViewType = gb.getFeatureValue(
+    "flag_recipe_list_view_optimization_v2",
+    "pagination",
+  );
+
+  // Log the feature flag value for debugging
+  console.log("Feature flag value:", listViewType);
+  console.log(
+    "Flag evaluation details:",
+    gb.evalFeature("flag_recipe_list_view_optimization_v2"),
+  );
+
+  // If the above features ran any experiments, get the tracking call data
+  const trackingData = gb.getDeferredTrackingCalls();
+
+  // Cleanup
+  gb.destroy();
 
   // Prefetch based on variant
   if (listViewType === "infinite") {
@@ -57,6 +80,7 @@ export const RecipesPageComponent = async ({
       return (
         <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
           <RecipeListInfinite />
+          <GrowthBookTracking data={trackingData} />
         </Suspense>
       );
     } else if (listViewType === "pagination") {
@@ -64,6 +88,7 @@ export const RecipesPageComponent = async ({
         <PaginationStoreProvider>
           <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
             <RecipeListPaginated />
+            <GrowthBookTracking data={trackingData} />
           </Suspense>
         </PaginationStoreProvider>
       );
@@ -82,6 +107,8 @@ export const RecipesPageComponent = async ({
         <HydrationBoundary state={dehydrate(queryClient)}>
           {renderRecipeList()}
         </HydrationBoundary>
+
+        <GrowthBookTracking data={trackingData} />
       </div>
     </SearchStoreProvider>
   );

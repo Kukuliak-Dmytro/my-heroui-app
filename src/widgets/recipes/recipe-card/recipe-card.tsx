@@ -44,7 +44,6 @@ export const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
               className={`w-full aspect-[4/3] object-cover transition-opacity duration-300 ${
                 imageLoaded ? "opacity-100" : "opacity-0 absolute top-0 left-0"
               }`}
-              fallbackSrc="https://via.placeholder.com/400x300?text=Recipe+Image"
               src={recipe.image}
               onLoad={() => setImageLoaded(true)}
             />

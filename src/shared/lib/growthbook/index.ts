@@ -1,4 +1,3 @@
-export { recipeListVariant } from "./flags";
-export { identify } from "./identify";
-export { getOrCreateSessionUserId, setUserIdCookie } from "./cookie-manager";
-export { default as growthbookAdapter } from "./adapter";
+export { configureServerSideGrowthBook } from "./growthbook-server";
+export { getServerGrowthBook } from "./get-growthbook-instance";
+export { GB_UUID_COOKIE } from "@/middleware";

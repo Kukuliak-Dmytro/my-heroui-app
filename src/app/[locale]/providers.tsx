@@ -10,6 +10,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { getQueryClient } from "@/shared/lib/get-query-client";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/shared/lib/i18n/routing";
+// GrowthBook client provider removed: server-only integration per example
 export interface ProvidersProps {
   children: React.ReactNode;
   themeProps?: ThemeProviderProps;
@@ -36,6 +37,9 @@ export function Providers({
     notFound();
   }
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  // No client-side GrowthBook Provider; using server-only evaluation
+
   return (
     <HeroUIProvider navigate={router.push}>
       <NextThemesProvider {...themeProps}>

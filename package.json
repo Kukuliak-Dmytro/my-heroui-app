@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@eslint/compat": "^1.4.0",
-    "@flags-sdk/growthbook": "^0.1.0",
+    "@growthbook/growthbook": "^1.6.1",
     "@heroui/accordion": "2.2.24",
     "@heroui/alert": "2.2.27",
     "@heroui/autocomplete": "2.3.29",
@@ -66,7 +66,6 @@
     "@tanstack/react-query": "^5.90.3",
     "@tanstack/react-query-devtools": "^5.90.2",
     "clsx": "2.1.1",
-    "flags": "^4.0.1",
     "framer-motion": "11.18.2",
     "intl-messageformat": "10.7.16",
     "ky": "^1.12.0",
