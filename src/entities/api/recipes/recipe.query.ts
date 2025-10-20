@@ -46,26 +46,6 @@ export const recipesQueryOptions = (params: {
         throw error;
       }
     },
-    staleTime: 30 * 1000, // 30 seconds - align with Next.js revalidation
-    gcTime: 2 * 60 * 1000, // 2 minutes - keep in cache for 2 minutes
-    refetchInterval: 30 * 1000, // Refetch every 30 seconds
-    refetchOnWindowFocus: false, // Don't refetch on window focus for better UX
-    refetchOnMount: false, // Don't refetch on mount if data exists
-    refetchOnReconnect: true, // Refetch on reconnect for data freshness
-    retry: (failureCount, error) => {
-      // Don't retry on 4xx errors (client errors)
-      if (
-        error instanceof Error &&
-        "status" in error &&
-        typeof error.status === "number"
-      ) {
-        if (error.status >= 400 && error.status < 500) {
-          return false;
-        }
-      }
-      // Retry up to 3 times for other errors
-      return failureCount < 3;
-    },
   });
 };
 
@@ -90,26 +70,6 @@ export const recipeQueryOptions = (id: string) => {
         });
         throw error;
       }
-    },
-    staleTime: 30 * 1000, // 30 seconds - align with Next.js revalidation
-    gcTime: 2 * 60 * 1000, // 2 minutes - keep in cache for 2 minutes
-    refetchInterval: 30 * 1000, // Refetch every 30 seconds
-    refetchOnWindowFocus: false,
-    refetchOnMount: false, // Don't refetch on mount if data exists
-    refetchOnReconnect: true,
-    retry: (failureCount, error) => {
-      // Don't retry on 4xx errors (client errors)
-      if (
-        error instanceof Error &&
-        "status" in error &&
-        typeof error.status === "number"
-      ) {
-        if (error.status >= 400 && error.status < 500) {
-          return false;
-        }
-      }
-      // Retry up to 3 times for other errors
-      return failureCount < 3;
     },
   });
 };
@@ -155,24 +115,5 @@ export const recipesInfiniteQueryOptions = (params: {
       return lastPage.skip + lastPage.limit;
     },
     initialPageParam: 0,
-    staleTime: 30 * 1000, // 30 seconds - align with Next.js revalidation
-    gcTime: 2 * 60 * 1000, // 2 minutes - keep in cache for 2 minutes
-    refetchOnWindowFocus: false, // Don't refetch on window focus for better UX
-    refetchOnMount: false, // Don't refetch on mount if data exists
-    refetchOnReconnect: true, // Refetch on reconnect for data freshness
-    retry: (failureCount, error) => {
-      // Don't retry on 4xx errors (client errors)
-      if (
-        error instanceof Error &&
-        "status" in error &&
-        typeof error.status === "number"
-      ) {
-        if (error.status >= 400 && error.status < 500) {
-          return false;
-        }
-      }
-      // Retry up to 3 times for other errors
-      return failureCount < 3;
-    },
   });
 };

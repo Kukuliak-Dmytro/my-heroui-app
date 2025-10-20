@@ -20,11 +20,9 @@ export const RecipeListPaginated = () => {
   const setPage = usePaginationStore((state) => state.setPage);
   const resetPagination = usePaginationStore((state) => state.resetPagination);
 
-  const { data, isLoading, error, isFetching } = useQuery({
-    ...recipesQueryOptions({ limit, skip, search: query }),
-    enabled: true,
-    staleTime: 0, // Always consider data stale to show loading on search
-  });
+  const { data, isLoading, error, isFetching } = useQuery(
+    recipesQueryOptions({ limit, skip, search: query }),
+  );
 
   // Reset pagination when search query changes
   useEffect(() => {

@@ -23,16 +23,9 @@ export const RecipeListInfinite = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery({
-    ...recipesInfiniteQueryOptions({
-      limit: PAGINATION_LIMIT,
-      search: query,
-    }),
-    enabled: true,
-    staleTime: 30 * 1000,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
+  } = useInfiniteQuery(
+    recipesInfiniteQueryOptions({ limit: PAGINATION_LIMIT, search: query }),
+  );
 
   // Track when search query changes to show loading state
   useEffect(() => {

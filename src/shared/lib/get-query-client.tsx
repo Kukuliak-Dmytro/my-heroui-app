@@ -4,8 +4,29 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        //refetch every 30 seconds
-        staleTime: 30 * 1000,
+        // Cache and refetch configuration
+        staleTime: 30 * 1000, // 30 seconds - align with Next.js revalidation
+        gcTime: 2 * 60 * 1000, // 2 minutes - keep in cache for 2 minutes
+        refetchInterval: 30 * 1000, // Refetch every 30 seconds
+        refetchOnWindowFocus: false, // Don't refetch on window focus for better UX
+        refetchOnMount: false, // Don't refetch on mount if data exists
+        refetchOnReconnect: true, // Refetch on reconnect for data freshness
+
+        // Retry configuration
+        retry: (failureCount, error) => {
+          // Don't retry on 4xx errors (client errors)
+          if (
+            error instanceof Error &&
+            "status" in error &&
+            typeof error.status === "number"
+          ) {
+            if (error.status >= 400 && error.status < 500) {
+              return false;
+            }
+          }
+          // Retry up to 3 times for other errors
+          return failureCount < 3;
+        },
       },
     },
   });
