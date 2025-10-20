@@ -1,55 +1,49 @@
 import { http } from "@/shared/lib/utils/fetcher";
 import { IRecipeResponse, IRecipe } from "@/shared/interfaces/recipe";
-import * as Sentry from "@sentry/nextjs";
+import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
 
 export const getRecipes = async (params: {
   limit: number;
   skip: number;
   search: string;
 }) => {
-  try {
-    const response = await http.get<IRecipeResponse>(
-      `search?q=${params.search}&limit=${params.limit}&skip=${params.skip}`,
-    );
-    const data = await response.json();
+  const [data] = await tryCatchWithSentry(
+    (async () => {
+      const response = await http.get<IRecipeResponse>(
+        `search?q=${params.search}&limit=${params.limit}&skip=${params.skip}`,
+      );
+      return await response.json();
+    })(),
+    {
+      level: "error",
+      tags: { feature: "recipes", op: "getRecipes" },
+      extra: { params },
+    },
+  );
 
-    return data;
-  } catch (error) {
-    // Additional error context for recipes list
-    Sentry.captureException(error, {
-      tags: {
-        component: "recipes-api",
-        operation: "getRecipes",
-      },
-      extra: {
-        params,
-      },
-    });
-
-    console.error("Failed to fetch recipes:", error);
-    throw error;
+  if (!data) {
+    throw new Error("Failed to fetch recipes");
   }
+
+  return data;
 };
 
 export const getRecipe = async (id: string) => {
-  try {
-    const response = await http.get<IRecipe>(`${id}`);
-    const data = await response.json();
+  const [data] = await tryCatchWithSentry(
+    (async () => {
+      const response = await http.get<IRecipe>(`${id}`);
+      return await response.json();
+    })(),
+    {
+      level: "error",
+      tags: { feature: "recipes", op: "getRecipe" },
+      extra: { id },
+    },
+  );
 
-    return data;
-  } catch (error) {
-    // Additional error context for single recipe
-    Sentry.captureException(error, {
-      tags: {
-        component: "recipes-api",
-        operation: "getRecipe",
-      },
-      extra: {
-        recipeId: id,
-      },
-    });
-
-    console.error(`Failed to fetch recipe ${id}:`, error);
-    throw error;
+  if (!data) {
+    throw new Error(`Failed to fetch recipe ${id}`);
   }
+
+  return data;
 };

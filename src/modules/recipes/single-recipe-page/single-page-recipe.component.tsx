@@ -2,6 +2,7 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 import { recipeQueryOptions } from "@/entities/api";
 import { getQueryClient } from "@/shared/lib/utils/get-query-client";
+import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
 import { DetailedRecipeCard } from "@/widgets";
 import { ErrorBoundary } from "@/shared/ui";
 /**
@@ -15,7 +16,11 @@ import { ErrorBoundary } from "@/shared/ui";
 export const SingleRecipePageComponent = async ({ id }: { id: string }) => {
   const queryClient = getQueryClient();
 
-  await queryClient.prefetchQuery(recipeQueryOptions(id));
+  await tryCatchWithSentry(queryClient.prefetchQuery(recipeQueryOptions(id)), {
+    level: "error",
+    tags: { feature: "recipes", op: "prefetchSingle" },
+    extra: { id },
+  });
 
   return (
     <ErrorBoundary>

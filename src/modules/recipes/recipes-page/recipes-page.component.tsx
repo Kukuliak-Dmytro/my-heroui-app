@@ -3,6 +3,7 @@ import {
   recipesInfiniteQueryOptions,
 } from "@/entities/api";
 import { getQueryClient } from "@/shared/lib/utils/get-query-client";
+import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { RecipeListPaginated, RecipeListInfinite } from "@/widgets";
 import { Searchbar } from "@/widgets/searchbar";
@@ -39,33 +40,55 @@ export const RecipesPageComponent = async ({
   configureServerSideGrowthBook();
 
   // Create and initialize a GrowthBook instance
-  const gb = await getServerGrowthBook();
+  const [gb] = await tryCatchWithSentry(getServerGrowthBook(), {
+    level: "error",
+    tags: { feature: "recipes", op: "getServerGrowthBook" },
+  });
 
   // Evaluate feature flag using the correct flag key from GrowthBook dashboard
-  const listViewType = gb.getFeatureValue(
-    "flag_recipe_list_view_optimization_v2",
-    "pagination",
-  );
+  const listViewType =
+    gb?.getFeatureValue(
+      "flag_recipe_list_view_optimization_v2",
+      "pagination",
+    ) || "pagination"; // Default fallback
 
   // If the above features ran any experiments, get the tracking call data
-  const trackingData = gb.getDeferredTrackingCalls();
+  const trackingData = gb?.getDeferredTrackingCalls() || [];
 
   // Cleanup
-  gb.destroy();
+  gb?.destroy();
 
   // Prefetch based on variant
   if (listViewType === "infinite") {
     // Prefetch first page for infinite scroll
-    await queryClient.prefetchInfiniteQuery(
-      recipesInfiniteQueryOptions({
-        limit: PAGINATION_LIMIT,
-        search: query,
-      }),
+    await tryCatchWithSentry(
+      queryClient.prefetchInfiniteQuery(
+        recipesInfiniteQueryOptions({
+          limit: PAGINATION_LIMIT,
+          search: query,
+        }),
+      ),
+      {
+        level: "error",
+        tags: { feature: "recipes", op: "prefetchInfinite" },
+        extra: { query, limit: PAGINATION_LIMIT },
+      },
     );
   } else if (listViewType === "pagination") {
     // Prefetch first page for paginated variant
-    await queryClient.prefetchQuery(
-      recipesQueryOptions({ limit: PAGINATION_LIMIT, skip: 0, search: query }),
+    await tryCatchWithSentry(
+      queryClient.prefetchQuery(
+        recipesQueryOptions({
+          limit: PAGINATION_LIMIT,
+          skip: 0,
+          search: query,
+        }),
+      ),
+      {
+        level: "error",
+        tags: { feature: "recipes", op: "prefetchPaginated" },
+        extra: { query, limit: PAGINATION_LIMIT, skip: 0 },
+      },
     );
   }
 

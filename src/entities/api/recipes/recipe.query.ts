@@ -1,6 +1,4 @@
 import { queryOptions, infiniteQueryOptions } from "@tanstack/react-query";
-import * as Sentry from "@sentry/nextjs";
-
 import { getRecipes, getRecipe } from "./recipe.api";
 
 // Query key constants
@@ -25,26 +23,7 @@ export const recipesQueryOptions = (params: {
       params.search,
     ),
     queryFn: async () => {
-      try {
-        return await getRecipes(params);
-      } catch (error) {
-        // Capture query-level errors with additional context
-        Sentry.captureException(error, {
-          tags: {
-            component: "react-query",
-            query: "recipes",
-          },
-          extra: {
-            queryKey: RECIPE_QUERY_KEYS.recipes(
-              params.limit,
-              params.skip,
-              params.search,
-            ),
-            params,
-          },
-        });
-        throw error;
-      }
+      return await getRecipes(params);
     },
   });
 };
@@ -54,22 +33,7 @@ export const recipeQueryOptions = (id: string) => {
   return queryOptions({
     queryKey: RECIPE_QUERY_KEYS.recipe(id),
     queryFn: async () => {
-      try {
-        return await getRecipe(id);
-      } catch (error) {
-        // Capture query-level errors with additional context
-        Sentry.captureException(error, {
-          tags: {
-            component: "react-query",
-            query: "recipe",
-          },
-          extra: {
-            queryKey: RECIPE_QUERY_KEYS.recipe(id),
-            recipeId: id,
-          },
-        });
-        throw error;
-      }
+      return await getRecipe(id);
     },
   });
 };
@@ -82,29 +46,11 @@ export const recipesInfiniteQueryOptions = (params: {
   return infiniteQueryOptions({
     queryKey: RECIPE_QUERY_KEYS.recipesInfinite(params.limit, params.search),
     queryFn: async ({ pageParam = 0 }) => {
-      try {
-        return await getRecipes({
-          limit: params.limit,
-          skip: pageParam,
-          search: params.search,
-        });
-      } catch (error) {
-        // Capture query-level errors with additional context
-        Sentry.captureException(error, {
-          tags: {
-            component: "react-query",
-            query: "recipes-infinite",
-          },
-          extra: {
-            queryKey: RECIPE_QUERY_KEYS.recipesInfinite(
-              params.limit,
-              params.search,
-            ),
-            params: { ...params, pageParam },
-          },
-        });
-        throw error;
-      }
+      return await getRecipes({
+        limit: params.limit,
+        skip: pageParam,
+        search: params.search,
+      });
     },
     getNextPageParam: (lastPage) => {
       // If we have fewer items than the limit, we've reached the end

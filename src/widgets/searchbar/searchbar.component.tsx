@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createSearchFormSchema, SearchFormData } from "./searchbar.validation";
 import { useSearchStore, SearchStoreContext } from "@/features/search";
 import { useRouter } from "@/shared/lib/i18n/navigation";
+import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
 import { useState, useEffect, useContext } from "react";
 import { useTranslations } from "next-intl";
 
@@ -48,15 +49,8 @@ const SearchbarWithStore = ({ placeholder, className }: ISearchbarProps) => {
 
   const onSubmit = async (data: SearchFormData) => {
     setIsLoading(true);
-    try {
-      // Update search store - this will automatically sync to URL
-      setQuery(data.query.trim());
-      // Don't reset the form - keep the search term visible
-    } catch {
-      // Handle search error silently
-    } finally {
-      setIsLoading(false);
-    }
+    await tryCatchWithSentry(Promise.resolve(setQuery(data.query.trim())));
+    setIsLoading(false);
   };
 
   return (
@@ -126,18 +120,17 @@ const SearchbarWithLocalState = ({
 
   const onSubmit = async (data: SearchFormData) => {
     setIsLoading(true);
-    try {
-      setLocalQuery(data.query.trim());
-      // Redirect to recipes page with search query
-      const searchParams = new URLSearchParams({
-        search: data.query.trim(),
-      });
-      router.push(`/recipes?${searchParams.toString()}`);
-    } catch {
-      // Handle search error silently
-    } finally {
-      setIsLoading(false);
-    }
+    await tryCatchWithSentry(
+      (async () => {
+        setLocalQuery(data.query.trim());
+        // Redirect to recipes page with search query
+        const searchParams = new URLSearchParams({
+          search: data.query.trim(),
+        });
+        router.push(`/recipes?${searchParams.toString()}`);
+      })(),
+    );
+    setIsLoading(false);
   };
 
   const handleClear = () => {
