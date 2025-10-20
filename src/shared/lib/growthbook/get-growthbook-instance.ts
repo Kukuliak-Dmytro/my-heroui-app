@@ -20,16 +20,5 @@ export async function getServerGrowthBook() {
     id: userId || "",
   });
 
-  // Debug logging
-  console.log("GrowthBook Debug Info:");
-  console.log("- API Host:", process.env.NEXT_PUBLIC_GROWTHBOOK_API_HOST);
-  console.log(
-    "- Client Key:",
-    process.env.NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY ? "Set" : "Missing",
-  );
-  console.log("- User ID:", userId);
-  console.log("- Features loaded:", gb.getFeatures());
-  console.log("- Ready state:", gb.ready);
-
   return gb;
 }
