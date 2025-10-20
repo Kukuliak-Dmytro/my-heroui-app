@@ -29,9 +29,9 @@ export const RecipeListInfinite = () => {
       search: query,
     }),
     enabled: true,
-    staleTime: 30 * 1000, // 30 seconds - allow cache usage
-    refetchOnMount: false, // Don't refetch on mount if data exists
-    refetchOnWindowFocus: false, // Don't refetch on window focus
+    staleTime: 30 * 1000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   // Track when search query changes to show loading state
@@ -58,6 +58,7 @@ export const RecipeListInfinite = () => {
     const observer = new IntersectionObserver(handleObserver, {
       threshold: 0.1,
       rootMargin: "100px", // Start loading 100px before the element comes into view
+      root: null, // the viewport will be the root, not a child element
     });
 
     const currentRef = loadMoreRef.current;
@@ -76,7 +77,7 @@ export const RecipeListInfinite = () => {
   const allRecipes = data?.pages.flatMap((page) => page.recipes) ?? [];
 
   // Show loading state for initial load or when searching
-  if (isLoading || (isSearching && !data)) {
+  if (isLoading) {
     return (
       <section className="mx-auto w-full max-w-7xl px-3 sm:px-4 lg:px-6">
         <div className="flex items-center gap-2 mb-4">
@@ -84,7 +85,7 @@ export const RecipeListInfinite = () => {
             Recipe Collection
           </h1>
           {isSearching && (
-            <div className="flex items-center gap-2 text-sm text-default-500">
+            <div className="flex items-center gap-2 text-sm">
               <Spinner size="sm" />
               <span>Searching...</span>
             </div>
@@ -140,7 +141,7 @@ export const RecipeListInfinite = () => {
           Recipe Collection
         </h1>
         {isSearching && data && (
-          <div className="flex items-center gap-2 text-sm text-default-500">
+          <div className="flex items-center gap-2 text-sm">
             <Spinner size="sm" />
             <span>Searching...</span>
           </div>
@@ -161,9 +162,7 @@ export const RecipeListInfinite = () => {
           {isFetchingNextPage ? (
             <div className="flex items-center gap-2">
               <Spinner size="sm" />
-              <span className="text-sm text-default-500">
-                Loading more recipes...
-              </span>
+              <span className="text-sm">Loading more recipes...</span>
             </div>
           ) : (
             <Button
@@ -177,7 +176,7 @@ export const RecipeListInfinite = () => {
               Load More Recipes
             </Button>
           )}
-          <p className="text-xs text-default-400 text-center">
+          <p className="text-xs ult-400 text-center">
             {allRecipes.length} recipes loaded • Scroll down or click to load
             more
           </p>
@@ -187,7 +186,7 @@ export const RecipeListInfinite = () => {
       {/* End of results message */}
       {!hasNextPage && allRecipes.length > 0 && (
         <div className="mt-8 text-center">
-          <p className="text-default-500 text-sm">
+          <p className="text-sm">
             You've reached the end of the recipe collection
           </p>
         </div>
@@ -195,12 +194,8 @@ export const RecipeListInfinite = () => {
 
       {allRecipes.length === 0 && query && (
         <div className="text-center py-12">
-          <p className="text-default-500 text-lg">
-            No recipes found for &quot;{query}&quot;
-          </p>
-          <p className="text-default-400 text-sm mt-2">
-            Try a different search term
-          </p>
+          <p className="text-lg">No recipes found for &quot;{query}&quot;</p>
+          <p className="text-sm mt-2">Try a different search term</p>
         </div>
       )}
     </section>

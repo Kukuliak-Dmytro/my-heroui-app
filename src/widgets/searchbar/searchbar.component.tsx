@@ -71,7 +71,7 @@ const SearchbarWithStore = ({ placeholder, className }: ISearchbarProps) => {
         errorMessage={errors.query?.message}
         disabled={isLoading}
         className="flex-1"
-        startContent={<Icon icon="mdi:magnify" className="text-default-400" />}
+        startContent={<Icon icon="mdi:magnify" />}
         type="search"
         isClearable
         onClear={() => {
@@ -158,7 +158,7 @@ const SearchbarWithLocalState = ({
         errorMessage={errors.query?.message}
         disabled={isLoading}
         className="flex-1"
-        startContent={<Icon icon="mdi:magnify" className="text-default-400" />}
+        startContent={<Icon icon="mdi:magnify" />}
         type="search"
         isClearable
         onClear={handleClear}

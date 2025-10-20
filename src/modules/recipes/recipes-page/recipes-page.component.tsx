@@ -44,7 +44,7 @@ export const RecipesPageComponent = async ({
   // Evaluate feature flag using the correct flag key from GrowthBook dashboard
   const listViewType = gb.getFeatureValue(
     "flag_recipe_list_view_optimization_v2",
-    "pagination",
+    "infinite",
   );
 
   // Log the feature flag value for debugging

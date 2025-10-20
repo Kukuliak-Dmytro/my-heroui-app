@@ -49,7 +49,7 @@ export const RecipeListPaginated = () => {
             Recipe Collection
           </h1>
           {isSearching && (
-            <div className="flex items-center gap-2 text-sm text-default-500">
+            <div className="flex items-center gap-2 text-sm">
               <Spinner size="sm" />
               <span>Searching...</span>
             </div>
@@ -110,7 +110,7 @@ export const RecipeListPaginated = () => {
           Recipe Collection
         </h1>
         {isSearching && data && (
-          <div className="flex items-center gap-2 text-sm text-default-500">
+          <div className="flex items-center gap-2 text-sm">
             <Spinner size="sm" />
             <span>Searching...</span>
           </div>
@@ -136,12 +136,8 @@ export const RecipeListPaginated = () => {
 
       {data?.recipes.length === 0 && query && (
         <div className="text-center py-12">
-          <p className="text-default-500 text-lg">
-            No recipes found for &quot;{query}&quot;
-          </p>
-          <p className="text-default-400 text-sm mt-2">
-            Try a different search term
-          </p>
+          <p className="text-lg">No recipes found for &quot;{query}&quot;</p>
+          <p className="text-sm mt-2">Try a different search term</p>
         </div>
       )}
     </section>
