@@ -7,6 +7,7 @@ const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN;
 // Track initialization state
 let isInitialized = false;
 
+//no tryCatchWithSentry here because it's a syncronous function
 export const initMixpanel = () => {
   if (!MIXPANEL_TOKEN) {
     console.warn("⚠️ Mixpanel token is missing! Analytics disabled.");
@@ -40,7 +41,7 @@ export const initMixpanel = () => {
   }
 };
 
-export const trackRecipeView = (recipeId: string, recipeName: string) => {
+export const trackRecipeView = async (recipeId: string, recipeName: string) => {
   if (!isInitialized) {
     console.warn(
       "⚠️ Mixpanel not initialized. Recipe view not tracked:",
@@ -49,41 +50,45 @@ export const trackRecipeView = (recipeId: string, recipeName: string) => {
     return;
   }
 
-  try {
-    mixpanel.track("Recipe View", {
-      recipe_id: recipeId,
-      recipe_name: recipeName,
-      timestamp: new Date().toISOString(),
-      url: window.location.href,
-    });
-    console.log("📊 Recipe view tracked:", recipeName);
-  } catch (error) {
-    console.error("❌ Failed to track recipe view:", error);
-  }
+  await tryCatchWithSentry(
+    Promise.resolve(
+      mixpanel.track("Recipe View", {
+        recipe_id: recipeId,
+        recipe_name: recipeName,
+        timestamp: new Date().toISOString(),
+        url: window.location.href,
+      }),
+    ),
+    { tags: { component: "mixpanel", operation: "trackRecipeView" } },
+  );
 };
 
-export const trackPageView = (page: string, path: string, locale?: string) => {
+export const trackPageView = async (
+  page: string,
+  path: string,
+  locale?: string,
+) => {
   if (!isInitialized) {
     console.warn("⚠️ Mixpanel not initialized. Page view not tracked:", page);
     return;
   }
 
-  try {
-    mixpanel.track("Page View", {
-      page,
-      path,
-      locale,
-      timestamp: new Date().toISOString(),
-      url: window.location.href,
-      referrer: document.referrer,
-    });
-    console.log("📄 Page view tracked:", page);
-  } catch (error) {
-    console.error("❌ Failed to track page view:", error);
-  }
+  await tryCatchWithSentry(
+    Promise.resolve(
+      mixpanel.track("Page View", {
+        page,
+        path,
+        locale,
+        timestamp: new Date().toISOString(),
+        url: window.location.href,
+        referrer: document.referrer,
+      }),
+    ),
+    { tags: { component: "mixpanel", operation: "trackPageView" } },
+  );
 };
 
-export const trackExperimentView = (
+export const trackExperimentView = async (
   experimentId: string,
   variationId: string,
   extra?: Record<string, unknown>,
@@ -96,19 +101,19 @@ export const trackExperimentView = (
     return;
   }
 
-  try {
-    mixpanel.track("Experiment Viewed", {
-      experiment_id: experimentId,
-      variation_id: variationId,
-      path:
-        typeof window !== "undefined" ? window.location.pathname : undefined,
-      timestamp: new Date().toISOString(),
-      ...extra,
-    });
-    console.log("🧪 Experiment exposure tracked:", experimentId, variationId);
-  } catch (error) {
-    console.error("❌ Failed to track experiment exposure:", error);
-  }
+  await tryCatchWithSentry(
+    Promise.resolve(
+      mixpanel.track("Experiment Viewed", {
+        experiment_id: experimentId,
+        variation_id: variationId,
+        path:
+          typeof window !== "undefined" ? window.location.pathname : undefined,
+        timestamp: new Date().toISOString(),
+        ...extra,
+      }),
+    ),
+    { tags: { component: "mixpanel", operation: "trackExperimentView" } },
+  );
 };
 
 export const trackWebVitals = async (metrics: Record<string, Metric>) => {
