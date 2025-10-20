@@ -10,9 +10,9 @@ export function configureServerSideGrowthBook() {
       fetch(url, {
         ...opts,
         next: {
-          // Cache feature definitions for 1 minute
+          // Cache feature definitions for 30 seconds
           // Implement SDK webhooks to revalidate on demand (see gb-revalidate route handler)
-          revalidate: 60,
+          revalidate: 30,
           tags: ["growthbook"],
         },
       }),
