@@ -7,7 +7,7 @@ import { HeroUIProvider } from "@heroui/system";
 import { notFound, useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { getQueryClient } from "@/shared/lib/get-query-client";
+import { getQueryClient } from "@/shared/lib/utils/get-query-client";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/shared/lib/i18n/routing";
 import { MixpanelInitializer } from "@/shared/lib/mixpanel/mixpanel-initializer";

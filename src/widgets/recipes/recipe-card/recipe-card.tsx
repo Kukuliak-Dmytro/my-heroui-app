@@ -9,7 +9,7 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 
 import { recipeQueryOptions } from "@/entities/api";
-import { getQueryClient } from "@/shared/lib/get-query-client";
+import { getQueryClient } from "@/shared/lib/utils/get-query-client";
 import { IRecipe } from "@/shared/interfaces/recipe";
 import { useTranslations } from "next-intl";
 

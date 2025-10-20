@@ -1,3 +1,3 @@
-export * from "./get-query-client";
-export * from "./http";
+export * from "./utils/get-query-client";
+export * from "./utils/fetcher";
 export * from "./growthbook";

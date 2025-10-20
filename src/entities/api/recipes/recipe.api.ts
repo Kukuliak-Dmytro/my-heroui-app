@@ -1,4 +1,4 @@
-import { http } from "@/shared/lib/http";
+import { http } from "@/shared/lib/utils/fetcher";
 import { IRecipeResponse, IRecipe } from "@/shared/interfaces/recipe";
 import * as Sentry from "@sentry/nextjs";
 

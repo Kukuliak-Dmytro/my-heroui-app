@@ -1,7 +1,7 @@
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 import { recipeQueryOptions } from "@/entities/api";
-import { getQueryClient } from "@/shared/lib/get-query-client";
+import { getQueryClient } from "@/shared/lib/utils/get-query-client";
 import { DetailedRecipeCard } from "@/widgets";
 import { ErrorBoundary } from "@/shared/ui";
 /**
