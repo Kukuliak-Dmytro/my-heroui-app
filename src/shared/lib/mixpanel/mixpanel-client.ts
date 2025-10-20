@@ -81,5 +81,33 @@ export const trackPageView = (page: string, path: string, locale?: string) => {
   }
 };
 
+export const trackExperimentView = (
+  experimentId: string,
+  variationId: string,
+  extra?: Record<string, unknown>,
+) => {
+  if (!isInitialized) {
+    console.warn(
+      "⚠️ Mixpanel not initialized. Experiment exposure not tracked:",
+      experimentId,
+    );
+    return;
+  }
+
+  try {
+    mixpanel.track("Experiment Viewed", {
+      experiment_id: experimentId,
+      variation_id: variationId,
+      path:
+        typeof window !== "undefined" ? window.location.pathname : undefined,
+      timestamp: new Date().toISOString(),
+      ...extra,
+    });
+    console.log("🧪 Experiment exposure tracked:", experimentId, variationId);
+  } catch (error) {
+    console.error("❌ Failed to track experiment exposure:", error);
+  }
+};
+
 // Check if Mixpanel is ready
 export const isMixpanelReady = () => isInitialized;
