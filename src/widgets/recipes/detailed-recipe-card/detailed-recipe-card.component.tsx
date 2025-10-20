@@ -9,7 +9,7 @@ import { Divider } from "@heroui/divider";
 import { Alert } from "@heroui/alert";
 import { Skeleton } from "@heroui/skeleton";
 import { Icon } from "@iconify/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { recipeQueryOptions } from "@/entities/api";
 import { useTranslations } from "next-intl";
@@ -17,13 +17,15 @@ import { trackRecipeView } from "@/shared/lib/mixpanel/mixpanel-client";
 
 export const DetailedRecipeCard = ({ id }: { id: string }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const hasTrackedRef = useRef(false);
   const t = useTranslations();
   const { data: recipe, isLoading, error } = useQuery(recipeQueryOptions(id));
 
-  // Track recipe view
+  // Track recipe view (with ref deduplication)
   useEffect(() => {
-    if (recipe) {
+    if (recipe && !hasTrackedRef.current) {
       trackRecipeView(recipe.id.toString(), recipe.name);
+      hasTrackedRef.current = true;
     }
   }, [recipe]);
 
@@ -47,7 +49,9 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
               </div>
             </div>
             <div className="lg:w-80 lg:flex-shrink-0">
-              <Skeleton className="w-full aspect-[4/3] lg:aspect-square rounded-lg" />
+              <Skeleton
+                className="w-full aspect-[4/3] lg:aspect-square rounded-lg"
+              />
             </div>
           </div>
 
@@ -59,8 +63,7 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
             {Array.from({ length: 4 }).map((_, index) => (
               <div
                 key={index}
-                className="text-center p-4 bg-default-50 rounded-lg"
-              >
+                className="text-center p-4 bg-default-50 rounded-lg">
                 <Skeleton className="w-6 h-6 mx-auto mb-2 rounded" />
                 <Skeleton className="h-3 w-16 mx-auto mb-1" />
                 <Skeleton className="h-4 w-12 mx-auto" />
@@ -114,8 +117,7 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
           cursor: "w-full bg-primary",
           tab: "max-w-fit px-6 h-12",
           tabContent: "group-data-[selected=true]:text-primary-foreground",
-        }}
-      >
+        }}>
         <Tab key="overview" title={t("recipe.overview")}>
           <Card className="mt-6">
             <CardBody className="p-6">
@@ -137,8 +139,7 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
                           : recipe.difficulty === "Medium"
                             ? "warning"
                             : "danger"
-                      }
-                    >
+                      }>
                       {recipe.difficulty}
                     </Badge>
                     {recipe.mealType.map((meal, index) => (
@@ -148,7 +149,9 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-6 text-sm text-foreground-600">
+                  <div
+                    className="flex items-center gap-6 text-sm
+                      text-foreground-600">
                     <div className="flex items-center gap-1">
                       <Icon
                         className="w-5 h-5 text-warning-500"
@@ -171,13 +174,17 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
 
                 <div className="lg:w-80 lg:flex-shrink-0">
                   {!imageLoaded && (
-                    <Skeleton className="w-full aspect-[4/3] lg:aspect-square rounded-lg" />
+                    <Skeleton
+                      className="w-full aspect-[4/3] lg:aspect-square
+                        rounded-lg"
+                    />
                   )}
                   <Image
                     alt={recipe.name}
-                    className={`w-full aspect-[4/3] lg:aspect-square object-cover rounded-lg transition-opacity duration-300 ${
-                      imageLoaded ? "opacity-100" : "opacity-0 absolute"
-                    }`}
+                    className={`w-full aspect-[4/3] lg:aspect-square
+                      object-cover rounded-lg transition-opacity duration-300 ${
+                        imageLoaded ? "opacity-100" : "opacity-0 absolute"
+                      }`}
                     fallbackSrc="https://via.placeholder.com/400x300?text=Recipe+Image"
                     src={recipe.image}
                     onLoad={() => setImageLoaded(true)}
@@ -258,8 +265,7 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
 
         <Tab
           key="ingredients"
-          title={`${t("recipe.ingredients")} (${recipe.ingredients.length})`}
-        >
+          title={`${t("recipe.ingredients")} (${recipe.ingredients.length})`}>
           <Card className="mt-6">
             <CardBody className="p-6">
               <h3 className="text-xl font-semibold mb-4">
@@ -269,8 +275,8 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
                 {recipe.ingredients.map((ingredient, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 p-3 bg-default-50 rounded-lg"
-                  >
+                    className="flex items-center gap-3 p-3 bg-default-50
+                      rounded-lg">
                     <Icon
                       className="w-5 h-5 text-success-500 flex-shrink-0"
                       icon="material-symbols:check-circle"
@@ -285,8 +291,7 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
 
         <Tab
           key="instructions"
-          title={`${t("recipe.instructions")} (${recipe.instructions.length} ${t("recipe.steps")})`}
-        >
+          title={`${t("recipe.instructions")} (${recipe.instructions.length} ${t("recipe.steps")})`}>
           <Card className="mt-6">
             <CardBody className="p-6">
               <h3 className="text-xl font-semibold mb-4">
@@ -295,7 +300,10 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
               <div className="space-y-4">
                 {recipe.instructions.map((instruction, index) => (
                   <div key={index} className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-semibold text-sm">
+                    <div
+                      className="flex-shrink-0 w-8 h-8 bg-primary
+                        text-primary-foreground rounded-full flex items-center
+                        justify-center font-semibold text-sm">
                       {index + 1}
                     </div>
                     <div className="flex-1 pt-1">

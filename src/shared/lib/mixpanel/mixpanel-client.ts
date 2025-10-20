@@ -1,4 +1,6 @@
 import mixpanel from "mixpanel-browser";
+import { tryCatchWithSentry } from "../utils/try-catch";
+import type { Metric } from "web-vitals";
 
 const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN;
 
@@ -107,6 +109,23 @@ export const trackExperimentView = (
   } catch (error) {
     console.error("❌ Failed to track experiment exposure:", error);
   }
+};
+
+export const trackWebVitals = async (metrics: Record<string, Metric>) => {
+  if (!isInitialized) {
+    console.warn("⚠️ Mixpanel not initialized. Web vitals not tracked");
+    return;
+  }
+
+  await tryCatchWithSentry(
+    Promise.resolve(
+      mixpanel.track("Web Vitals", {
+        metrics,
+        timestamp: new Date().toISOString(),
+      }),
+    ),
+    { tags: { component: "mixpanel", operation: "trackWebVitals" } },
+  );
 };
 
 // Check if Mixpanel is ready

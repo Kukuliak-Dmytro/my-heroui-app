@@ -37,8 +37,7 @@ export const LocaleSwitcher = () => {
       </DropdownTrigger>
       <DropdownMenu
         aria-label="Select language"
-        onAction={(key) => handleLocaleChange(key as string)}
-      >
+        onAction={(key) => handleLocaleChange(key as string)}>
         {LOCALES.map((locale) => (
           <DropdownItem key={locale.code} value={locale.code}>
             <span className="mr-2">{locale.flag}</span>

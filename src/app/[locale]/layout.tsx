@@ -47,11 +47,11 @@ export default async function RootLayout({
       <head />
       <body
         className={clsx(
-          "min-h-screen text-foreground bg-background font-comfortaa font-semibold antialiased",
+          `min-h-screen text-foreground bg-background font-comfortaa
+          font-semibold antialiased`,
           FONT_COMFORTAA.variable,
           FONT_QUICKSAND.variable,
-        )}
-      >
+        )}>
         <Providers
           themeProps={{
             attribute: "class",
@@ -59,11 +59,12 @@ export default async function RootLayout({
             enableSystem: true,
           }}
           locale={locale}
-          messages={messages}
-        >
+          messages={messages}>
           <div className="relative flex flex-col h-screen">
             <header className="sticky top-0 z-50 w-full">
-              <nav className="flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
+              <nav
+                className="flex items-center justify-between px-4 sm:px-6
+                  lg:px-8 h-16">
                 <div className="flex items-center gap-4">
                   <ThemeSwitch />
                   <LocaleSwitcher />

@@ -52,8 +52,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
           className,
           classNames?.base,
         ),
-      })}
-    >
+      })}>
       <VisuallyHidden>
         <input {...getInputProps()} />
       </VisuallyHidden>
@@ -73,8 +72,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
             ],
             classNames?.wrapper,
           ),
-        })}
-      >
+        })}>
         {!isSelected || isSSR ? (
           <SunFilledIcon size={22} />
         ) : (

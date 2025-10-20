@@ -56,8 +56,7 @@ const SearchbarWithStore = ({ placeholder, className }: ISearchbarProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={`flex items-top gap-2 ${className}`}
-    >
+      className={`flex items-top gap-2 ${className}`}>
       <Input
         {...register("query")}
         placeholder={placeholder || t("search.placeholder")}
@@ -78,8 +77,7 @@ const SearchbarWithStore = ({ placeholder, className }: ISearchbarProps) => {
         color="primary"
         isLoading={isLoading}
         disabled={!isValid || isLoading || queryValue.length < 2}
-        endContent={!isLoading && <Icon icon="mdi:search" />}
-      >
+        endContent={!isLoading && <Icon icon="mdi:search" />}>
         {isLoading ? t("search.searching") : t("search.button")}
       </Button>
     </form>
@@ -142,8 +140,7 @@ const SearchbarWithLocalState = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={`flex items-top gap-2 ${className}`}
-    >
+      className={`flex items-top gap-2 ${className}`}>
       <Input
         {...register("query")}
         placeholder={placeholder || t("search.placeholder")}
@@ -161,8 +158,7 @@ const SearchbarWithLocalState = ({
         color="primary"
         isLoading={isLoading}
         disabled={!isValid || isLoading || queryValue.length < 2}
-        endContent={!isLoading && <Icon icon="mdi:search" />}
-      >
+        endContent={!isLoading && <Icon icon="mdi:search" />}>
         {isLoading ? t("search.searching") : t("search.button")}
       </Button>
     </form>

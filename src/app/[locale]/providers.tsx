@@ -11,6 +11,16 @@ import { getQueryClient } from "@/shared/lib/utils/get-query-client";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/shared/lib/i18n/routing";
 import { MixpanelInitializer } from "@/shared/lib/mixpanel/mixpanel-initializer";
+import { initWebVitals } from "@/shared/lib/web-vitals/web-vitals";
+
+// WebVitals initializer component
+function WebVitalsInitializer() {
+  React.useEffect(() => {
+    initWebVitals();
+  }, []);
+
+  return null;
+}
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -48,9 +58,9 @@ export function Providers({
           <NextIntlClientProvider
             locale={locale}
             messages={messages}
-            timeZone={timeZone}
-          >
+            timeZone={timeZone}>
             <MixpanelInitializer />
+            <WebVitalsInitializer />
             {children}
           </NextIntlClientProvider>
         </QueryClientProvider>
