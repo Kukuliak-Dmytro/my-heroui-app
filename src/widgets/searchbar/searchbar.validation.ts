@@ -1,5 +1,14 @@
 import { z } from "zod";
 
+/**
+ * Creates a Zod validation schema for search form data.
+ *
+ * This function creates a validation schema with internationalized error messages
+ * for search form validation, including character limits and allowed characters.
+ *
+ * @param {function} t - Translation function for internationalized messages
+ * @returns {ZodObject} Zod schema object for search form validation
+ */
 export const createSearchFormSchema = (t: (key: string) => string) =>
   z.object({
     query: z

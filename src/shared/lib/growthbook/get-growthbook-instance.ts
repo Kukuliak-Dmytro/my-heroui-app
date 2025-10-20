@@ -3,6 +3,15 @@ import { cookies } from "next/headers";
 import { GB_UUID_COOKIE } from "@/middleware";
 import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
 
+/**
+ * Creates and initializes a GrowthBook instance for server-side feature flag evaluation.
+ *
+ * This function sets up a GrowthBook instance with the necessary configuration
+ * from environment variables, initializes it with a timeout, and sets user
+ * attributes from cookies. It uses tryCatchWithSentry for error handling.
+ *
+ * @returns {Promise<GrowthBook>} A promise that resolves to an initialized GrowthBook instance
+ */
 export async function getServerGrowthBook() {
   // Create and initialize a GrowthBook instance
   const gb = new GrowthBook({

@@ -17,7 +17,17 @@ interface ISearchbarProps {
   className?: string;
 }
 
-// Component that uses search store (when provider is available)
+/**
+ * Searchbar component that uses the search store for state management.
+ *
+ * This component provides a search input with form validation and automatic
+ * query synchronization with the URL. It includes loading states and error handling.
+ *
+ * @param {ISearchbarProps} props - Component props
+ * @param {string} [props.placeholder] - Placeholder text for the input
+ * @param {string} [props.className] - Additional CSS classes
+ * @returns {JSX.Element} The searchbar component
+ */
 const SearchbarWithStore = ({ placeholder, className }: ISearchbarProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const t = useTranslations();
@@ -84,7 +94,17 @@ const SearchbarWithStore = ({ placeholder, className }: ISearchbarProps) => {
   );
 };
 
-// Component that uses local state and navigation (when provider is not available)
+/**
+ * Searchbar component that uses local state for form management.
+ *
+ * This component provides search functionality without store integration,
+ * using local state and direct navigation for form handling.
+ *
+ * @param {ISearchbarProps} props - Component props
+ * @param {string} [props.placeholder] - Placeholder text for the input
+ * @param {string} [props.className] - Additional CSS classes
+ * @returns {JSX.Element} The local state searchbar component
+ */
 const SearchbarWithLocalState = ({
   placeholder,
   className,
@@ -165,7 +185,15 @@ const SearchbarWithLocalState = ({
   );
 };
 
-// Main component that chooses the right implementation
+/**
+ * Main searchbar component that chooses the appropriate implementation.
+ *
+ * This component automatically detects if a search store provider is available
+ * and renders the appropriate searchbar implementation accordingly.
+ *
+ * @param {ISearchbarProps} props - Component props
+ * @returns {JSX.Element} The appropriate searchbar implementation
+ */
 export const Searchbar = (props: ISearchbarProps) => {
   const searchStoreContext = useContext(SearchStoreContext);
 

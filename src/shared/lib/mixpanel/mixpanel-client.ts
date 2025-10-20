@@ -7,7 +7,15 @@ const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN;
 // Track initialization state
 let isInitialized = false;
 
-//no tryCatchWithSentry here because it's a syncronous function
+/**
+ * Initializes the Mixpanel analytics client.
+ *
+ * This function sets up Mixpanel with the token from environment variables.
+ * It configures the client with EU API host and disables autocapture for better control.
+ * The function is synchronous and uses traditional try-catch for error handling.
+ *
+ * @returns {boolean} True if initialization was successful, false otherwise
+ */
 export const initMixpanel = () => {
   if (!MIXPANEL_TOKEN) {
     console.warn("⚠️ Mixpanel token is missing! Analytics disabled.");
@@ -41,6 +49,17 @@ export const initMixpanel = () => {
   }
 };
 
+/**
+ * Tracks a recipe view event in Mixpanel analytics.
+ *
+ * This function sends a "Recipe View" event to Mixpanel with recipe details
+ * including ID, name, timestamp, and current URL. The function uses tryCatchWithSentry
+ * for automatic error reporting to Sentry.
+ *
+ * @param {string} recipeId - The unique identifier of the recipe
+ * @param {string} recipeName - The display name of the recipe
+ * @returns {Promise<void>} A promise that resolves when tracking is complete
+ */
 export const trackRecipeView = async (recipeId: string, recipeName: string) => {
   if (!isInitialized) {
     console.warn(
@@ -63,6 +82,18 @@ export const trackRecipeView = async (recipeId: string, recipeName: string) => {
   );
 };
 
+/**
+ * Tracks a page view event in Mixpanel analytics.
+ *
+ * This function sends a "Page View" event to Mixpanel with page details
+ * including page name, path, locale, timestamp, current URL, and referrer.
+ * The function uses tryCatchWithSentry for automatic error reporting to Sentry.
+ *
+ * @param {string} page - The name or identifier of the page
+ * @param {string} path - The URL path of the page
+ * @param {string} [locale] - Optional locale information
+ * @returns {Promise<void>} A promise that resolves when tracking is complete
+ */
 export const trackPageView = async (
   page: string,
   path: string,
@@ -88,6 +119,19 @@ export const trackPageView = async (
   );
 };
 
+/**
+ * Tracks an experiment view event in Mixpanel analytics.
+ *
+ * This function sends an "Experiment Viewed" event to Mixpanel with experiment
+ * details including experiment ID, variation ID, current path, timestamp, and
+ * any additional custom properties. The function uses tryCatchWithSentry for
+ * automatic error reporting to Sentry.
+ *
+ * @param {string} experimentId - The unique identifier of the experiment
+ * @param {string} variationId - The identifier of the variation being viewed
+ * @param {Record<string, unknown>} [extra] - Optional additional properties to track
+ * @returns {Promise<void>} A promise that resolves when tracking is complete
+ */
 export const trackExperimentView = async (
   experimentId: string,
   variationId: string,
@@ -116,6 +160,16 @@ export const trackExperimentView = async (
   );
 };
 
+/**
+ * Tracks web vitals metrics in Mixpanel analytics.
+ *
+ * This function sends a "Web Vitals" event to Mixpanel with performance metrics
+ * including Core Web Vitals and other performance measurements. The function uses
+ * tryCatchWithSentry for automatic error reporting to Sentry.
+ *
+ * @param {Record<string, Metric>} metrics - Object containing web vitals metrics
+ * @returns {Promise<void>} A promise that resolves when tracking is complete
+ */
 export const trackWebVitals = async (metrics: Record<string, Metric>) => {
   if (!isInitialized) {
     console.warn("⚠️ Mixpanel not initialized. Web vitals not tracked");
@@ -133,5 +187,12 @@ export const trackWebVitals = async (metrics: Record<string, Metric>) => {
   );
 };
 
-// Check if Mixpanel is ready
+/**
+ * Checks if Mixpanel is initialized and ready for tracking.
+ *
+ * This utility function returns the current initialization state of the Mixpanel client.
+ * It can be used to conditionally execute tracking code or show appropriate UI states.
+ *
+ * @returns {boolean} True if Mixpanel is initialized and ready, false otherwise
+ */
 export const isMixpanelReady = () => isInitialized;

@@ -15,6 +15,15 @@ const LOCALES = [
   { code: "ua", name: "Українська", flag: "🇺🇦" },
 ];
 
+/**
+ * Locale switcher component for changing application language.
+ *
+ * This component provides a dropdown interface for switching between
+ * available locales. It updates the URL and maintains the current page
+ * when changing languages.
+ *
+ * @returns {JSX.Element} The locale switcher component
+ */
 export const LocaleSwitcher = () => {
   const locale = useLocale();
   const router = useRouter();

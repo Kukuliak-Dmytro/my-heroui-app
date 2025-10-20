@@ -6,11 +6,14 @@ import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
 import { DetailedRecipeCard } from "@/widgets";
 import { ErrorBoundary } from "@/shared/ui";
 /**
- * SingleRecipePageComponent component for displaying the single recipe page
- * Server component that prefetches data
- * id passed as props from the page.tsx
- * @param id - Recipe ID
- * @returns SingleRecipePageComponent component
+ * Single recipe page component with server-side data prefetching.
+ *
+ * This component handles server-side data prefetching for a single recipe
+ * and renders the detailed recipe view with error boundary protection.
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.id - The unique identifier of the recipe
+ * @returns {Promise<JSX.Element>} The single recipe page component
  */
 
 export const SingleRecipePageComponent = async ({ id }: { id: string }) => {

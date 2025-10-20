@@ -26,8 +26,15 @@ interface IRecipesPageProps {
 }
 
 /**
- * RecipesPageComponent component for displaying the recipes page
- * @returns RecipesPageComponent component
+ * Main recipes page component with server-side data fetching.
+ *
+ * This component handles server-side data prefetching, GrowthBook configuration,
+ * and renders the recipes page with search and pagination functionality.
+ * It provides both paginated and infinite scroll views.
+ *
+ * @param {IRecipesPageProps} props - Component props
+ * @param {Object} props.searchParams - URL search parameters
+ * @returns {Promise<JSX.Element>} The recipes page component
  */
 export const RecipesPageComponent = async ({
   searchParams,

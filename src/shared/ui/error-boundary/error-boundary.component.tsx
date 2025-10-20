@@ -14,6 +14,18 @@ interface IErrorBoundaryState {
   error?: Error;
 }
 
+/**
+ * Error boundary component for catching and handling React errors.
+ *
+ * This component catches JavaScript errors anywhere in the child component tree,
+ * logs those errors, and displays a fallback UI instead of the component tree that crashed.
+ * It integrates with Sentry for error reporting.
+ *
+ * @param {IErrorBoundaryProps} props - Component props
+ * @param {ReactNode} props.children - Child components to wrap
+ * @param {ReactNode} [props.fallback] - Custom fallback UI to display on error
+ * @param {function} [props.onError] - Callback function called when an error occurs
+ */
 export class ErrorBoundary extends Component<
   IErrorBoundaryProps,
   IErrorBoundaryState

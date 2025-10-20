@@ -10,11 +10,19 @@ type SuccessResult<T> = readonly [T, null];
 type ErrorResult<E = Error> = readonly [null, E];
 
 type Result<T, E = Error> = SuccessResult<T> | ErrorResult<E>;
+
 /**
- * Wraps a promise in a try-catch block.
- * On success, it returns [data, null].
+ * Wraps a promise in a try-catch block using the Result pattern from Go/Rust.
+ *
+ * This function provides a functional approach to error handling by returning
+ * a tuple instead of throwing exceptions. On success, it returns [data, null].
  * On failure, it automatically reports the error to Sentry and returns [null, error].
- * On failure, just handle the UI, error handling is under the hood
+ *
+ * @template T - The type of data returned on success
+ * @template E - The type of error returned on failure (defaults to Error)
+ * @param promise - The promise to wrap in error handling
+ * @param sentryContext - Optional Sentry context for error reporting
+ * @returns A promise that resolves to a Result tuple: [data, null] on success or [null, error] on failure
  */
 export const tryCatchWithSentry = async <T, E = Error>(
   promise: Promise<T>,

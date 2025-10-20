@@ -13,7 +13,14 @@ import { routing } from "@/shared/lib/i18n/routing";
 import { MixpanelInitializer } from "@/shared/lib/mixpanel/mixpanel-initializer";
 import { initWebVitals } from "@/shared/lib/web-vitals/web-vitals";
 
-// WebVitals initializer component
+/**
+ * WebVitals initializer component for performance monitoring.
+ *
+ * This component initializes web vitals tracking on the client side
+ * to monitor Core Web Vitals metrics for performance analysis.
+ *
+ * @returns {null} This component renders nothing
+ */
 function WebVitalsInitializer() {
   React.useEffect(() => {
     initWebVitals();
@@ -37,6 +44,17 @@ declare module "@react-types/shared" {
   }
 }
 
+/**
+ * Main providers component that wraps the application with necessary context providers.
+ *
+ * This component provides all the necessary context providers including theme,
+ * internationalization, query client, and analytics initialization for the application.
+ *
+ * @param {Object} props - Component props
+ * @param {ReactNode} props.children - Child components to wrap
+ * @param {ThemeProviderProps} props.themeProps - Theme provider configuration
+ * @returns {JSX.Element} The providers wrapper component
+ */
 export function Providers({
   children,
   themeProps,

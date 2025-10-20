@@ -14,6 +14,17 @@ export interface ThemeSwitchProps {
   classNames?: SwitchProps["classNames"];
 }
 
+/**
+ * Theme switch component for toggling between light and dark modes.
+ *
+ * This component provides a switch interface for changing the application theme.
+ * It handles SSR considerations and provides visual feedback for the current theme.
+ *
+ * @param {ThemeSwitchProps} props - Component props
+ * @param {string} [props.className] - Additional CSS classes
+ * @param {SwitchProps["classNames"]} [props.classNames] - Custom class names for the switch
+ * @returns {JSX.Element} The theme switch component
+ */
 export const ThemeSwitch: FC<ThemeSwitchProps> = ({
   className,
   classNames,

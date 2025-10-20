@@ -10,6 +10,15 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchStore } from "@/features/search";
 import { PAGINATION_LIMIT } from "@/features/pagination/pagination.constants";
 
+/**
+ * Infinite scroll recipe list component with search functionality.
+ *
+ * This component displays recipes using infinite scroll pagination with
+ * search integration. It automatically loads more recipes as the user
+ * scrolls and handles loading states and error states.
+ *
+ * @returns {JSX.Element} The infinite scroll recipe list component
+ */
 export const RecipeListInfinite = () => {
   const query = useSearchStore((state) => state.query);
   const [isSearching, setIsSearching] = useState(false);

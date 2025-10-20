@@ -8,13 +8,29 @@ export const defaultInitState: SearchState = {
   query: SEARCH_DEFAULT_QUERY,
 };
 
+/**
+ * Initializes the search store with default state values.
+ *
+ * This function creates the initial state for the search store with default
+ * query values. It's used when setting up the store for the first time.
+ *
+ * @returns {SearchState} The initial search state
+ */
 export const initSearchStore = (): SearchState => {
   return {
     query: SEARCH_DEFAULT_QUERY,
   };
 };
 
-// Custom storage for URL query parameter synchronization
+/**
+ * Creates a custom storage implementation for URL query parameter synchronization.
+ *
+ * This function returns a storage-like object that reads from and writes to
+ * URL search parameters instead of localStorage. It handles browser environment
+ * checks and provides methods for getting, setting, and removing query parameters.
+ *
+ * @returns {Object} Storage-like object with getItem, setItem, and removeItem methods
+ */
 const createQueryParamStorage = () => {
   return {
     getItem: (key: string): string | null => {
@@ -48,6 +64,16 @@ const createQueryParamStorage = () => {
   };
 };
 
+/**
+ * Creates a Zustand store for managing search state and actions.
+ *
+ * This function creates a complete search store with state management and actions
+ * for updating the search query. The store automatically synchronizes with URL
+ * query parameters and provides methods for setting and clearing the search query.
+ *
+ * @param {SearchState} [initState=defaultInitState] - Initial state for the store
+ * @returns {StoreApi<SearchStore>} A Zustand store instance
+ */
 export const createSearchStore = (
   initState: SearchState = defaultInitState,
 ) => {

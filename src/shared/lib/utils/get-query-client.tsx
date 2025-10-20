@@ -1,5 +1,13 @@
 import { QueryClient, isServer } from "@tanstack/react-query";
 
+/**
+ * Creates a new QueryClient instance with optimized configuration.
+ *
+ * This function creates a QueryClient with specific settings for caching,
+ * refetching, and retry behavior optimized for the application's needs.
+ *
+ * @returns {QueryClient} A configured QueryClient instance
+ */
 function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
@@ -34,6 +42,15 @@ function makeQueryClient() {
 
 let browserQueryClient: QueryClient | undefined = undefined;
 
+/**
+ * Gets the appropriate QueryClient instance for the current environment.
+ *
+ * This function returns a server-side QueryClient for server components
+ * and a singleton browser QueryClient for client components to ensure
+ * proper data sharing and prevent unnecessary re-initialization.
+ *
+ * @returns {QueryClient} The appropriate QueryClient instance
+ */
 export function getQueryClient() {
   if (isServer) {
     // Server: always make a new query client

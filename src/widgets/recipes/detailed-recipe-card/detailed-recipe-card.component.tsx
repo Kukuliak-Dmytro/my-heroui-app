@@ -15,6 +15,18 @@ import { recipeQueryOptions } from "@/entities/api";
 import { useTranslations } from "next-intl";
 import { trackRecipeView } from "@/shared/lib/mixpanel/mixpanel-client";
 
+/**
+ * A detailed recipe card component that displays comprehensive recipe information.
+ *
+ * This component renders a full recipe view with tabs for overview, ingredients,
+ * and instructions. It includes recipe metadata, images, ratings, cooking times,
+ * and automatically tracks recipe views for analytics. The component handles
+ * loading states, error states, and provides a responsive design.
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.id - The unique identifier of the recipe to display
+ * @returns {JSX.Element} The detailed recipe card component
+ */
 export const DetailedRecipeCard = ({ id }: { id: string }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const hasTrackedRef = useRef(false);

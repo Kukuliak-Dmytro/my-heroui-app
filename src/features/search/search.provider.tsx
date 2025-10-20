@@ -27,6 +27,18 @@ export interface SearchStoreProviderProps {
   initialQuery?: string;
 }
 
+/**
+ * Provider component for search store context.
+ *
+ * This component provides the search store context to its children,
+ * initializing the store with URL query parameters and managing
+ * the store lifecycle.
+ *
+ * @param {Object} props - Component props
+ * @param {ReactNode} props.children - Child components
+ * @param {string} [props.initialQuery] - Initial search query
+ * @returns {JSX.Element} The search store provider
+ */
 export const SearchStoreProvider = ({
   children,
   initialQuery = "",
@@ -70,6 +82,17 @@ export const SearchStoreProvider = ({
   );
 };
 
+/**
+ * Hook for accessing the search store context.
+ *
+ * This hook provides access to the search store state and actions
+ * within components that are wrapped by the SearchStoreProvider.
+ *
+ * @template T - The type of the selected value
+ * @param {function} selector - Function to select specific state from the store
+ * @returns {T} The selected value from the store
+ * @throws {Error} Throws an error if used outside of SearchStoreProvider
+ */
 export const useSearchStore = <T,>(selector: (store: SearchStore) => T): T => {
   const searchStoreContext = useContext(SearchStoreContext);
 
