@@ -16,12 +16,12 @@ interface PaginationComponentProps {
  * This component provides pagination controls with page numbers, navigation buttons,
  * and handles page changes. It calculates total pages and manages pagination state.
  *
- * @param {PaginationComponentProps} props - Component props
- * @param {number} props.total - Total number of items
- * @param {number} props.page - Current page number
- * @param {number} [props.limit] - Number of items per page
- * @param {function} [props.onPageChange] - Callback function for page changes
- * @returns {JSX.Element} The pagination component
+ * @param props - Component props
+ * @param props.total - Total number of items
+ * @param props.page - Current page number
+ * @param props.limit - Number of items per page
+ * @param props.onPageChange - Callback function for page changes
+ * @returns The pagination component
  */
 export const PaginationComponent = ({
   total,

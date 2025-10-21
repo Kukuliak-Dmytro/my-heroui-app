@@ -11,8 +11,8 @@ import { trackExperimentView } from "@/shared/lib/mixpanel/mixpanel-client";
  * sessionStorage to track which experiments have been viewed and automatically
  * sends tracking data to Mixpanel.
  *
- * @param {Experiment} experiment - The experiment object from GrowthBook
- * @param {ExperimentResult} result - The result of the experiment evaluation
+ * @param experiment - The experiment object from GrowthBook
+ * @param result - The result of the experiment evaluation
  */
 export const onExperimentView: TrackingCallback = (experiment, result) => {
   const path = typeof window !== "undefined" ? window.location.pathname : "";
@@ -34,9 +34,9 @@ export const onExperimentView: TrackingCallback = (experiment, result) => {
  * and processes them on the client side to trigger experiment view tracking.
  * It handles the tracking asynchronously without rendering any UI.
  *
- * @param {Object} props - Component props
- * @param {TrackingData[]} props.data - Array of experiment tracking data from server
- * @returns {null} This component renders nothing
+ * @param props - Component props
+ * @param props.data - Array of experiment tracking data from server
+ * @returns This component renders nothing
  */
 export function GrowthBookTracking({ data }: { data: TrackingData[] }) {
   useEffect(() => {

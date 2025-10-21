@@ -3,6 +3,15 @@
 import { Spinner } from "@heroui/spinner";
 import { useTranslations } from "next-intl";
 
+/**
+ * Loading component for the recipes page.
+ *
+ * This component displays a loading spinner with accessibility features
+ * while the recipes page is loading. It includes screen reader support
+ * and proper ARIA attributes.
+ *
+ * @returns The loading component
+ */
 export default function Loading() {
   const t = useTranslations();
 

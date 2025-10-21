@@ -22,7 +22,7 @@ const LOCALES = [
  * available locales. It updates the URL and maintains the current page
  * when changing languages.
  *
- * @returns {JSX.Element} The locale switcher component
+ * @returns The locale switcher component
  */
 export const LocaleSwitcher = () => {
   const locale = useLocale();

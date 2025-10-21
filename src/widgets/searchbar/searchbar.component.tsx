@@ -23,10 +23,10 @@ interface ISearchbarProps {
  * This component provides a search input with form validation and automatic
  * query synchronization with the URL. It includes loading states and error handling.
  *
- * @param {ISearchbarProps} props - Component props
- * @param {string} [props.placeholder] - Placeholder text for the input
- * @param {string} [props.className] - Additional CSS classes
- * @returns {JSX.Element} The searchbar component
+ * @param props - Component props
+ * @param props.placeholder - Placeholder text for the input
+ * @param props.className - Additional CSS classes
+ * @returns The searchbar component
  */
 const SearchbarWithStore = ({ placeholder, className }: ISearchbarProps) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -100,10 +100,10 @@ const SearchbarWithStore = ({ placeholder, className }: ISearchbarProps) => {
  * This component provides search functionality without store integration,
  * using local state and direct navigation for form handling.
  *
- * @param {ISearchbarProps} props - Component props
- * @param {string} [props.placeholder] - Placeholder text for the input
- * @param {string} [props.className] - Additional CSS classes
- * @returns {JSX.Element} The local state searchbar component
+ * @param props - Component props
+ * @param props.placeholder - Placeholder text for the input
+ * @param props.className - Additional CSS classes
+ * @returns The local state searchbar component
  */
 const SearchbarWithLocalState = ({
   placeholder,
@@ -191,8 +191,8 @@ const SearchbarWithLocalState = ({
  * This component automatically detects if a search store provider is available
  * and renders the appropriate searchbar implementation accordingly.
  *
- * @param {ISearchbarProps} props - Component props
- * @returns {JSX.Element} The appropriate searchbar implementation
+ * @param props - Component props
+ * @returns The appropriate searchbar implementation
  */
 export const Searchbar = (props: ISearchbarProps) => {
   const searchStoreContext = useContext(SearchStoreContext);

@@ -13,7 +13,7 @@ import {
  * tracks the initial page view. It runs once when the component mounts
  * and doesn't render any UI.
  *
- * @returns {null} This component renders nothing
+ * @returns This component renders nothing
  */
 export function MixpanelInitializer() {
   useEffect(() => {

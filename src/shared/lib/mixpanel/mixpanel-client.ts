@@ -14,7 +14,7 @@ let isInitialized = false;
  * It configures the client with EU API host and disables autocapture for better control.
  * The function is synchronous and uses traditional try-catch for error handling.
  *
- * @returns {boolean} True if initialization was successful, false otherwise
+ * @returns True if initialization was successful, false otherwise
  */
 export const initMixpanel = () => {
   if (!MIXPANEL_TOKEN) {
@@ -30,17 +30,12 @@ export const initMixpanel = () => {
       autocapture: false, // Disable autocapture for better control
       debug: false, // Disable debug logging
       // this shit's required
+      //you'd think if no api is provided, it will default to the cloud,
+      //but no, if you don't specify the host here, it will not display anything
       api_host: "https://api-eu.mixpanel.com",
     });
 
     isInitialized = true;
-    console.log("✅ Mixpanel initialized successfully");
-
-    // Test event to verify setup
-    mixpanel.track("Mixpanel Initialized", {
-      timestamp: new Date().toISOString(),
-      environment: process.env.NODE_ENV,
-    });
 
     return true;
   } catch (error) {
@@ -56,9 +51,9 @@ export const initMixpanel = () => {
  * including ID, name, timestamp, and current URL. The function uses tryCatchWithSentry
  * for automatic error reporting to Sentry.
  *
- * @param {string} recipeId - The unique identifier of the recipe
- * @param {string} recipeName - The display name of the recipe
- * @returns {Promise<void>} A promise that resolves when tracking is complete
+ * @param recipeId - The unique identifier of the recipe
+ * @param recipeName - The display name of the recipe
+ * @returns A promise that resolves when tracking is complete
  */
 export const trackRecipeView = async (recipeId: string, recipeName: string) => {
   if (!isInitialized) {
@@ -89,10 +84,10 @@ export const trackRecipeView = async (recipeId: string, recipeName: string) => {
  * including page name, path, locale, timestamp, current URL, and referrer.
  * The function uses tryCatchWithSentry for automatic error reporting to Sentry.
  *
- * @param {string} page - The name or identifier of the page
- * @param {string} path - The URL path of the page
- * @param {string} [locale] - Optional locale information
- * @returns {Promise<void>} A promise that resolves when tracking is complete
+ * @param page - The name or identifier of the page
+ * @param path - The URL path of the page
+ * @param locale - Optional locale information
+ * @returns A promise that resolves when tracking is complete
  */
 export const trackPageView = async (
   page: string,
@@ -127,10 +122,10 @@ export const trackPageView = async (
  * any additional custom properties. The function uses tryCatchWithSentry for
  * automatic error reporting to Sentry.
  *
- * @param {string} experimentId - The unique identifier of the experiment
- * @param {string} variationId - The identifier of the variation being viewed
- * @param {Record<string, unknown>} [extra] - Optional additional properties to track
- * @returns {Promise<void>} A promise that resolves when tracking is complete
+ * @param experimentId - The unique identifier of the experiment
+ * @param variationId - The identifier of the variation being viewed
+ * @param extra - Optional additional properties to track
+ * @returns A promise that resolves when tracking is complete
  */
 export const trackExperimentView = async (
   experimentId: string,
@@ -167,8 +162,8 @@ export const trackExperimentView = async (
  * including Core Web Vitals and other performance measurements. The function uses
  * tryCatchWithSentry for automatic error reporting to Sentry.
  *
- * @param {Record<string, Metric>} metrics - Object containing web vitals metrics
- * @returns {Promise<void>} A promise that resolves when tracking is complete
+ * @param metrics - Object containing web vitals metrics
+ * @returns A promise that resolves when tracking is complete
  */
 export const trackWebVitals = async (metrics: Record<string, Metric>) => {
   if (!isInitialized) {
@@ -193,6 +188,6 @@ export const trackWebVitals = async (metrics: Record<string, Metric>) => {
  * This utility function returns the current initialization state of the Mixpanel client.
  * It can be used to conditionally execute tracking code or show appropriate UI states.
  *
- * @returns {boolean} True if Mixpanel is initialized and ready, false otherwise
+ * @returns True if Mixpanel is initialized and ready, false otherwise
  */
 export const isMixpanelReady = () => isInitialized;

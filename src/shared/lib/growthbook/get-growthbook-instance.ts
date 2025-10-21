@@ -10,7 +10,7 @@ import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
  * from environment variables, initializes it with a timeout, and sets user
  * attributes from cookies. It uses tryCatchWithSentry for error handling.
  *
- * @returns {Promise<GrowthBook>} A promise that resolves to an initialized GrowthBook instance
+ * @returns A promise that resolves to an initialized GrowthBook instance
  */
 export async function getServerGrowthBook() {
   // Create and initialize a GrowthBook instance

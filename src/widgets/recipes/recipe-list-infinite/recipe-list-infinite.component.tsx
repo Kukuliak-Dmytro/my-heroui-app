@@ -17,7 +17,7 @@ import { PAGINATION_LIMIT } from "@/features/pagination/pagination.constants";
  * search integration. It automatically loads more recipes as the user
  * scrolls and handles loading states and error states.
  *
- * @returns {JSX.Element} The infinite scroll recipe list component
+ * @returns The infinite scroll recipe list component
  */
 export const RecipeListInfinite = () => {
   const query = useSearchStore((state) => state.query);

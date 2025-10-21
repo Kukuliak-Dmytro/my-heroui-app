@@ -25,9 +25,9 @@ export interface PaginationStoreProviderProps {
  * This component provides the pagination store context to its children,
  * initializing the store with default values and managing the store lifecycle.
  *
- * @param {Object} props - Component props
- * @param {ReactNode} props.children - Child components
- * @returns {JSX.Element} The pagination store provider
+ * @param props - Component props
+ * @param props.children - Child components
+ * @returns The pagination store provider
  */
 export const PaginationStoreProvider = ({
   children,
@@ -51,9 +51,9 @@ export const PaginationStoreProvider = ({
  * within components that are wrapped by the PaginationStoreProvider.
  *
  * @template T - The type of the selected value
- * @param {function} selector - Function to select specific state from the store
- * @returns {T} The selected value from the store
- * @throws {Error} Throws an error if used outside of PaginationStoreProvider
+ * @param selector - Function to select specific state from the store
+ * @returns The selected value from the store
+ * @throws Throws an error if used outside of PaginationStoreProvider
  */
 export const usePaginationStore = <T,>(
   selector: (store: PaginationStore) => T,

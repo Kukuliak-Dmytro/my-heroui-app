@@ -4,6 +4,16 @@ import * as Sentry from "@sentry/nextjs";
 import NextError from "next/error";
 import { useEffect } from "react";
 
+/**
+ * Global error boundary component for handling unhandled errors.
+ *
+ * This component catches errors that occur anywhere in the application
+ * and reports them to Sentry. It provides a fallback UI when the
+ * application encounters an unhandled error.
+ *
+ * @param error - The error object with optional digest
+ * @returns The global error component
+ */
 export default function GlobalError({
   error,
 }: {

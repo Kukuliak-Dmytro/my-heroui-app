@@ -9,12 +9,9 @@ import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
  * capabilities. It uses tryCatchWithSentry for automatic error reporting and returns
  * a structured response containing recipes and pagination metadata.
  *
- * @param {Object} params - Search and pagination parameters
- * @param {number} params.limit - Maximum number of recipes to return per page
- * @param {number} params.skip - Number of recipes to skip (for pagination)
- * @param {string} params.search - Search query to filter recipes
- * @returns {Promise<IRecipeResponse>} Promise that resolves to recipe response data
- * @throws {Error} Throws an error if the API request fails
+ * @param params - Search and pagination parameters
+ * @returns Promise that resolves to recipe response data
+ * @throws Throws an error if the API request fails
  */
 export const getRecipes = async (params: {
   limit: number;
@@ -49,9 +46,9 @@ export const getRecipes = async (params: {
  * DummyJSON API. It uses tryCatchWithSentry for automatic error reporting and
  * returns the complete recipe data including ingredients, instructions, and metadata.
  *
- * @param {string} id - The unique identifier of the recipe to fetch
- * @returns {Promise<IRecipe>} Promise that resolves to the recipe data
- * @throws {Error} Throws an error if the API request fails or recipe is not found
+ * @param id - The unique identifier of the recipe to fetch
+ * @returns Promise that resolves to the recipe data
+ * @throws Throws an error if the API request fails or recipe is not found
  */
 export const getRecipe = async (id: string) => {
   const [data] = await tryCatchWithSentry(

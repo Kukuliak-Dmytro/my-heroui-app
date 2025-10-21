@@ -4,6 +4,13 @@ import * as Sentry from "@sentry/nextjs";
 //since we don't have auth, we can have one client being used both on the server and the client
 //this will allow us to prefetch data on the server and use the same client on the client
 
+/**
+ * HTTP client instance configured for the DummyJSON API.
+ *
+ * This client is configured with timeout, retry logic, and Sentry
+ * error reporting. It can be used on both server and client side
+ * for consistent API communication.
+ */
 export const http = ky.create({
   prefixUrl: "https://dummyjson.com/recipes",
   timeout: 10000,

@@ -1,3 +1,9 @@
+/**
+ * Search feature re-exports.
+ *
+ * This file re-exports all search-related components, hooks, and types
+ * for convenient importing throughout the application.
+ */
 export {
   SearchStoreProvider,
   useSearchStore,

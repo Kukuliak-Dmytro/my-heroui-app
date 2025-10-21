@@ -3,6 +3,15 @@ import { Searchbar } from "@/widgets/searchbar";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 
+/**
+ * Home page component with search functionality.
+ *
+ * This is the main landing page that displays the application title,
+ * description, and provides access to the recipe search functionality.
+ * It includes internationalization support and a search bar.
+ *
+ * @returns The home page component
+ */
 export default async function Home() {
   const t = await getTranslations();
 

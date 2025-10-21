@@ -21,10 +21,10 @@ interface IErrorBoundaryState {
  * logs those errors, and displays a fallback UI instead of the component tree that crashed.
  * It integrates with Sentry for error reporting.
  *
- * @param {IErrorBoundaryProps} props - Component props
- * @param {ReactNode} props.children - Child components to wrap
- * @param {ReactNode} [props.fallback] - Custom fallback UI to display on error
- * @param {function} [props.onError] - Callback function called when an error occurs
+ * @param props - Component props
+ * @param props.children - Child components to wrap
+ * @param props.fallback - Custom fallback UI to display on error
+ * @param props.onError - Callback function called when an error occurs
  */
 export class ErrorBoundary extends Component<
   IErrorBoundaryProps,

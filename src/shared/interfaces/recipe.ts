@@ -1,3 +1,10 @@
+/**
+ * Recipe interface defining the structure of recipe data.
+ *
+ * This interface describes the complete structure of a recipe object,
+ * including all metadata, ingredients, instructions, and nutritional
+ * information. It's used throughout the application for type safety.
+ */
 export interface IRecipe {
   id: number;
   name: string;

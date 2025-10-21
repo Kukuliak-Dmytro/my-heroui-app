@@ -11,9 +11,9 @@ import { ErrorBoundary } from "@/shared/ui";
  * This component handles server-side data prefetching for a single recipe
  * and renders the detailed recipe view with error boundary protection.
  *
- * @param {Object} props - Component props
- * @param {string} props.id - The unique identifier of the recipe
- * @returns {Promise<JSX.Element>} The single recipe page component
+ * @param props - Component props
+ * @param props.id - The unique identifier of the recipe
+ * @returns The single recipe page component
  */
 
 export const SingleRecipePageComponent = async ({ id }: { id: string }) => {

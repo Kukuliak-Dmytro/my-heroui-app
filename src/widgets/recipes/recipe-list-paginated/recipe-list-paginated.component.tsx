@@ -15,7 +15,7 @@ import { useSearchStore } from "@/features/search";
  * This component displays a paginated list of recipes with search integration.
  * It handles loading states, error states, and provides pagination controls.
  *
- * @returns {JSX.Element} The paginated recipe list component
+ * @returns The paginated recipe list component
  */
 export const RecipeListPaginated = () => {
   const query = useSearchStore((state) => state.query);

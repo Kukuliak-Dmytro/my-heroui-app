@@ -4,6 +4,15 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
+/**
+ * Moon filled icon component for dark mode toggle.
+ *
+ * This icon is used in the theme switcher to represent the dark mode option.
+ * It's a filled moon icon that provides clear visual indication of the dark theme.
+ *
+ * @param props - SVG props and custom size
+ * @returns The moon filled icon component
+ */
 export const MoonFilledIcon = ({
   size = 24,
   width,

@@ -4,6 +4,13 @@
 
 import * as Sentry from "@sentry/nextjs";
 
+/**
+ * Sentry server-side configuration.
+ *
+ * This configuration initializes Sentry for server-side error tracking
+ * and performance monitoring. It sets up DSN, sampling rates, and other
+ * server-specific Sentry options.
+ */
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 

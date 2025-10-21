@@ -28,7 +28,7 @@ export function initWebVitals() {
  * metrics have been collected. When complete, it sends the metrics
  * to analytics for tracking.
  *
- * @param {Metric} metric - The web vital metric to collect
+ * @param metric - The web vital metric to collect
  */
 async function collectMetric(metric: Metric) {
   metrics[metric.name] = metric;

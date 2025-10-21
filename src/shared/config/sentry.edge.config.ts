@@ -5,6 +5,13 @@
 
 import * as Sentry from "@sentry/nextjs";
 
+/**
+ * Sentry edge runtime configuration.
+ *
+ * This configuration initializes Sentry for edge features including
+ * middleware and edge routes. It provides error tracking and monitoring
+ * for edge runtime environments.
+ */
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 

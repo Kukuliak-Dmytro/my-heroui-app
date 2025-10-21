@@ -11,6 +11,12 @@ import { FONT_COMFORTAA, FONT_QUICKSAND } from "@/shared/config/fonts";
 import { ThemeSwitch } from "@/features/theme-switch";
 import { LocaleSwitcher } from "@/features/locale-switcher";
 import { routing } from "@/shared/lib/i18n/routing";
+/**
+ * Root layout metadata configuration for the application.
+ *
+ * This metadata object defines the default title, description, icons,
+ * and other SEO-related information for the application.
+ */
 export const metadata: Metadata = {
   title: {
     default: SITE_CONFIG.name,

@@ -17,7 +17,7 @@ export const defaultInitState: PaginationState = {
  * This function creates the initial state for the pagination store with default
  * values for page, limit, skip, and total count.
  *
- * @returns {PaginationState} The initial pagination state
+ * @returns The initial pagination state
  */
 export const initPaginationStore = (): PaginationState => {
   return {
@@ -35,8 +35,8 @@ export const initPaginationStore = (): PaginationState => {
  * for updating page, limit, skip, and total values. It provides methods for
  * pagination navigation and state updates.
  *
- * @param {PaginationState} [initState=defaultInitState] - Initial state for the store
- * @returns {StoreApi<PaginationStore>} A Zustand store instance
+ * @param initState - Initial state for the store
+ * @returns A Zustand store instance
  */
 export const createPaginationStore = (
   initState: PaginationState = defaultInitState,

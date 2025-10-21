@@ -6,7 +6,7 @@ import { setPolyfills, configureCache } from "@growthbook/growthbook";
  * This function sets up polyfills and caching configuration for GrowthBook
  * to work properly in server-side environments with Next.js caching.
  *
- * @returns {void}
+ * @returns
  */
 export function configureServerSideGrowthBook() {
   // Tag fetch requests so they can be revalidated on demand

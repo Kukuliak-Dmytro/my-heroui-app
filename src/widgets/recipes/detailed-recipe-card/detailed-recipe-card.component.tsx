@@ -23,9 +23,9 @@ import { trackRecipeView } from "@/shared/lib/mixpanel/mixpanel-client";
  * and automatically tracks recipe views for analytics. The component handles
  * loading states, error states, and provides a responsive design.
  *
- * @param {Object} props - Component props
- * @param {string} props.id - The unique identifier of the recipe to display
- * @returns {JSX.Element} The detailed recipe card component
+ * @param props - Component props
+ * @param props.id - The unique identifier of the recipe to display
+ * @returns The detailed recipe card component
  */
 export const DetailedRecipeCard = ({ id }: { id: string }) => {
   const [imageLoaded, setImageLoaded] = useState(false);

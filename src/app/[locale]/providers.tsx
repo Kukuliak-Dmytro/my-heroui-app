@@ -19,7 +19,7 @@ import { initWebVitals } from "@/shared/lib/web-vitals/web-vitals";
  * This component initializes web vitals tracking on the client side
  * to monitor Core Web Vitals metrics for performance analysis.
  *
- * @returns {null} This component renders nothing
+ * @returns This component renders nothing
  */
 function WebVitalsInitializer() {
   React.useEffect(() => {
@@ -50,10 +50,10 @@ declare module "@react-types/shared" {
  * This component provides all the necessary context providers including theme,
  * internationalization, query client, and analytics initialization for the application.
  *
- * @param {Object} props - Component props
- * @param {ReactNode} props.children - Child components to wrap
- * @param {ThemeProviderProps} props.themeProps - Theme provider configuration
- * @returns {JSX.Element} The providers wrapper component
+ * @param props - Component props
+ * @param props.children - Child components to wrap
+ * @param props.themeProps - Theme provider configuration
+ * @returns The providers wrapper component
  */
 export function Providers({
   children,

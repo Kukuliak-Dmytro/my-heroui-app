@@ -7,6 +7,16 @@ const intlMiddleware = createMiddleware(routing);
 // Ensure a UUID cookie is always set to enable experimentation
 export const GB_UUID_COOKIE = "gb-heroui-userId";
 
+/**
+ * Next.js middleware for internationalization and experimentation.
+ *
+ * This middleware handles internationalization routing and ensures
+ * a UUID cookie is set for GrowthBook experimentation. It processes
+ * all incoming requests and applies the necessary transformations.
+ *
+ * @param request - The incoming Next.js request
+ * @returns The processed response with internationalization and UUID cookie
+ */
 export default function middleware(request: NextRequest) {
   // Generate a UUID if it doesn't exist yet
   let uuid = request.cookies.get(GB_UUID_COOKIE)?.value;

@@ -16,11 +16,11 @@ export const RECIPE_QUERY_KEYS = {
  * This function creates query options for React Query to fetch recipes
  * with pagination and search parameters.
  *
- * @param {Object} params - Query parameters
- * @param {number} params.limit - Maximum number of recipes to return
- * @param {number} params.skip - Number of recipes to skip
- * @param {string} params.search - Search query string
- * @returns {QueryOptions} React Query options object
+ * @param params - Query parameters
+ * @param params.limit - Maximum number of recipes to return
+ * @param params.skip - Number of recipes to skip
+ * @param params.search - Search query string
+ * @returns React Query options object
  */
 export const recipesQueryOptions = (params: {
   limit: number;
@@ -45,8 +45,8 @@ export const recipesQueryOptions = (params: {
  * This function creates query options for React Query to fetch a single
  * recipe with the specified ID.
  *
- * @param {string} id - The unique identifier of the recipe
- * @returns {QueryOptions} React Query options object
+ * @param id - The unique identifier of the recipe
+ * @returns React Query options object
  */
 export const recipeQueryOptions = (id: string) => {
   return queryOptions({
@@ -64,10 +64,10 @@ export const recipeQueryOptions = (id: string) => {
  * recipes with infinite scroll functionality, automatically loading more
  * data as the user scrolls.
  *
- * @param {Object} params - Query parameters
- * @param {number} params.limit - Number of recipes per page
- * @param {string} params.search - Search query string
- * @returns {InfiniteQueryOptions} React Query infinite query options object
+ * @param params - Query parameters
+ * @param params.limit - Number of recipes per page
+ * @param params.search - Search query string
+ * @returns React Query infinite query options object
  */
 export const recipesInfiniteQueryOptions = (params: {
   limit: number;
