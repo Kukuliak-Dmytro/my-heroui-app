@@ -8,8 +8,8 @@ import { Providers } from "./providers";
 
 import { SITE_CONFIG } from "@/shared/config/site";
 import { FONT_COMFORTAA, FONT_QUICKSAND } from "@/shared/config/fonts";
-import { ThemeSwitch } from "@/features/theme-switch";
-import { LocaleSwitcher } from "@/features/locale-switcher";
+import { ThemeSwitch } from "@/features/theme-switch/theme-switch.component";
+import { LocaleSwitcher } from "@/features/locale-switcher/locale-switcher.component";
 import { routing } from "@/shared/lib/i18n/routing";
 /**
  * Root layout metadata configuration for the application.

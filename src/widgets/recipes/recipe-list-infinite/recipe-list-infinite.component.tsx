@@ -1,7 +1,7 @@
 "use client";
 import { recipesInfiniteQueryOptions } from "@/entities/api";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { RecipeCard } from "../recipe-card";
+import { RecipeCard } from "../recipe-card/recipe-card";
 import { Skeleton } from "@heroui/skeleton";
 import { Alert } from "@heroui/alert";
 import { Spinner } from "@heroui/spinner";

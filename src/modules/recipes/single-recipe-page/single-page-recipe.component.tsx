@@ -4,7 +4,7 @@ import { recipeQueryOptions } from "@/entities/api";
 import { getQueryClient } from "@/shared/lib/utils/get-query-client";
 import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
 import { DetailedRecipeCard } from "@/widgets";
-import { ErrorBoundary } from "@/shared/ui";
+import { ErrorBoundary } from "@/shared/ui/error-boundary/error-boundary.component";
 /**
  * Single recipe page component with server-side data prefetching.
  *
