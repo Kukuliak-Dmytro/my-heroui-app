@@ -15,11 +15,7 @@ interface IErrorBoundaryState {
 }
 
 /**
- * Error boundary component for catching and handling React errors.
- *
- * This component catches JavaScript errors anywhere in the child component tree,
- * logs those errors, and displays a fallback UI instead of the component tree that crashed.
- * It integrates with Sentry for error reporting.
+ * Simple error boundary component for catching React errors.
  *
  * @param props - Component props
  * @param props.children - Child components to wrap
@@ -36,32 +32,25 @@ export class ErrorBoundary extends Component<
   }
 
   static getDerivedStateFromError(error: Error): IErrorBoundaryState {
-    // Update state so the next render will show the fallback UI
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Capture the error with Sentry
+    // Log to Sentry
     Sentry.captureException(error, {
-      tags: {
-        component: "error-boundary",
-      },
-      extra: {
-        errorInfo,
-        errorBoundary: this.constructor.name,
-      },
+      tags: { component: "error-boundary" },
+      extra: { errorInfo },
     });
 
-    // Call custom error handler if provided
+    // Call custom error handler
     this.props.onError?.(error, errorInfo);
 
-    // Log error for debugging
+    // Log for debugging
     console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
       return (
         this.props.fallback || (
           <div className="flex min-h-[200px] items-center justify-center rounded-lg border border-red-200 bg-red-50 p-8">
@@ -70,9 +59,13 @@ export class ErrorBoundary extends Component<
                 Something went wrong
               </h2>
               <p className="text-red-600 mb-4">
-                We're sorry, but something unexpected happened. Please try
-                refreshing the page.
+                We're sorry, but something unexpected happened.
               </p>
+              <button
+                onClick={() => this.setState({ hasError: false })}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors mr-2">
+                Retry
+              </button>
               <button
                 onClick={() => window.location.reload()}
                 className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors">

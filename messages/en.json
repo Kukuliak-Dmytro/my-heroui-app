@@ -1,70 +1,74 @@
 {
-    "common": {
-        "loading": "Loading...",
-        "error": "Error",
-        "tryAgain": "Try again",
-        "somethingWentWrong": "Something went wrong!"
-    },
-    "nav": {
-        "home": "Home",
-        "recipes": "Recipes",
-        "allRecipes": "All Recipes"
-    },
-    "home": {
-        "title": "Welcome to the Recipe Collection!",
-        "description": "Discover and explore delicious recipes from around the world.",
-        "viewAllRecipes": "View All Recipes",
-        "searchPrompt": "Search for recipes by name, ingredients, or cuisine.",
-        "loadingSearch": "Loading search..."
-    },
-    "search": {
-        "placeholder": "Search recipes...",
-        "button": "Search",
-        "searching": "Searching...",
-        "validation": {
-            "maxLength": "Search query must be less than 100 characters",
-            "invalidCharacters": "Search query contains invalid characters"
-        }
-    },
-    "recipes": {
-        "title": "Recipes",
-        "loadingRecipes": "Loading recipes...",
-        "noRecipesFound": "No recipes found",
-        "errorLoading": "Error loading recipes"
-    },
-    "recipe": {
-        "overview": "Overview",
-        "ingredients": "Ingredients",
-        "instructions": "Instructions",
-        "steps": "steps",
-        "tags": "Tags",
-        "reviews": "reviews",
-        "prepTime": "Prep Time",
-        "cookTime": "Cook Time",
-        "totalTime": "Total Time",
-        "servings": "Servings",
-        "min": "min",
-        "prep": "Prep",
-        "cook": "Cook",
-        "caloriesPerServing": "cal/serving",
-        "notFound": {
-            "title": "Recipe Not Found",
-            "description": "The requested recipe could not be found."
-        },
-        "error": {
-            "title": "Error Loading Recipe",
-            "description": "Failed to load recipe details"
-        }
-    },
-    "pagination": {
-        "previous": "Previous",
-        "next": "Next",
-        "page": "Page",
-        "of": "of"
-    },
-    "difficulty": {
-        "Easy": "Easy",
-        "Medium": "Medium",
-        "Hard": "Hard"
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "tryAgain": "Try again",
+    "somethingWentWrong": "Something went wrong!",
+    "errorTitle": "Something went wrong",
+    "errorDescription": "We're sorry, but something unexpected happened. Please try refreshing the page.",
+    "refreshPage": "Refresh Page",
+    "retry": "Retry"
+  },
+  "nav": {
+    "home": "Home",
+    "recipes": "Recipes",
+    "allRecipes": "All Recipes"
+  },
+  "home": {
+    "title": "Welcome to the Recipe Collection!",
+    "description": "Discover and explore delicious recipes from around the world.",
+    "viewAllRecipes": "View All Recipes",
+    "searchPrompt": "Search for recipes by name, ingredients, or cuisine.",
+    "loadingSearch": "Loading search..."
+  },
+  "search": {
+    "placeholder": "Search recipes...",
+    "button": "Search",
+    "searching": "Searching...",
+    "validation": {
+      "maxLength": "Search query must be less than 100 characters",
+      "invalidCharacters": "Search query contains invalid characters"
     }
+  },
+  "recipes": {
+    "title": "Recipes",
+    "loadingRecipes": "Loading recipes...",
+    "noRecipesFound": "No recipes found",
+    "errorLoading": "Error loading recipes"
+  },
+  "recipe": {
+    "overview": "Overview",
+    "ingredients": "Ingredients",
+    "instructions": "Instructions",
+    "steps": "steps",
+    "tags": "Tags",
+    "reviews": "reviews",
+    "prepTime": "Prep Time",
+    "cookTime": "Cook Time",
+    "totalTime": "Total Time",
+    "servings": "Servings",
+    "min": "min",
+    "prep": "Prep",
+    "cook": "Cook",
+    "caloriesPerServing": "cal/serving",
+    "notFound": {
+      "title": "Recipe Not Found",
+      "description": "The requested recipe could not be found."
+    },
+    "error": {
+      "title": "Error Loading Recipe",
+      "description": "Failed to load recipe details"
+    }
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of"
+  },
+  "difficulty": {
+    "Easy": "Easy",
+    "Medium": "Medium",
+    "Hard": "Hard"
+  }
 }
