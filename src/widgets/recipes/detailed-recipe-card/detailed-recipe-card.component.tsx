@@ -25,13 +25,24 @@ import { trackRecipeView } from "@/shared/lib/mixpanel/mixpanel-client";
  *
  * @param props - Component props
  * @param props.id - The unique identifier of the recipe to display
+ * @param props.isLoading - Whether to show loading skeleton (optional)
  * @returns The detailed recipe card component
  */
-export const DetailedRecipeCard = ({ id }: { id: string }) => {
+export const DetailedRecipeCard = ({
+  id,
+  isLoading = false,
+}: {
+  id: string;
+  isLoading?: boolean;
+}) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const hasTrackedRef = useRef(false);
   const t = useTranslations();
-  const { data: recipe, isLoading, error } = useQuery(recipeQueryOptions(id));
+  const {
+    data: recipe,
+    isLoading: queryLoading,
+    error,
+  } = useQuery(recipeQueryOptions(id));
 
   // Track recipe view (with ref deduplication)
   useEffect(() => {
@@ -41,8 +52,8 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
     }
   }, [recipe]);
 
-  // Only show loading if we don't have data AND we're actually fetching
-  if (isLoading && !recipe) {
+  // Show loading skeleton when explicitly loading or when query is loading
+  if (isLoading || queryLoading) {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="space-y-6">
@@ -119,11 +130,195 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
     );
   }
 
+  // Extract content components
+  const OverviewContent = () => (
+    <Card className="mt-6">
+      <CardBody className="p-6">
+        {/* Header Section */}
+        <div className="flex flex-col lg:flex-row gap-6 mb-6">
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold text-foreground mb-4">
+              {recipe.name}
+            </h1>
+
+            <div className="flex flex-wrap gap-2 mb-4">
+              <Chip color="primary" variant="flat">
+                {recipe.cuisine}
+              </Chip>
+              <Badge
+                color={
+                  recipe.difficulty === "Easy"
+                    ? "success"
+                    : recipe.difficulty === "Medium"
+                      ? "warning"
+                      : "danger"
+                }>
+                {recipe.difficulty}
+              </Badge>
+              {recipe.mealType.map((meal, index) => (
+                <Chip key={index} size="sm" variant="bordered">
+                  {meal}
+                </Chip>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-6 text-sm text-foreground-600">
+              <div className="flex items-center gap-1">
+                <Icon
+                  className="w-5 h-5 text-warning-500"
+                  icon="material-symbols:star"
+                />
+                <span className="font-medium">
+                  {recipe.rating.toFixed(1)} ({recipe.reviewCount} reviews)
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Icon
+                  className="w-5 h-5 text-danger-500"
+                  icon="material-symbols:local-fire-department"
+                />
+                <span>{recipe.caloriesPerServing} cal/serving</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:w-80 lg:flex-shrink-0">
+            {!imageLoaded && (
+              <Skeleton
+                className="w-full aspect-[4/3] lg:aspect-square rounded-lg"
+              />
+            )}
+            <Image
+              alt={recipe.name}
+              className={`w-full aspect-[4/3] lg:aspect-square object-cover
+                rounded-lg transition-opacity duration-300 ${
+                  imageLoaded ? "opacity-100" : "opacity-0 absolute"
+                }`}
+              fallbackSrc="https://via.placeholder.com/400x300?text=Recipe+Image"
+              src={recipe.image}
+              onLoad={() => setImageLoaded(true)}
+            />
+          </div>
+        </div>
+
+        <Divider className="my-6" />
+
+        {/* Time and Servings Info */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div className="text-center p-4 bg-default-50 rounded-lg">
+            <Icon
+              className="w-6 h-6 mx-auto mb-2 text-primary"
+              icon="material-symbols:schedule"
+            />
+            <div className="text-sm text-foreground-600">
+              {t("recipe.prepTime")}
+            </div>
+            <div className="font-semibold">{recipe.prepTimeMinutes} min</div>
+          </div>
+          <div className="text-center p-4 bg-default-50 rounded-lg">
+            <Icon
+              className="w-6 h-6 mx-auto mb-2 text-primary"
+              icon="material-symbols:schedule"
+            />
+            <div className="text-sm text-foreground-600">
+              {t("recipe.cookTime")}
+            </div>
+            <div className="font-semibold">{recipe.cookTimeMinutes} min</div>
+          </div>
+          <div className="text-center p-4 bg-default-50 rounded-lg">
+            <Icon
+              className="w-6 h-6 mx-auto mb-2 text-primary"
+              icon="material-symbols:group"
+            />
+            <div className="text-sm text-foreground-600">
+              {t("recipe.servings")}
+            </div>
+            <div className="font-semibold">{recipe.servings}</div>
+          </div>
+          <div className="text-center p-4 bg-default-50 rounded-lg">
+            <Icon
+              className="w-6 h-6 mx-auto mb-2 text-primary"
+              icon="material-symbols:schedule"
+            />
+            <div className="text-sm text-foreground-600">
+              {t("recipe.totalTime")}
+            </div>
+            <div className="font-semibold">
+              {recipe.prepTimeMinutes + recipe.cookTimeMinutes} min
+            </div>
+          </div>
+        </div>
+
+        {/* Tags */}
+        {recipe.tags.length > 0 && (
+          <div>
+            <h3 className="text-lg font-semibold mb-3">{t("recipe.tags")}</h3>
+            <div className="flex flex-wrap gap-2">
+              {recipe.tags.map((tag, index) => (
+                <Chip key={index} size="sm" variant="bordered">
+                  {tag}
+                </Chip>
+              ))}
+            </div>
+          </div>
+        )}
+      </CardBody>
+    </Card>
+  );
+
+  const IngredientsContent = () => (
+    <Card className="mt-6">
+      <CardBody className="p-6">
+        <h3 className="text-xl font-semibold mb-4">
+          {t("recipe.ingredients")}
+        </h3>
+        <div className="space-y-3">
+          {recipe.ingredients.map((ingredient, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-3 p-3 bg-default-50 rounded-lg">
+              <Icon
+                className="w-5 h-5 text-success-500 flex-shrink-0"
+                icon="material-symbols:check-circle"
+              />
+              <span className="text-foreground">{ingredient}</span>
+            </div>
+          ))}
+        </div>
+      </CardBody>
+    </Card>
+  );
+
+  const InstructionsContent = () => (
+    <Card className="mt-6">
+      <CardBody className="p-6">
+        <h3 className="text-xl font-semibold mb-4">
+          {t("recipe.instructions")}
+        </h3>
+        <div className="space-y-4">
+          {recipe.instructions.map((instruction, index) => (
+            <div key={index} className="flex gap-4">
+              <div
+                className="flex-shrink-0 w-8 h-8 bg-primary
+                  text-primary-foreground rounded-full flex items-center
+                  justify-center font-semibold text-sm">
+                {index + 1}
+              </div>
+              <div className="flex-1 pt-1">
+                <p className="text-foreground leading-relaxed">{instruction}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </CardBody>
+    </Card>
+  );
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <Tabs
         aria-label="Recipe details"
-        className="w-full"
+        className="w-full rounded-2xl"
         classNames={{
           tabList: "w-full relative rounded-none p-0 border-b border-divider",
           cursor: "w-full bg-primary",
@@ -131,203 +326,19 @@ export const DetailedRecipeCard = ({ id }: { id: string }) => {
           tabContent: "group-data-[selected=true]:text-primary-foreground",
         }}>
         <Tab key="overview" title={t("recipe.overview")}>
-          <Card className="mt-6">
-            <CardBody className="p-6">
-              {/* Header Section */}
-              <div className="flex flex-col lg:flex-row gap-6 mb-6">
-                <div className="flex-1">
-                  <h1 className="text-3xl font-bold text-foreground mb-4">
-                    {recipe.name}
-                  </h1>
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <Chip color="primary" variant="flat">
-                      {recipe.cuisine}
-                    </Chip>
-                    <Badge
-                      color={
-                        recipe.difficulty === "Easy"
-                          ? "success"
-                          : recipe.difficulty === "Medium"
-                            ? "warning"
-                            : "danger"
-                      }>
-                      {recipe.difficulty}
-                    </Badge>
-                    {recipe.mealType.map((meal, index) => (
-                      <Chip key={index} size="sm" variant="bordered">
-                        {meal}
-                      </Chip>
-                    ))}
-                  </div>
-
-                  <div
-                    className="flex items-center gap-6 text-sm
-                      text-foreground-600">
-                    <div className="flex items-center gap-1">
-                      <Icon
-                        className="w-5 h-5 text-warning-500"
-                        icon="material-symbols:star"
-                      />
-                      <span className="font-medium">
-                        {recipe.rating.toFixed(1)} ({recipe.reviewCount}{" "}
-                        reviews)
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Icon
-                        className="w-5 h-5 text-danger-500"
-                        icon="material-symbols:local-fire-department"
-                      />
-                      <span>{recipe.caloriesPerServing} cal/serving</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="lg:w-80 lg:flex-shrink-0">
-                  {!imageLoaded && (
-                    <Skeleton
-                      className="w-full aspect-[4/3] lg:aspect-square
-                        rounded-lg"
-                    />
-                  )}
-                  <Image
-                    alt={recipe.name}
-                    className={`w-full aspect-[4/3] lg:aspect-square
-                      object-cover rounded-lg transition-opacity duration-300 ${
-                        imageLoaded ? "opacity-100" : "opacity-0 absolute"
-                      }`}
-                    fallbackSrc="https://via.placeholder.com/400x300?text=Recipe+Image"
-                    src={recipe.image}
-                    onLoad={() => setImageLoaded(true)}
-                  />
-                </div>
-              </div>
-
-              <Divider className="my-6" />
-
-              {/* Time and Servings Info */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                <div className="text-center p-4 bg-default-50 rounded-lg">
-                  <Icon
-                    className="w-6 h-6 mx-auto mb-2 text-primary"
-                    icon="material-symbols:schedule"
-                  />
-                  <div className="text-sm text-foreground-600">
-                    {t("recipe.prepTime")}
-                  </div>
-                  <div className="font-semibold">
-                    {recipe.prepTimeMinutes} min
-                  </div>
-                </div>
-                <div className="text-center p-4 bg-default-50 rounded-lg">
-                  <Icon
-                    className="w-6 h-6 mx-auto mb-2 text-primary"
-                    icon="material-symbols:schedule"
-                  />
-                  <div className="text-sm text-foreground-600">
-                    {t("recipe.cookTime")}
-                  </div>
-                  <div className="font-semibold">
-                    {recipe.cookTimeMinutes} min
-                  </div>
-                </div>
-                <div className="text-center p-4 bg-default-50 rounded-lg">
-                  <Icon
-                    className="w-6 h-6 mx-auto mb-2 text-primary"
-                    icon="material-symbols:group"
-                  />
-                  <div className="text-sm text-foreground-600">
-                    {t("recipe.servings")}
-                  </div>
-                  <div className="font-semibold">{recipe.servings}</div>
-                </div>
-                <div className="text-center p-4 bg-default-50 rounded-lg">
-                  <Icon
-                    className="w-6 h-6 mx-auto mb-2 text-primary"
-                    icon="material-symbols:schedule"
-                  />
-                  <div className="text-sm text-foreground-600">
-                    {t("recipe.totalTime")}
-                  </div>
-                  <div className="font-semibold">
-                    {recipe.prepTimeMinutes + recipe.cookTimeMinutes} min
-                  </div>
-                </div>
-              </div>
-
-              {/* Tags */}
-              {recipe.tags.length > 0 && (
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">
-                    {t("recipe.tags")}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {recipe.tags.map((tag, index) => (
-                      <Chip key={index} size="sm" variant="bordered">
-                        {tag}
-                      </Chip>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </CardBody>
-          </Card>
+          <OverviewContent />
         </Tab>
 
         <Tab
           key="ingredients"
           title={`${t("recipe.ingredients")} (${recipe.ingredients.length})`}>
-          <Card className="mt-6">
-            <CardBody className="p-6">
-              <h3 className="text-xl font-semibold mb-4">
-                {t("recipe.ingredients")}
-              </h3>
-              <div className="space-y-3">
-                {recipe.ingredients.map((ingredient, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-3 p-3 bg-default-50
-                      rounded-lg">
-                    <Icon
-                      className="w-5 h-5 text-success-500 flex-shrink-0"
-                      icon="material-symbols:check-circle"
-                    />
-                    <span className="text-foreground">{ingredient}</span>
-                  </div>
-                ))}
-              </div>
-            </CardBody>
-          </Card>
+          <IngredientsContent />
         </Tab>
 
         <Tab
           key="instructions"
           title={`${t("recipe.instructions")} (${recipe.instructions.length} ${t("recipe.steps")})`}>
-          <Card className="mt-6">
-            <CardBody className="p-6">
-              <h3 className="text-xl font-semibold mb-4">
-                {t("recipe.instructions")}
-              </h3>
-              <div className="space-y-4">
-                {recipe.instructions.map((instruction, index) => (
-                  <div key={index} className="flex gap-4">
-                    <div
-                      className="flex-shrink-0 w-8 h-8 bg-primary
-                        text-primary-foreground rounded-full flex items-center
-                        justify-center font-semibold text-sm">
-                      {index + 1}
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <p className="text-foreground leading-relaxed">
-                        {instruction}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardBody>
-          </Card>
+          <InstructionsContent />
         </Tab>
       </Tabs>
     </div>
