@@ -17,7 +17,7 @@ export const GB_UUID_COOKIE = "gb-heroui-userId";
  * @param request - The incoming Next.js request
  * @returns The processed response with internationalization and UUID cookie
  */
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   // Generate a UUID if it doesn't exist yet
   let uuid = request.cookies.get(GB_UUID_COOKIE)?.value;
   let needsUpdate = false;

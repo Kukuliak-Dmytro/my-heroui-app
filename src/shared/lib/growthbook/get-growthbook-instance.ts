@@ -1,6 +1,6 @@
 import { GrowthBook } from "@growthbook/growthbook";
 import { cookies } from "next/headers";
-import { GB_UUID_COOKIE } from "@/middleware";
+import { GB_UUID_COOKIE } from "@/proxy";
 import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
 
 /**
