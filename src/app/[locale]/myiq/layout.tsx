@@ -33,7 +33,7 @@ export default function MyIQLayout({
           </svg>
         </Link>
         <nav>
-          <ul className="flex items-center gap-2 sm:gap-4">
+          <ul className="flex items-center gap-3 sm:gap-4">
             <li>
               <Button
                 color="secondary"

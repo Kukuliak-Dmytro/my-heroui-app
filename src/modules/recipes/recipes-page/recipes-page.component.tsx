@@ -17,7 +17,7 @@ import {
   getServerGrowthBook,
 } from "@/shared/lib/growthbook/";
 import { GrowthBookTracking } from "@/shared/lib/growthbook/growthbook-tracking";
-import { ErrorBoundary } from "@/shared/ui/error-boundary/error-boundary.component";
+import { ErrorBoundary } from "@/shared/ui/error-boundary.component";
 
 // Helper to configure cache for next.js
 

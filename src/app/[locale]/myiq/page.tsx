@@ -2,21 +2,22 @@ import { Button } from "@heroui/button";
 import { Icon } from "@iconify/react";
 import { RatingScale } from "@/shared/ui/rating-scale";
 import { HeroAvatar } from "@/shared/ui/hero-avatar";
+import { HowItWorksCard } from "@/shared/ui/cards/how-it-works.card.component";
 export default function MyIQPage() {
   return (
     <div>
       <section
         className="relative flex flex-col lg:flex-row items-center
-          justify-between gap-8 lg:gap-4 overflow-hidden bg-gradient-to-b
+          justify-center gap-8 lg:gap-4 overflow-hidden bg-gradient-to-b
           from-background via-[#EBF4FF] to-white mx-auto p-4 sm:p-8 lg:p-16
           xl:p-32 font-normal">
         <div
-          className="flex flex-col gap-4 sm:gap-6 w-full lg:w-auto text-center
-            lg:text-left">
+          className="flex flex-col items-center justify-center lg:items-start
+            gap-4 sm:gap-6 w-full lg:w-auto">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold">
             <span
               className="inline-block bg-gradient-to-r from-[#2C3345]
-                to-[#424D6A] bg-clip-text text-transparent">
+                to-[#424D6A] bg-clip-text text-transparent whitespace-nowrap">
               Want to Know Your
             </span>
             <br />
@@ -32,7 +33,7 @@ export default function MyIQPage() {
           </p>
           <div
             className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-8
-              items-center lg:items-start">
+              items-center">
             <Button
               color="secondary"
               variant="solid"
@@ -49,15 +50,11 @@ export default function MyIQPage() {
               How it works
             </Button>
           </div>
-          <div
-            className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center
-              lg:items-start">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center">
             <HeroAvatar></HeroAvatar>
 
-            <div className="text-center lg:text-left">
-              <span
-                className="flex items-center justify-center lg:justify-start
-                  gap-1">
+            <div>
+              <span className="flex items-center justify-center gap-1">
                 <p className="text-sm sm:text-base">Excellent user reviews </p>
                 <RatingScale rating={4.2} />
               </span>
@@ -68,12 +65,14 @@ export default function MyIQPage() {
           </div>
         </div>
         <div
-          className="w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[517px]
-            relative flex items-center justify-center order-first lg:order-last">
+          className="w-full relative flex items-center justify-center
+            order-first lg:order-last">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-full w-full"
-            viewBox="0 0 940.8 578.3">
+            className="h-auto w-full max-h-[200px] sm:max-h-[250px]
+              lg:max-h-[350px] xl:max-h-[400px]"
+            viewBox="0 0 940.8 578.3"
+            preserveAspectRatio="xMidYMid meet">
             <path
               d="M49.4 470.2h840.8"
               style={{
@@ -110,6 +109,105 @@ export default function MyIQPage() {
               style={{ fill: "#2c3345" }}
             />
           </svg>
+        </div>
+      </section>
+
+      {/* How it Works Section */}
+      <section className="bg-white py-16 px-4 sm:px-8 lg:px-16">
+        <div className="max-w-6xl mx-auto">
+          <h2
+            className="text-3xl sm:text-4xl font-bold text-[#2c3345]
+              text-center">
+            How it Works
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-6">
+            <HowItWorksCard
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  className="h-[38px] w-[38px]"
+                  viewBox="0 0 30 38">
+                  <path
+                    fill="#2c3345"
+                    d="M26.128 4.979H22.69V3.44c0-.498-.543-.724-1.04-.724h-2.67C18.348.907 16.765.003 14.956.003a4.12 4.12 0 0 0-4.026 2.714H8.305c-.497 0-.995.226-.995.724v1.538H3.872a3.845 3.845 0 0 0-3.8 3.664v25.92c0 1.99 1.81 3.437 3.8 3.437h22.256c1.99 0 3.8-1.448 3.8-3.438V8.642a3.845 3.845 0 0 0-3.8-3.663M9.119 4.526h2.488a.995.995 0 0 0 .86-.814 2.624 2.624 0 0 1 2.488-2.035 2.58 2.58 0 0 1 2.443 2.035.995.995 0 0 0 .904.814h2.579v3.62H9.119zm18.999 30.036c0 .995-.995 1.629-1.99 1.629H3.872c-.995 0-1.99-.634-1.99-1.629V8.642a2.035 2.035 0 0 1 1.99-1.854H7.31v2.307a.95.95 0 0 0 .995.86H21.65a.995.995 0 0 0 1.04-.86V6.788h3.439c1.04.02 1.898.819 1.99 1.855z"
+                  />
+                  <path
+                    fill="#007aff"
+                    d="M11.517 20.223a.905.905 0 0 0-1.267-.045l-2.895 2.759-1.221-1.267a.905.905 0 0 0-1.267-.045.95.95 0 0 0 0 1.312l1.855 1.9a.81.81 0 0 0 .633.271.9.9 0 0 0 .634-.271l3.528-3.348a.86.86 0 0 0 0-1.266m12.982 1.945H14.095a.905.905 0 1 0 0 1.81H24.5a.905.905 0 1 0 0-1.81m-12.982-9.183a.905.905 0 0 0-1.267-.045L7.355 15.7l-1.221-1.267a.905.905 0 0 0-1.267-.045.95.95 0 0 0 0 1.311l1.855 1.9a.81.81 0 0 0 .633.272.9.9 0 0 0 .634-.272l3.528-3.347a.86.86 0 0 0 0-1.267m12.982 1.945H14.095a.905.905 0 1 0 0 1.81H24.5a.905.905 0 1 0 0-1.81M11.517 27.46a.905.905 0 0 0-1.267-.045l-2.895 2.76-1.221-1.267a.905.905 0 0 0-1.267-.045.95.95 0 0 0 0 1.311l1.855 1.9a.82.82 0 0 0 .633.272.9.9 0 0 0 .634-.272l3.528-3.347a.86.86 0 0 0 0-1.267m12.982 1.945H14.095a.905.905 0 1 0 0 1.81H24.5a.905.905 0 1 0 0-1.81"
+                  />
+                </svg>
+              }
+              title="Take a Test"
+              description="Get an unbiased view of yourself"
+            />
+            <HowItWorksCard
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  className="h-[38px] w-[38px]"
+                  viewBox="0 0 39 38">
+                  <path
+                    fill="#2B2D42"
+                    fill-rule="evenodd"
+                    stroke="#fff"
+                    d="M18.813 20.354v5.417a4.06 4.06 0 0 1-2.508 3.753 4.1 4.1 0 0 1-1.555.31H5.271a4.06 4.06 0 0 1-3.753-2.509 4.1 4.1 0 0 1-.31-1.554V12.229a4.063 4.063 0 0 1 4.063-4.062h7.004c1.077 0 2.11.428 2.872 1.19l2.475 2.475a4.06 4.06 0 0 1 1.19 2.873v2.94h2.709V8.168a4.06 4.06 0 0 1 2.508-3.754 4.1 4.1 0 0 1 1.554-.309H28.5a1.354 1.354 0 1 1 0 2.709h-2.917a1.35 1.35 0 0 0-1.354 1.354v9.479H28.5a1.354 1.354 0 0 1 0 2.708h-4.27v9.48a1.35 1.35 0 0 0 1.353 1.353H28.5a1.354 1.354 0 0 1 0 2.709h-2.917a4.06 4.06 0 0 1-3.753-2.508 4.1 4.1 0 0 1-.31-1.555v-9.479zm-9.48-9.479H5.271a1.354 1.354 0 0 0-1.354 1.354v13.542a1.35 1.35 0 0 0 1.354 1.354h9.48a1.35 1.35 0 0 0 1.353-1.354v-8.125h-2.708a4.06 4.06 0 0 1-2.872-1.19 4.06 4.06 0 0 1-1.19-2.873zm6.771 4.062v-.232c0-.36-.143-.704-.397-.958l-2.475-2.475a1.35 1.35 0 0 0-.957-.397h-.233v2.708a1.35 1.35 0 0 0 1.354 1.354z"
+                    clip-rule="evenodd"
+                  />
+                  <rect
+                    width="7.6"
+                    height="7.6"
+                    x="28.835"
+                    y="15.2"
+                    stroke="#007AFF"
+                    stroke-width="1.448"
+                    rx="1.99"
+                  />
+                  <rect
+                    width="7.6"
+                    height="7.6"
+                    x="28.835"
+                    y="1.438"
+                    stroke="#007AFF"
+                    stroke-width="1.448"
+                    rx="1.99"
+                  />
+                  <rect
+                    width="7.6"
+                    height="7.6"
+                    x="28.835"
+                    y="28.962"
+                    stroke="#007AFF"
+                    stroke-width="1.448"
+                    rx="1.99"
+                  />
+                </svg>
+              }
+              title="Get Your Detailed Report"
+              description="Learn your strengths and discover areas for growth"
+            />
+            <HowItWorksCard
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  className="h-[38px] w-[38px]"
+                  viewBox="0 0 39 38">
+                  <path
+                    fill="#2b2d42"
+                    d="M36.294 4.538a2.643 2.643 0 0 0-2.499-2.498c-2.725-.149-8.058-.004-13.157 2.633-2.6 1.345-5.348 3.625-7.542 6.255l-.08.097-4.98.385c-.82.063-1.55.493-2.003 1.178l-3.397 5.138a1.81 1.81 0 0 0-.146 1.741c.252.57.77.967 1.387 1.063l4.194.65-.043.244c-.14.835.137 1.694.74 2.298l5.844 5.843a2.65 2.65 0 0 0 2.298.74q.122-.02.244-.043l.65 4.195a1.82 1.82 0 0 0 2.803 1.24l5.138-3.397a2.63 2.63 0 0 0 1.178-2.003l.385-4.979.098-.08c2.63-2.194 4.91-4.943 6.254-7.543 2.638-5.1 2.782-10.432 2.634-13.157m-11.648 26.1-4.914 3.25-.634-4.089c2.078-.61 4.132-1.588 6.09-2.899l-.25 3.244a.65.65 0 0 1-.292.494m-8.625-2.482-5.844-5.843a.65.65 0 0 1-.184-.56c.174-1.04.444-2.028.778-2.96l8.767 8.768a17 17 0 0 1-2.957.78.65.65 0 0 1-.56-.185M8.19 13.396l3.243-.25c-1.31 1.957-2.288 4.012-2.9 6.09l-4.087-.634 3.25-4.915a.65.65 0 0 1 .494-.29m17.94 10.312c-1.61 1.342-3.172 2.313-4.611 3.016l-9.91-9.91c.92-1.879 2.044-3.444 3.016-4.61 2.03-2.434 4.556-4.534 6.929-5.761 4.68-2.42 9.61-2.551 12.133-2.414a.653.653 0 0 1 .617.618c.138 2.522.007 7.453-2.413 12.133-1.227 2.373-3.327 4.898-5.761 6.928"
+                  />
+                  <path
+                    fill="#007aff"
+                    d="M25.624 17.688c1.275 0 2.55-.486 3.521-1.456a4.95 4.95 0 0 0 1.459-3.522 4.95 4.95 0 0 0-1.459-3.522 4.986 4.986 0 0 0-7.043 0 4.95 4.95 0 0 0-1.459 3.522c0 1.33.518 2.581 1.459 3.522a4.96 4.96 0 0 0 3.521 1.456m-2.113-7.09a2.98 2.98 0 0 1 2.112-.875c.766 0 1.53.291 2.113.874.565.564.875 1.315.875 2.113s-.31 1.549-.875 2.113a2.99 2.99 0 0 1-4.226 0 2.97 2.97 0 0 1-.875-2.113c0-.798.311-1.549.875-2.113M3.35 30.018c.254 0 .51-.097.704-.291l3.252-3.253a.996.996 0 1 0-1.409-1.408l-3.252 3.252a.996.996 0 0 0 .705 1.7m6.936-1.972a.996.996 0 0 0-1.408 0L2.625 34.3a.996.996 0 1 0 1.409 1.408l6.252-6.252a.996.996 0 0 0 0-1.409m1.572 2.98L8.606 34.28a.996.996 0 1 0 1.409 1.408l3.252-3.252a.996.996 0 1 0-1.409-1.408"
+                  />
+                </svg>
+              }
+              title="Begin Your Journey"
+              description="Start improving with expert courses and brain training"
+            />
+          </div>
         </div>
       </section>
     </div>
