@@ -54,3 +54,22 @@ export const SunFilledIcon = ({
     </g>
   </svg>
 );
+export const StarIcon = ({
+  fill = "currentColor",
+  size = 17,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg
+    width={size || width}
+    height={size || height}
+    viewBox="0 0 24 24"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}>
+    <polygon
+      fill={fill}
+      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+  </svg>
+);

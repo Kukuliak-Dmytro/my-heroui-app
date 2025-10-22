@@ -8,8 +8,6 @@ import { Providers } from "./providers";
 
 import { SITE_CONFIG } from "@/shared/config/site";
 import { FONT_COMFORTAA, FONT_QUICKSAND } from "@/shared/config/fonts";
-import { ThemeSwitch } from "@/features/theme-switch/theme-switch.component";
-import { LocaleSwitcher } from "@/features/locale-switcher/locale-switcher.component";
 import { routing } from "@/shared/lib/i18n/routing";
 /**
  * Root layout metadata configuration for the application.
@@ -67,19 +65,7 @@ export default async function RootLayout({
           locale={locale}
           messages={messages}>
           <div className="relative flex flex-col h-screen">
-            <header className="sticky top-0 z-50 w-full">
-              <nav
-                className="flex items-center justify-between px-4 sm:px-6
-                  lg:px-8 h-16">
-                <div className="flex items-center gap-4">
-                  <ThemeSwitch />
-                  <LocaleSwitcher />
-                </div>
-              </nav>
-            </header>
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-              {children}
-            </main>
+            <main>{children}</main>
             <ReactQueryDevtools initialIsOpen={false} />
           </div>
         </Providers>

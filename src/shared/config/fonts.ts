@@ -1,4 +1,4 @@
-import { Comfortaa, Quicksand } from "next/font/google";
+import { Comfortaa, Quicksand, Inter } from "next/font/google";
 
 /**
  * Comfortaa font configuration for the application.
@@ -20,4 +20,15 @@ export const FONT_COMFORTAA = Comfortaa({
 export const FONT_QUICKSAND = Quicksand({
   subsets: ["latin"],
   variable: "--font-quicksand",
+});
+
+/**
+ * Inter font configuration for specific pages.
+ *
+ * This font is used for pages that require a more modern, clean typography.
+ * It provides excellent readability and is widely used in modern web applications.
+ */
+export const FONT_INTER = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
