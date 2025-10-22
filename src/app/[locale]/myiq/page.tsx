@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import { RatingScale } from "@/shared/ui/rating-scale";
 import { HeroAvatar } from "@/shared/ui/hero-avatar";
 import { HowItWorksCard } from "@/shared/ui/cards/how-it-works.card.component";
+import { TestCard } from "@/shared/ui/cards/test-card.component";
 export default function MyIQPage() {
   return (
     <div>
@@ -206,6 +207,57 @@ export default function MyIQPage() {
               }
               title="Begin Your Journey"
               description="Start improving with expert courses and brain training"
+            />
+          </div>
+        </div>
+      </section>
+      {/* Available Tests Section */}
+      <section className="py-12 bg-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#2c3345] mb-4">
+              Available Tests
+            </h2>
+            <p className="text-lg text-[#6b7280] max-w-2xl mx-auto">
+              Each test reveals a new part of you. Start with intelligence, with
+              more tests coming soon.
+            </p>
+          </div>
+
+          {/* Test Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <TestCard
+              icon={<Icon icon="mdi:brain" className="w-8 h-8" />}
+              title="IQ / Intelligence Test"
+              duration="15 minutes"
+              questions="25 questions"
+              buttonText="Start IQ Test Now"
+              isDisabled={false}
+            />
+            <TestCard
+              icon={<Icon icon="mdi:account-outline" className="w-8 h-8" />}
+              title="Personality Type"
+              duration="20 minutes"
+              questions="90 questions"
+              buttonText="Start Personality Test"
+              isDisabled={false}
+            />
+            <TestCard
+              icon={<Icon icon="mdi:heart-outline" className="w-8 h-8" />}
+              title="Love Style"
+              duration="30 minutes"
+              questions="120 questions"
+              buttonText="Start Love Style Test"
+              isDisabled={false}
+            />
+            <TestCard
+              icon={<Icon icon="mdi:lightbulb-outline" className="w-8 h-8" />}
+              title="Career"
+              duration="25 minutes"
+              questions="35 questions"
+              buttonText="Coming Soon"
+              isDisabled={true}
             />
           </div>
         </div>
