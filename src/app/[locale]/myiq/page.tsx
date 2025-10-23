@@ -17,6 +17,7 @@ import { HowItWorksCard } from "@/shared/ui/cards/how-it-works.card.component";
 import { TestCard } from "@/shared/ui/cards/test-card.component";
 import { AbilityCard } from "@/shared/ui/cards/ability-card.component";
 import { GetCard } from "@/shared/ui/cards/get-card.component";
+import { PricingCard } from "@/shared/ui/cards/pricing-card.component";
 
 export default function MyIQPage() {
   return (
@@ -293,6 +294,58 @@ export default function MyIQPage() {
                 border-[#007aff] rounded-lg">
               <Icon icon="mdi:facebook" className="w-8 h-8" />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-[#2c3345] mb-4">
+              Explore our plans
+            </h2>
+            <p className="text-lg text-[#6b7280] max-w-3xl mx-auto">
+              Discover our flexible offers and choose the one that best suits
+              your learning and personal development journey.
+            </p>
+          </div>
+
+          <div
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <PricingCard
+              title="BI-WEEKLY SUBSCRIPTION"
+              price="€729.99"
+              billingPeriod="/2 weeks"
+              features={[
+                "7-day trial, auto-renews to bi-weekly plan thereafter",
+                "Personalized IQ Certificate",
+                "Comprehensive Cognitive Analysis",
+                "Full Access to Development Tools",
+              ]}
+            />
+
+            <PricingCard
+              title="MONTHLY EXCELLENCE"
+              price="€1459.99"
+              billingPeriod="/month"
+              features={[
+                "Maximum Savings on Long-Term Growth",
+                "Complete Cognitive Assessment Suite",
+                "20+ Hours of Expert-Led Courses",
+                "Personalized Development Path",
+              ]}
+            />
+          </div>
+
+          <div className="text-center mt-8">
+            <p className="text-sm text-[#6b7280]">
+              *Visit our{" "}
+              <Link href="/pricing" className="underline">
+                pricing_page
+              </Link>{" "}
+              to find out more details.
+            </p>
           </div>
         </div>
       </section>
