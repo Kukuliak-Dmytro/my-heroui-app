@@ -8,7 +8,9 @@ export default function MyIQLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`mx-auto w-full h-full ${FONT_INTER.variable} font-inter`}>
+    <div
+      className={`mx-auto w-full h-full ${FONT_INTER.variable} font-inter
+        font-normal`}>
       <header
         className="sticky top-0 z-50 w-full h-16 bg-background shadow-sm flex
           items-center justify-between px-4 sm:px-8 lg:px-16 xl:px-32">

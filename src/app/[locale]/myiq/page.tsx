@@ -14,8 +14,9 @@ import { RatingScale } from "@/shared/ui/rating-scale";
 import { HeroAvatar } from "@/shared/ui/hero-avatar";
 import { HowItWorksCard } from "@/shared/ui/cards/how-it-works.card.component";
 import { TestCard } from "@/shared/ui/cards/test-card.component";
-
 import { AbilityCard } from "@/shared/ui/cards/ability-card.component";
+import { GetCard } from "@/shared/ui/cards/get-card.component";
+
 export default function MyIQPage() {
   return (
     <div>
@@ -174,7 +175,7 @@ export default function MyIQPage() {
               Unlock your potential with our comprehensive training package
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <AbilityCard
               number={1}
               title="Expert Video Courses"
@@ -202,6 +203,59 @@ export default function MyIQPage() {
                 "Smart Difficulty Progression",
                 "Master essential brain functions: Pattern Recognition, Strategic Thinking, Analytical Reasoning.",
               ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* What will u get section */}
+      <section className="py-12 bg-[#f6fbff]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#2c3345] mb-4">
+              What will you get
+            </h2>
+          </div>
+          <div className="relative">
+            {/* Left blur edge */}
+            <div
+              className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r
+                from-[#f6fbff] to-transparent z-10 pointer-events-none
+                xl:hidden"
+            />
+
+            {/* Scrollable container */}
+            <div
+              className="flex gap-6 overflow-x-auto scrollbar-hide pb-4
+                xl:overflow-x-visible xl:justify-center"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+              <GetCard
+                description="Authenticated intelligence certification validated by cognitive science experts"
+                className="flex-shrink-0 w-80 xl:w-auto xl:flex-1 xl:max-w-xs"
+              />
+              <GetCard
+                description="Deep-dive analysis revealing your complete cognitive potential and capabilities"
+                className="flex-shrink-0 w-80 xl:w-auto xl:flex-1 xl:max-w-xs"
+              />
+              <GetCard
+                description="Scientifically-calibrated training tools designed by neuroscience specialists"
+                className="flex-shrink-0 w-80 xl:w-auto xl:flex-1 xl:max-w-xs"
+              />
+              <GetCard
+                description="Expert-crafted educational content based on leading cognitive research"
+                className="flex-shrink-0 w-80 xl:w-auto xl:flex-1 xl:max-w-xs"
+              />
+              <GetCard
+                description="Advanced reasoning exercises designed by neural specialists"
+                className="flex-shrink-0 w-80 xl:w-auto xl:flex-1 xl:max-w-xs"
+              />
+            </div>
+
+            {/* Right blur edge */}
+            <div
+              className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l
+                from-[#f6fbff] to-transparent z-10 pointer-events-none
+                xl:hidden"
             />
           </div>
         </div>

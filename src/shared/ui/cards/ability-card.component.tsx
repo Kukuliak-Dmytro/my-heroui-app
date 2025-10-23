@@ -34,7 +34,7 @@ export const AbilityCard = ({
 
       <div className="flex flex-col gap-3">
         {features.map((feature, index) => (
-          <div key={index} className="flex items-center justify-start gap-2">
+          <div key={index} className="flex items-start justify-start gap-2">
             <div className="flex-shrink-0 mt-0.5">
               <CheckMarkIcon />
             </div>
