@@ -8,6 +8,7 @@ import {
   RocketIcon,
   TestIcon,
 } from "@/shared/assets/icons";
+import { Link } from "@/shared/lib/i18n/navigation";
 import { Button } from "@heroui/button";
 import { Icon } from "@iconify/react";
 import { RatingScale } from "@/shared/ui/rating-scale";
@@ -257,6 +258,41 @@ export default function MyIQPage() {
                 from-[#f6fbff] to-transparent z-10 pointer-events-none
                 xl:hidden"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Community section */}
+      <section className="py-12 bg-[#f6fbff]">
+        <div
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between
+            items-center">
+          <div className="flex flex-col gap-1">
+            <h1 className="text-3xl font-bold text-[#2c3345]">Community</h1>
+            <p className="text-md text-[#6b7280]">
+              Follow us on social media for daily quizzes, challenges and brain
+              teasers to keep your mind sharp
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Link
+              href="https://x.com/MyIQapp"
+              className="w-24 h-12 flex items-center justify-center border-1
+                border-[#007aff] rounded-lg">
+              <Icon icon="ri:twitter-x-fill" className="w-8 h-8" />
+            </Link>
+            <Link
+              href="https://www.instagram.com/myiq_com/#"
+              className="w-24 h-12 flex items-center justify-center border-1
+                border-[#007aff] rounded-lg">
+              <Icon icon="mdi:instagram" className="w-8 h-8" />
+            </Link>
+            <Link
+              href="https://www.facebook.com/MyIQapp"
+              className="w-24 h-12 flex items-center justify-center border-1
+                border-[#007aff] rounded-lg">
+              <Icon icon="mdi:facebook" className="w-8 h-8" />
+            </Link>
           </div>
         </div>
       </section>
