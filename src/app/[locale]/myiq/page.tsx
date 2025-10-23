@@ -1,9 +1,3 @@
-import { Button } from "@heroui/button";
-import { Icon } from "@iconify/react";
-import { RatingScale } from "@/shared/ui/rating-scale";
-import { HeroAvatar } from "@/shared/ui/hero-avatar";
-import { HowItWorksCard } from "@/shared/ui/cards/how-it-works.card.component";
-import { TestCard } from "@/shared/ui/cards/test-card.component";
 import {
   BrainIcon,
   CareerIcon,
@@ -14,9 +8,18 @@ import {
   RocketIcon,
   TestIcon,
 } from "@/shared/assets/icons";
+import { Button } from "@heroui/button";
+import { Icon } from "@iconify/react";
+import { RatingScale } from "@/shared/ui/rating-scale";
+import { HeroAvatar } from "@/shared/ui/hero-avatar";
+import { HowItWorksCard } from "@/shared/ui/cards/how-it-works.card.component";
+import { TestCard } from "@/shared/ui/cards/test-card.component";
+
+import { AbilityCard } from "@/shared/ui/cards/ability-card.component";
 export default function MyIQPage() {
   return (
     <div>
+      {/* Hero Section */}
       <section
         className="relative flex flex-col lg:flex-row items-center
           justify-center gap-8 lg:gap-4 overflow-hidden bg-gradient-to-b
@@ -109,10 +112,10 @@ export default function MyIQPage() {
           </div>
         </div>
       </section>
+
       {/* Available Tests Section */}
-      <section className="py-12 bg-blue-50">
+      <section className="py-12 bg-[#f6fbff]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#2c3345] mb-4">
               Available Tests
@@ -123,7 +126,6 @@ export default function MyIQPage() {
             </p>
           </div>
 
-          {/* Test Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <TestCard
               icon={<BrainIcon />}
@@ -156,6 +158,50 @@ export default function MyIQPage() {
               questions="35 questions"
               buttonText="Coming Soon"
               isDisabled={true}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Boost your abilities section */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#2c3345] mb-4">
+              Boost your abilities
+            </h2>
+            <p className="text-lg text-[#6b7280] max-w-2xl mx-auto">
+              Unlock your potential with our comprehensive training package
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <AbilityCard
+              number={1}
+              title="Expert Video Courses"
+              features={[
+                "20+ hours of expert training",
+                "Easy-to-follow lessons",
+                "Learn at your own pace",
+                "Track your progress",
+              ]}
+            />
+            <AbilityCard
+              number={2}
+              title="Brain Training Games"
+              features={[
+                "Diverse cognitive training exercises",
+                "Progressive difficulty levels",
+                "Enhance 5 core mental skills: Memory, Logical reasoning, problem-solving mastery, focus and concentration.",
+              ]}
+            />
+            <AbilityCard
+              number={3}
+              title="Puzzles"
+              features={[
+                "150+ Intelligence-Boosting Puzzles",
+                "Smart Difficulty Progression",
+                "Master essential brain functions: Pattern Recognition, Strategic Thinking, Analytical Reasoning.",
+              ]}
             />
           </div>
         </div>

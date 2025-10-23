@@ -64,8 +64,8 @@ export default async function RootLayout({
           }}
           locale={locale}
           messages={messages}>
-          <div className="relative flex flex-col h-screen">
-            <main>{children}</main>
+          <div className="relative flex flex-col min-h-screen">
+            <main className="flex-1">{children}</main>
             <ReactQueryDevtools initialIsOpen={false} />
           </div>
         </Providers>
