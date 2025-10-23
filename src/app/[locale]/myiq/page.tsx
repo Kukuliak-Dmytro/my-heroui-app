@@ -18,8 +18,61 @@ import { TestCard } from "@/shared/ui/cards/test-card.component";
 import { AbilityCard } from "@/shared/ui/cards/ability-card.component";
 import { GetCard } from "@/shared/ui/cards/get-card.component";
 import { PricingCard } from "@/shared/ui/cards/pricing-card.component";
+import { LatestResultsSection } from "@/shared/ui/cards/latest-results-section.component";
 
 export default function MyIQPage() {
+  // Mock data for latest results - 2 whites, 2 blues pattern horizontally
+  const latestResults = [
+    {
+      flagIcon: "flag:pl-4x3",
+      name: "Lewandowska Maja",
+      iqScore: 102,
+      isHighlighted: false,
+    },
+    {
+      flagIcon: "flag:ro-4x3",
+      name: "Marin Sofia",
+      iqScore: 101,
+      isHighlighted: false,
+    },
+    {
+      flagIcon: "flag:ro-4x3",
+      name: "Dinu Andreea",
+      iqScore: 96,
+      isHighlighted: true,
+    },
+    {
+      flagIcon: "flag:by-4x3",
+      name: "Новиков Андрей",
+      iqScore: 91,
+      isHighlighted: true,
+    },
+    {
+      flagIcon: "flag:by-4x3",
+      name: "Новиков Александр",
+      iqScore: 92,
+      isHighlighted: false,
+    },
+    {
+      flagIcon: "flag:pl-4x3",
+      name: "Nowak Franciszek",
+      iqScore: 103,
+      isHighlighted: false,
+    },
+    {
+      flagIcon: "flag:pl-4x3",
+      name: "Wójcik Antoni",
+      iqScore: 97,
+      isHighlighted: true,
+    },
+    {
+      flagIcon: "flag:ua-4x3",
+      name: "Бойко Максим",
+      iqScore: 107,
+      isHighlighted: true,
+    },
+  ];
+
   return (
     <div>
       {/* Hero Section */}
@@ -349,6 +402,125 @@ export default function MyIQPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 bg-[#f6fbff]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+            {/* Left side - Title */}
+            <div className="lg:w-1/3">
+              <h2
+                className="text-3xl sm:text-4xl font-bold text-[#2C3345]
+                  leading-tight">
+                Frequently Asked Questions
+              </h2>
+            </div>
+
+            {/* Right side - Accordion */}
+            <div className="lg:w-2/3">
+              <div className="space-y-4">
+                <div className="border-b border-gray-200 pb-4">
+                  <h3 className="text-lg font-semibold text-[#2C3345] mb-2">
+                    What if I'm not satisfied with the program?
+                  </h3>
+                  <p className="text-[#6B7280]">
+                    We're confident that you'll see the value and benefits of
+                    myIQ, but if you're not satisfied or you are experiencing
+                    technical issues, you might be eligible for refund. See our{" "}
+                    <Link
+                      href="/refund-policy"
+                      className="text-[#007AFF] underline hover:text-[#0056CC]
+                        transition-colors">
+                      Refund Policy
+                    </Link>{" "}
+                    to learn more.
+                  </p>
+                </div>
+
+                <div className="border-b border-gray-200 pb-4">
+                  <h3 className="text-lg font-semibold text-[#2C3345] mb-2">
+                    How do I cancel my subscription?
+                  </h3>
+                  <p className="text-[#6B7280]">
+                    Canceling is simple and takes less than a few minutes. Visit
+                    our{" "}
+                    <Link
+                      href="/help-center"
+                      className="text-[#007AFF] underline hover:text-[#0056CC]
+                        transition-colors">
+                      Help Center
+                    </Link>{" "}
+                    and follow the instructions. You'll maintain access until
+                    the end of your current billing period.
+                  </p>
+                </div>
+
+                <div className="border-b border-gray-200 pb-4">
+                  <h3 className="text-lg font-semibold text-[#2C3345] mb-2">
+                    How long does the IQ test take?
+                  </h3>
+                  <p className="text-[#6B7280]">
+                    Our IQ test takes up to 20 minutes to complete. Each test
+                    must be finished in one sitting and cannot be paused, as
+                    this ensures the most accurate results. Please plan for
+                    uninterrupted time before starting any test.
+                  </p>
+                </div>
+
+                <div className="border-b border-gray-200 pb-4">
+                  <h3 className="text-lg font-semibold text-[#2C3345] mb-2">
+                    Can I retake tests?
+                  </h3>
+                  <p className="text-[#6B7280]">
+                    Yes! You can retake tests after completing recommended
+                    training modules to track your progress and improvement over
+                    time.
+                  </p>
+                </div>
+
+                <div className="border-b border-gray-200 pb-4">
+                  <h3 className="text-lg font-semibold text-[#2C3345] mb-2">
+                    Can I access myIQ on multiple devices?
+                  </h3>
+                  <p className="text-[#6B7280]">
+                    Absolutely! Your myIQ account works seamlessly across all
+                    your devices. Simply log in with your credentials on any
+                    device to access your tests, progress, and training
+                    materials.
+                  </p>
+                </div>
+
+                <div className="border-b border-gray-200 pb-4">
+                  <h3 className="text-lg font-semibold text-[#2C3345] mb-2">
+                    Is my personal data secure?
+                  </h3>
+                  <p className="text-[#6B7280]">
+                    Yes, we take data security very seriously. All your personal
+                    information and test results are encrypted and stored
+                    securely. We never share your data with third parties
+                    without your explicit consent.
+                  </p>
+                </div>
+
+                <div className="pb-4">
+                  <h3 className="text-lg font-semibold text-[#2C3345] mb-2">
+                    What makes your IQ test different from others?
+                  </h3>
+                  <p className="text-[#6B7280]">
+                    Our IQ test is scientifically validated and designed by
+                    cognitive science experts. It provides detailed analysis of
+                    your cognitive strengths and areas for improvement, along
+                    with personalized recommendations for development.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Results Section */}
+      <LatestResultsSection results={latestResults} />
     </div>
   );
 }
