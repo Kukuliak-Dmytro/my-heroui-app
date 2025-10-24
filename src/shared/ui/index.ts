@@ -6,5 +6,6 @@ export * from "./cards/latest-results-section.component";
 export * from "./cards/pricing-card.component";
 export * from "./cards/test-card.component";
 export * from "./error-boundary.component";
+export * from "./footer";
 export * from "./hero-avatar";
 export * from "./rating-scale";

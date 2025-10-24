@@ -1,6 +1,7 @@
 import { FONT_INTER } from "@/shared/config/fonts";
 import { Link } from "@/shared/lib/i18n/navigation";
 import { Button } from "@heroui/button";
+import { Footer } from "@/shared/ui";
 
 export default function MyIQLayout({
   children,
@@ -57,6 +58,7 @@ export default function MyIQLayout({
         </nav>
       </header>
       {children}
+      <Footer />
     </div>
   );
 }
