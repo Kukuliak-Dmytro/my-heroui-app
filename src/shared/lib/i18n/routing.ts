@@ -13,5 +13,5 @@ export const routing = defineRouting({
   // Used when no locale matches
   defaultLocale: "en",
   //hides the default locale from the url
-  localePrefix: "as-needed",
+  localePrefix: "always",
 });
