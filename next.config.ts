@@ -10,6 +10,8 @@ const nextConfig = {
   reactCompiler: true,
   //validation of links and routes
   typedRoutes: true,
+  //new cache strategy
+  cacheComponents: true,
 };
 
 const withNextIntlConfig = withNextIntl(nextConfig);

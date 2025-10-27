@@ -20,6 +20,12 @@ import { GetCard } from "@/shared/ui/cards/get-card.component";
 import { PricingCard } from "@/shared/ui/cards/pricing-card.component";
 import { LatestResultsSection } from "@/shared/ui/cards/latest-results-section.component";
 
+/**
+ * MyIQ landing page.
+ * This page is entirely static with hardcoded data, so it will be pre-rendered
+ * as part of the static shell with PPR (Partial Pre-Rendering).
+ * No caching needed as there are no dynamic data sources.
+ */
 export default function MyIQPage() {
   // Mock data for latest results - 2 whites, 2 blues pattern horizontally
   const latestResults = [
