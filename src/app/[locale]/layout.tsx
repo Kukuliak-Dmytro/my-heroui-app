@@ -37,14 +37,8 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function RootLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
+export default async function RootLayout(props: LayoutProps<"/[locale]">) {
+  const { locale } = await props.params;
   const messages = await getMessages();
   return (
     <html suppressHydrationWarning lang={locale}>
@@ -65,7 +59,7 @@ export default async function RootLayout({
           locale={locale}
           messages={messages}>
           <div className="relative flex flex-col min-h-screen">
-            <main className="flex-1">{children}</main>
+            <main className="flex-1">{props.children}</main>
             <ReactQueryDevtools initialIsOpen={false} />
           </div>
         </Providers>

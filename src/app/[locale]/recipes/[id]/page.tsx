@@ -12,12 +12,9 @@ export const revalidate = 30;
  * @param params - Promise containing the dynamic route parameters
  * @returns The single recipe page component
  */
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+// Nextjs 15.5 props helpers
+export default async function Page(props: PageProps<"/[locale]/recipes/[id]">) {
+  const { id } = await props.params;
 
   return <SingleRecipePageComponent id={id} />;
 }

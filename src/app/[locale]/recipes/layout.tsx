@@ -1,11 +1,8 @@
 import { ThemeSwitch } from "@/features/theme-switch/theme-switch.component";
 import { LocaleSwitcher } from "@/features/locale-switcher/locale-switcher.component";
 
-export default function RecipesLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+// Nextjs 15.5 props helpers
+export default function RecipesLayout(props: LayoutProps<"/[locale]/recipes">) {
   return (
     <div className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
       <header className="sticky top-0 z-50 w-full">
@@ -18,7 +15,7 @@ export default function RecipesLayout({
           </div>
         </nav>
       </header>
-      {children}
+      {props.children}
     </div>
   );
 }

@@ -8,8 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --fix",
-    "prettier": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json}\"",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\" && eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
+    "prettier": "prettier --check \"*.{js,jsx,ts,tsx}\" \"src/**/*.{js,jsx,ts,tsx}\"",
+    "format": "prettier --write \"*.{js,jsx,ts,tsx}\" \"src/**/*.{js,jsx,ts,tsx}\" && eslint --fix \"*.{js,jsx,ts,tsx}\" \"src/**/*.{js,jsx,ts,tsx}\"",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -97,7 +97,7 @@
     "@typescript-eslint/parser": "8.34.1",
     "eslint": "^9.37.0",
     "eslint-config-next": "15.3.4",
-    "eslint-config-prettier": "9.1.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-node": "11.1.0",

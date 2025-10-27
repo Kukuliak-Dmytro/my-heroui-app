@@ -8,6 +8,8 @@ const nextConfig = {
     mcpServer: true,
   },
   reactCompiler: true,
+  //validation of links and routes
+  typedRoutes: true,
 };
 
 const withNextIntlConfig = withNextIntl(nextConfig);

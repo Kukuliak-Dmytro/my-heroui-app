@@ -4,8 +4,9 @@ import type { ThemeProviderProps } from "next-themes";
 
 import React from "react";
 import { HeroUIProvider } from "@heroui/system";
-import { notFound, useRouter } from "next/navigation";
+import { notFound } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { useRouter } from "@/shared/lib/i18n/navigation";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { getQueryClient } from "@/shared/lib/utils/get-query-client";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -34,14 +35,6 @@ export interface ProvidersProps {
   themeProps?: ThemeProviderProps;
   locale: string;
   messages: Record<string, unknown>;
-}
-
-declare module "@react-types/shared" {
-  interface RouterConfig {
-    routerOptions: NonNullable<
-      Parameters<ReturnType<typeof useRouter>["push"]>[1]
-    >;
-  }
 }
 
 /**

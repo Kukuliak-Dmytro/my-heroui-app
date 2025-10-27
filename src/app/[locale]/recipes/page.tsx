@@ -1,9 +1,5 @@
 import { RecipesPageComponent } from "@/modules/recipes/recipes-page/recipes-page.component";
 
-interface IRecipesPageProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
-
 export const revalidate = 30;
 
 /**
@@ -16,7 +12,10 @@ export const revalidate = 30;
  * @param searchParams - Promise containing URL search parameters
  * @returns The recipes page component
  */
-export default async function RecipesPage({ searchParams }: IRecipesPageProps) {
-  const resolvedSearchParams = await searchParams;
+// Nextjs 15.5 props helpers
+export default async function RecipesPage(
+  props: PageProps<"/[locale]/recipes">,
+) {
+  const resolvedSearchParams = await props.searchParams;
   return <RecipesPageComponent searchParams={resolvedSearchParams} />;
 }
