@@ -125,9 +125,7 @@ export const RecipesPageComponent = async ({
             // HydrationBoundary provides prefetched data to client components
             <HydrationBoundary state={dehydrate(queryClient)}>
               <PaginationStoreProvider>
-                <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
-                  <RecipeListPaginated />
-                </Suspense>
+                <RecipeListPaginated />
               </PaginationStoreProvider>
             </HydrationBoundary>
           ) : (

@@ -1,5 +1,5 @@
 import { queryOptions, infiniteQueryOptions } from "@tanstack/react-query";
-import { getRecipes, getRecipe } from "./recipe.api";
+import { getRecipes, getRecipe } from "./recipe.service";
 
 // Query key constants
 export const RECIPE_QUERY_KEYS = {
