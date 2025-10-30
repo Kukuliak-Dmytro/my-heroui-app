@@ -1,7 +1,7 @@
 "use client";
 import { recipesInfiniteQueryOptions } from "@/entities/api";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { RecipeCard } from "../recipe-card/recipe-card";
+import { RecipeCard } from "@/features/recipe-card";
 import { Spinner } from "@heroui/spinner";
 import { Button } from "@heroui/button";
 import { useState, useEffect, useRef, useCallback } from "react";

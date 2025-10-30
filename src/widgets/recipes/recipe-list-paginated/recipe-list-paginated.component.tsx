@@ -1,7 +1,7 @@
 "use client";
 import { recipesQueryOptions } from "@/entities/api";
 import { useQuery } from "@tanstack/react-query";
-import { RecipeCard } from "../recipe-card/recipe-card";
+import { RecipeCard } from "@/features/recipe-card";
 import { useState, useEffect } from "react";
 import { usePaginationStore, PaginationComponent } from "@/features/pagination";
 import { useSearchStore } from "@/features/search";
