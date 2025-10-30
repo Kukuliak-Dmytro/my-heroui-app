@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  type ReactNode,
-  createContext,
-  useRef,
-  useContext,
-  useEffect,
-} from "react";
-import { PAGINATION_PAGE_PARAM } from "./pagination.constants";
+import { type ReactNode, createContext, useRef, useContext } from "react";
 import { useStore } from "zustand";
 
 import {
@@ -43,19 +36,6 @@ export const PaginationStoreProvider = ({
   if (storeRef.current === null) {
     storeRef.current = createPaginationStore(initPaginationStore());
   }
-
-  // Hydrate initial page from URL once
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const searchParams = new URLSearchParams(window.location.search);
-    const urlPage = searchParams.get(PAGINATION_PAGE_PARAM);
-    const nextPage = urlPage ? Math.max(1, parseInt(urlPage, 10) || 1) : 1;
-    const state = storeRef.current?.getState();
-    if (!state) return;
-    if (nextPage !== state.page) {
-      state.setPage(nextPage);
-    }
-  }, []);
 
   return (
     <PaginationStoreContext.Provider value={storeRef.current}>

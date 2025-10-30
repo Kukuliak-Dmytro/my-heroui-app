@@ -55,17 +55,11 @@ export const createPaginationStore = (
       })),
     setSkip: (skip) => set({ skip }),
     setTotal: (total) => set({ total }),
-    resetPagination: () => {
-      set({ page: 1, skip: 0, total: 0 });
-
-      if (typeof window !== "undefined") {
-        const searchParams = new URLSearchParams(window.location.search);
-        if (searchParams.has("page")) {
-          searchParams.delete("page");
-          const newUrl = `${window.location.pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
-          window.history.replaceState({}, "", newUrl);
-        }
-      }
-    },
+    resetPagination: () =>
+      set({
+        page: 1,
+        skip: 0,
+        total: 0,
+      }),
   }));
 };

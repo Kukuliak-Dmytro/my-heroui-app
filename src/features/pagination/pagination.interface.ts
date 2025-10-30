@@ -22,6 +22,5 @@ export interface PaginationActions {
   setLimit: (limit: number) => void;
   setSkip: (skip: number) => void;
   setTotal: (total: number) => void;
-  /** Resets to page 1 and removes the `page` query param from the URL. */
   resetPagination: () => void;
 }
