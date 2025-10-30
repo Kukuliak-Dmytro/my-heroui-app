@@ -1,6 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./shared/lib/i18n/routing";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -17,7 +17,7 @@ export const GB_UUID_COOKIE = "gb-heroui-userId";
  * @param request - The incoming Next.js request
  * @returns The processed response with internationalization and UUID cookie
  */
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   // Generate a UUID if it doesn't exist yet
   let uuid = request.cookies.get(GB_UUID_COOKIE)?.value;
   let needsUpdate = false;
@@ -32,13 +32,9 @@ export default function middleware(request: NextRequest) {
   // Forward the request to the server
   const response = intlMiddleware(request);
 
-  // Ensure we have a proper NextResponse
-  const finalResponse =
-    response instanceof NextResponse ? response : new NextResponse();
-
   // Add the newly created UUID to the response headers to persist in the browser
   if (needsUpdate) {
-    finalResponse.cookies.set(GB_UUID_COOKIE, uuid, {
+    response.cookies.set(GB_UUID_COOKIE, uuid, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -46,7 +42,7 @@ export default function middleware(request: NextRequest) {
     });
   }
 
-  return finalResponse;
+  return response;
 }
 
 export const config = {

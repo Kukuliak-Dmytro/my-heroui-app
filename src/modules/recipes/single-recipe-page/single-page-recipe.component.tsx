@@ -5,7 +5,6 @@ import { getQueryClient } from "@/shared/lib/utils/get-query-client";
 import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
 import { DetailedRecipeCard } from "@/widgets";
 import { ErrorBoundary } from "@/shared/ui/error-boundary.component";
-import { Suspense } from "react";
 /**
  * Single recipe page component with server-side data prefetching.
  *
@@ -29,10 +28,8 @@ export const SingleRecipePageComponent = async ({ id }: { id: string }) => {
   return (
     <ErrorBoundary>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <Suspense>
-          {/* recipe card will consume cache and will be client, thus bringing interactivity */}
-          <DetailedRecipeCard id={id} />
-        </Suspense>
+        {/* recipe card will consume cache and will be client, thus bringing interactivity */}
+        <DetailedRecipeCard id={id} />
       </HydrationBoundary>
     </ErrorBoundary>
   );
