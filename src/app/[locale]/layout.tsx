@@ -3,12 +3,13 @@ import { Metadata, Viewport } from "next";
 import clsx from "clsx";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getMessages } from "next-intl/server";
-
+import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { Providers } from "./providers";
 
 import { SITE_CONFIG } from "@/shared/config/site";
 import { FONT_COMFORTAA, FONT_QUICKSAND } from "@/shared/config/fonts";
 import { routing } from "@/shared/lib/i18n/routing";
+import { notFound } from "next/navigation";
 /**
  * Root layout metadata configuration for the application.
  *
@@ -39,6 +40,11 @@ export function generateStaticParams() {
 
 export default async function RootLayout(props: LayoutProps<"/[locale]">) {
   const { locale } = await props.params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const messages = await getMessages();
   return (
     <html suppressHydrationWarning lang={locale}>
@@ -50,19 +56,24 @@ export default async function RootLayout(props: LayoutProps<"/[locale]">) {
           FONT_COMFORTAA.variable,
           FONT_QUICKSAND.variable,
         )}>
-        <Providers
-          themeProps={{
-            attribute: "class",
-            defaultTheme: "dark",
-            enableSystem: true,
-          }}
+        <NextIntlClientProvider
           locale={locale}
-          messages={messages}>
-          <div className="relative flex flex-col min-h-screen">
-            <main className="flex-1">{props.children}</main>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </div>
-        </Providers>
+          messages={messages}
+          timeZone={timeZone}>
+          <Providers
+            themeProps={{
+              attribute: "class",
+              defaultTheme: "dark",
+              enableSystem: true,
+            }}
+            locale={locale}
+            messages={messages}>
+            <div className="relative flex flex-col min-h-screen">
+              <main className="flex-1">{props.children}</main>
+              <ReactQueryDevtools initialIsOpen={false} />
+            </div>
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

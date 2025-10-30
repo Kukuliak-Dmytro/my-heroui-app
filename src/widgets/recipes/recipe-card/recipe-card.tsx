@@ -7,6 +7,7 @@ import { Badge } from "@heroui/badge";
 import { Skeleton } from "@heroui/skeleton";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import clsx from "clsx";
 import { recipeQueryOptions } from "@/entities/api";
 import { getQueryClient } from "@/shared/lib/utils/get-query-client";
 import { IRecipe } from "@/shared/interfaces/recipe";
@@ -34,7 +35,7 @@ export const RecipeCard = ({
       <div className="h-full w-full">
         <Card className="h-full w-full">
           <CardBody className="p-0 relative w-full">
-            <Skeleton className="w-full aspect-[4/3]" />
+            <Skeleton className="w-full aspect-4/3" />
           </CardBody>
           <CardFooter className="flex flex-col items-start gap-3 p-4">
             <Skeleton className="h-5 w-3/4 rounded" />
@@ -71,16 +72,22 @@ export const RecipeCard = ({
         as={Link}
         href={`/recipes/${recipe.id}`}
         isPressable
-        className="h-full w-full hover:shadow-lg transition-shadow duration-300
-          cursor-pointer">
+        // this utillity is added bc eslint formats and adds a new line after the className, causing hydration errors
+        // the utility formats the classnames cleantly on the output
+        className={clsx(
+          "h-full w-full hover:shadow-lg transition-shadow",
+          "duration-300 cursor-pointer",
+        )}>
         <CardBody className="p-0 relative w-full">
-          {!imageLoaded && <Skeleton className="w-full aspect-[4/3]" />}
+          {!imageLoaded && <Skeleton className="w-full aspect-4/3" />}
           <Image
             alt={recipe.name}
-            className={`w-full aspect-[4/3] object-cover transition-opacity
-              duration-300 ${
-                imageLoaded ? "opacity-100" : "opacity-0 absolute top-0 left-0"
-              }`}
+            // this utillity is added bc eslint formats and adds a new line after the className, causing hydration errors
+            // the utility formats the classnames cleantly on the output
+            className={clsx(
+              "w-full aspect-4/3 object-cover transition-opacity duration-300",
+              imageLoaded ? "opacity-100" : "opacity-0 absolute top-0 left-0",
+            )}
             src={recipe.image}
             onLoad={() => setImageLoaded(true)}
           />
@@ -94,8 +101,12 @@ export const RecipeCard = ({
 
           {/* Cuisine and Difficulty */}
           <div
-            className="flex flex-wrap items-center justify-between w-full
-              mx-auto">
+            // this utillity is added bc eslint formats and adds a new line after the className, causing hydration errors
+            // the utility formats the classnames cleantly on the output
+            className={clsx(
+              "flex flex-wrap items-center justify-between",
+              "w-full mx-auto",
+            )}>
             <Chip className="text-xs" color="primary" size="sm" variant="flat">
               {recipe.cuisine}
             </Chip>
@@ -125,8 +136,12 @@ export const RecipeCard = ({
 
           {/* Time Information */}
           <div
-            className="flex items-center justify-between w-full text-sm
-              text-foreground-600">
+            // this utillity is added bc eslint formats and adds a new line after the className, causing hydration errors
+            // the utility formats the classnames cleantly on the output
+            className={clsx(
+              "flex items-center justify-between w-full",
+              "text-sm text-foreground-600",
+            )}>
             <div className="flex items-center gap-1">
               <Icon className="w-4 h-4" icon="material-symbols:schedule" />
               <span>
