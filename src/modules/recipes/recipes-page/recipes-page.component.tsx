@@ -1,4 +1,7 @@
-import { recipesQueryOptions } from "@/entities/api";
+import {
+  recipesQueryOptions,
+  recipesInfiniteQueryOptions,
+} from "@/entities/api";
 import { getQueryClient } from "@/shared/lib/utils/get-query-client";
 import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
@@ -16,30 +19,18 @@ import {
 import { GrowthBookTracking } from "@/shared/lib/growthbook/growthbook-tracking";
 import { ErrorBoundary } from "@/shared/ui/error-boundary.component";
 
+// Helper to configure cache for next.js
+
 interface IRecipesPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
 /**
- * Main recipes page component with hybrid data fetching strategies.
+ * Main recipes page component with server-side data fetching.
  *
- * This component implements two distinct data fetching models:
- *
- * 1. **Pagination Model (Prefetch + Hydrate)**
- *    - Server-side prefetches first page data during SSR
- *    - Data is dehydrated and passed to HydrationBoundary
- *    - Client-side components render with prefetched data
- *    - Subsequent pages fetch via client-side React Query
- *    - Best for: Faster initial load, SEO-optimized content
- *
- * 2. **Infinite Scroll Model (Pure Streaming)**
- *    - No server-side prefetch
- *    - First data fetch happens on client-side mount
- *    - Enabled by Partial Prerendering (PPR) with Suspense
- *    - Static shell renders instantly, dynamic content streams in
- *    - Best for: Progressive loading, reduced server load
- *
- * The active model is determined by GrowthBook feature flags for A/B testing.
+ * This component handles server-side data prefetching, GrowthBook configuration,
+ * and renders the recipes page with search and pagination functionality.
+ * It provides both paginated and infinite scroll views.
  *
  * @param props - Component props
  * @param props.searchParams - URL search parameters
@@ -74,14 +65,24 @@ export const RecipesPageComponent = async ({
   // Cleanup
   gb?.destroy();
 
-  // DATA FETCHING STRATEGY SELECTION
-  // Two models are supported based on the list view type:
-  //
-  // Pagination Model: Prefetch + Hydrate
-  // - Server-side prefetch ensures data is available on initial render
-  // - Reduces time-to-interactive by eliminating client-side loading state
-  // - Ideal for SEO and first-paint performance
-  if (listViewType === "pagination") {
+  // Prefetch based on variant
+  if (listViewType === "infinite") {
+    // Prefetch first page for infinite scroll
+    await tryCatchWithSentry(
+      queryClient.prefetchInfiniteQuery(
+        recipesInfiniteQueryOptions({
+          limit: PAGINATION_LIMIT,
+          search: query,
+        }),
+      ),
+      {
+        level: "error",
+        tags: { feature: "recipes", op: "prefetchInfinite" },
+        extra: { query, limit: PAGINATION_LIMIT },
+      },
+    );
+  } else if (listViewType === "pagination") {
+    // Prefetch first page for paginated variant
     await tryCatchWithSentry(
       queryClient.prefetchQuery(
         recipesQueryOptions({
@@ -97,44 +98,43 @@ export const RecipesPageComponent = async ({
       },
     );
   }
-  // Infinite Scroll Model: Pure Streaming
-  // - Intentionally skips prefetch to utilize pure PPR streaming
-  // - Allows static shell to render instantly via Suspense
-  // - Data fetches on client-side mount, streaming in as it loads
-  // - Ideal for progressive loading and reduced server load
+
+  const renderRecipeList = () => {
+    if (listViewType === "infinite") {
+      return (
+        <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
+          <RecipeListInfinite />
+          <GrowthBookTracking data={trackingData} />
+        </Suspense>
+      );
+    } else if (listViewType === "pagination") {
+      return (
+        <PaginationStoreProvider>
+          <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
+            <RecipeListPaginated />
+            <GrowthBookTracking data={trackingData} />
+          </Suspense>
+        </PaginationStoreProvider>
+      );
+    } else {
+      return <div>Invalid list view type</div>;
+    }
+  };
 
   return (
     <SearchStoreProvider initialQuery={query}>
       <div className="container mx-auto px-4 py-8">
-        {/* Static header - prerendered immediately */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-4">{t("recipes.title")}</h1>
           <Searchbar placeholder={t("search.placeholder")} />
         </div>
-
-        {/* Dynamic recipe list - renders based on selected data fetching model */}
         <ErrorBoundary>
-          {listViewType === "infinite" ? (
-            // INFINITE SCROLL: Pure Streaming Model
-            // No prefetch → Client-side fetch → Streams via Suspense
-            <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
-              <RecipeListInfinite />
-            </Suspense>
-          ) : listViewType === "pagination" ? (
-            // PAGINATION: Prefetch + Hydrate Model
-            // HydrationBoundary provides prefetched data to client components
-            <HydrationBoundary state={dehydrate(queryClient)}>
-              <PaginationStoreProvider>
-                <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
-                  <RecipeListPaginated />
-                </Suspense>
-              </PaginationStoreProvider>
-            </HydrationBoundary>
-          ) : (
-            <div>Invalid list view type</div>
-          )}
-          <GrowthBookTracking data={trackingData} />
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            {renderRecipeList()}
+          </HydrationBoundary>
         </ErrorBoundary>
+
+        <GrowthBookTracking data={trackingData} />
       </div>
     </SearchStoreProvider>
   );

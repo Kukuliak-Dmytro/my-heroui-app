@@ -13,8 +13,8 @@ export const RECIPE_QUERY_KEYS = {
 /**
  * Query options for fetching a paginated list of recipes.
  *
- * Used by the Pagination Model: data is prefetched server-side and
- * hydrated on the client via HydrationBoundary.
+ * This function creates query options for React Query to fetch recipes
+ * with pagination and search parameters.
  *
  * @param params - Query parameters
  * @param params.limit - Maximum number of recipes to return
@@ -60,8 +60,9 @@ export const recipeQueryOptions = (id: string) => {
 /**
  * Query options for fetching recipes with infinite scroll pagination.
  *
- * Used by the Infinite Scroll Model: no server-side prefetch, data
- * fetches client-side and streams in progressively via PPR/Suspense.
+ * This function creates infinite query options for React Query to fetch
+ * recipes with infinite scroll functionality, automatically loading more
+ * data as the user scrolls.
  *
  * @param params - Query parameters
  * @param params.limit - Number of recipes per page
