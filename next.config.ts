@@ -4,10 +4,6 @@ const withNextIntl = createNextIntlPlugin("./src/shared/lib/i18n/request.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    mcpServer: true,
-  },
-  reactCompiler: true,
   //validation of links and routes
   typedRoutes: true,
 };

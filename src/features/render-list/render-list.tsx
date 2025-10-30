@@ -8,8 +8,8 @@ interface RenderListProps<T> {
   isSearching?: boolean;
   title: string;
   renderItem: (item: T, index: number) => React.ReactNode;
+  renderSkeleton?: (index: number) => React.ReactNode;
   emptyMessage?: string;
-  children?: React.ReactNode;
 }
 
 /**
@@ -27,8 +27,8 @@ export const renderList = <T,>({
   isSearching,
   title,
   renderItem,
+  renderSkeleton,
   emptyMessage,
-  children,
 }: RenderListProps<T>) => {
   // Render loading state with skeleton items
   if (isLoading) {
@@ -47,12 +47,11 @@ export const renderList = <T,>({
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
             xl:grid-cols-4 gap-3 sm:gap-4">
           {Array.from({ length: 8 }).map((_, index) => (
-            <div key={index} className="h-80">
-              {renderItem(null as T, index)}
+            <div key={index} className="h-full w-full">
+              {renderSkeleton ? renderSkeleton(index) : null}
             </div>
           ))}
         </div>
-        {children}
       </section>
     );
   }
@@ -91,7 +90,6 @@ export const renderList = <T,>({
           gap-3 sm:gap-4">
         {items.map((item, index) => renderItem(item, index))}
       </div>
-      {children}
       {items.length === 0 && emptyMessage && (
         <div className="text-center py-12">
           <p className="text-lg">{emptyMessage}</p>

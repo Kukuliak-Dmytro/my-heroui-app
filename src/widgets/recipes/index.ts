@@ -5,5 +5,6 @@
  * throughout the application.
  */
 export * from "./detailed-recipe-card/detailed-recipe-card.component";
+export * from "./detailed-recipe-card/detailed-recipe-card-skeleton.component";
 export * from "./recipe-list-paginated/recipe-list-paginated.component";
 export * from "./recipe-list-infinite/recipe-list-infinite.component";

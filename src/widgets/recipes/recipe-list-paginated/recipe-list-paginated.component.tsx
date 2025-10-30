@@ -1,7 +1,7 @@
 "use client";
 import { recipesQueryOptions } from "@/entities/api";
 import { useQuery } from "@tanstack/react-query";
-import { RecipeCard } from "@/features/recipe-card";
+import { RecipeCard, RecipeCardSkeleton } from "@/features/recipe-card";
 import { useState, useEffect } from "react";
 import { usePaginationStore, PaginationComponent } from "@/features/pagination";
 import { useSearchStore } from "@/features/search";
@@ -44,29 +44,30 @@ export const RecipeListPaginated = () => {
     }
   }, [query, isFetching]);
 
-  return renderList({
-    items: data?.recipes ?? [],
-    isLoading: isLoading || (isSearching && !data),
-    error,
-    isSearching,
-    title: "Recipe Collection",
-    renderItem: (recipe, index) => (
-      <RecipeCard
-        key={recipe?.id || `skeleton-${index}`}
-        recipe={recipe}
-        isLoading={!recipe}
-      />
-    ),
-    emptyMessage: query ? `No recipes found for "${query}"` : undefined,
-    children: data?.total && (
-      <div className="mt-8">
-        <PaginationComponent
-          total={data.total}
-          page={page}
-          limit={limit}
-          onPageChange={setPage}
-        />
-      </div>
-    ),
-  });
+  return (
+    <>
+      {renderList({
+        items: data?.recipes ?? [],
+        isLoading: isLoading || (isSearching && !data),
+        error,
+        isSearching,
+        title: "Recipe Collection",
+        renderItem: (recipe, index) => (
+          <RecipeCard key={recipe?.id || `skeleton-${index}`} recipe={recipe} />
+        ),
+        renderSkeleton: (index) => <RecipeCardSkeleton key={`s-${index}`} />,
+        emptyMessage: query ? `No recipes found for "${query}"` : undefined,
+      })}
+      {data?.total && (
+        <div className="mt-8">
+          <PaginationComponent
+            total={data.total}
+            page={page}
+            limit={limit}
+            onPageChange={setPage}
+          />
+        </div>
+      )}
+    </>
+  );
 };

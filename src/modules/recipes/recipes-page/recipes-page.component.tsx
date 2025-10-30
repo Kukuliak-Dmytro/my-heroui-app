@@ -7,7 +7,7 @@ import { tryCatchWithSentry } from "@/shared/lib/utils/try-catch";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { RecipeListPaginated, RecipeListInfinite } from "@/widgets";
 import { Searchbar } from "@/widgets/searchbar";
-import { Suspense } from "react";
+
 import { PAGINATION_LIMIT } from "@/features/pagination/pagination.constants";
 import { SearchStoreProvider } from "@/features/search";
 import { getTranslations } from "next-intl/server";
@@ -102,18 +102,18 @@ export const RecipesPageComponent = async ({
   const renderRecipeList = () => {
     if (listViewType === "infinite") {
       return (
-        <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
+        <>
           <RecipeListInfinite />
           <GrowthBookTracking data={trackingData} />
-        </Suspense>
+        </>
       );
     } else if (listViewType === "pagination") {
       return (
         <PaginationStoreProvider>
-          <Suspense fallback={<div>{t("recipes.loadingRecipes")}</div>}>
+          <>
             <RecipeListPaginated />
             <GrowthBookTracking data={trackingData} />
-          </Suspense>
+          </>
         </PaginationStoreProvider>
       );
     } else {
